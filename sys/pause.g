@@ -5,17 +5,46 @@
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"
 
 ; Save Tool Temperature
-echo >"essential/autogen/pausetemp.g" "G10 P0 S"^{heat.heaters[0].active}^" R"^{heat.heaters[0].standby}^""
-echo >>"essential/autogen/pausetemp.g" "G10 P1 S"^{heat.heaters[1].active}^" R"^{heat.heaters[1].standby}^""
-echo >>"essential/autogen/pausetemp.g" "G10 P2 S"^{heat.heaters[2].active}^" R"^{heat.heaters[2].standby}^""
-echo >>"essential/autogen/pausetemp.g" "G10 P3 S"^{heat.heaters[3].active}^" R"^{heat.heaters[3].standby}^""
+echo >"essential/autogen/pausetemp.g" "G10 P0 S"^{tools[0].active[0]}^" R"^{tools[0].standby[0]}^""
+echo >>"essential/autogen/pausetemp.g" "G10 P1 S"^{tools[1].active[0]}^" R"^{tools[1].standby[0]}^""
+echo >>"essential/autogen/pausetemp.g" "G10 P2 S"^{tools[2].active[0]}^":"^{tools[2].active[1]}^" R"^{tools[2].standby[0]}^":"^{tools[2].standby[1]}^""
+echo >>"essential/autogen/pausetemp.g" "G10 P3 S"^{tools[3].active[0]}^":"^{tools[3].active[1]}^" R"^{tools[3].standby[0]}^":"^{tools[3].standby[1]}^""
+
+
+
 
 ; Redure Tool Temperature
 var tt = 100
-G10 P0 S{heat.heaters[0].active-var.tt} R{heat.heaters[0].standby-var.tt}
-G10 P1 S{heat.heaters[1].active-var.tt} R{heat.heaters[1].standby-var.tt}
-G10 P2 S{heat.heaters[2].active-var.tt} R{heat.heaters[2].standby-var.tt}
-G10 P3 S{heat.heaters[3].active-var.tt} R{heat.heaters[3].standby-var.tt}
+
+; Active Temperature
+if tools[0].active[0] > var.tt
+  G10 P0 S{tools[0].active[0] - var.tt}
+
+if tools[1].active[0] > var.tt
+  G10 P1 S{tools[1].active[0] - var.tt}
+
+
+if tools[2].active[0] > var.tt || tools[2].active[1] > var.tt
+  G10 P2 S{tools[2].active[0] - var.tt,tools[2].active[1] - var.tt}
+
+if tools[3].active[0] > var.tt || tools[3].active[1] > var.tt
+  G10 P3 S{tools[3].active[0] - var.tt,tools[3].active[1] - var.tt}
+
+
+; Standby Temperature
+if tools[0].standby[0] > var.tt
+  G10 P0 R{tools[0].standby[0] - var.tt}
+
+if tools[1].standby[0] > var.tt
+  G10 P1 R{tools[1].standby[0] - var.tt}
+
+
+if tools[2].standby[0] > var.tt || tools[2].standby[1] > var.tt
+  G10 P2 R{tools[2].standby[0] - var.tt,tools[2].standby[1] - var.tt}
+
+if tools[3].standby[0] > var.tt || tools[3].standby[1] > var.tt
+  G10 P3 R{tools[3].standby[0] - var.tt,tools[3].standby[1] - var.tt}
+
 
 
 M204 P5000 T5000

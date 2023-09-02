@@ -7,7 +7,6 @@ T0                 ; Select first tool
 if !exists(param.Z)
   G91                ; relative positioning
   G1 H2 Z25 F18000   ; lift Z relative to current position
-  echo "Move Z"
   G90                 ; absolute positioning
 
 

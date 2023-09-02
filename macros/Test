@@ -1,0 +1,6 @@
+M950 J2 C"!^E0stop" ; Input 2 uses io1.out pin, inverted
+M581 P2 S0 T1 R0    ; trigger1.g
+
+
+M950 J3 C"!^E1stop" ; Input 2 uses io1.out pin, inverted
+M581 P3 S0 T2 R0    ; trigger2.g

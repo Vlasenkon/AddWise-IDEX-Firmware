@@ -20,7 +20,7 @@ if heat.heaters[2].current > 50
 
 M98 P"0:/sys/essential/leds/dimmwhite.g"
 M98 P"0:/sys/essential/leds/red.g"
-M303 H2 S130
+M303 H2 S150 A{heat.heaters[3].current}
 
 while heat.heaters[2].state = "tuning"
         G4 S10

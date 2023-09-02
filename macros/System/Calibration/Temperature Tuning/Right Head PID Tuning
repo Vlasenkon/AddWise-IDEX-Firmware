@@ -1,4 +1,6 @@
-M291 R"PID tune will be started" P"Click OK if ready to proceed, do not leave printer unattended" S3
+M291 L200 H450 F290 R"Enter calibration temperature" P"Do not leave printer unattended" S5
+var tt = {input}
+
 
 ; Disable Fans
 M106 P5 S0
@@ -12,15 +14,16 @@ G10 P2 S0 R0
 G10 P3 S0 R0
 
 
-if heat.heaters[1].current > 70
-    M291 R"Wait for the heater to cool down" P"All heater temperatures were set to 0 degC" S1 T10
-    while heat.heaters[1].current > 70
-        G4 S5
 
+if heat.heaters[1].current > 100
+    M291 R"Wait for the heater to cool down" P"All heater temperatures were set to 0 degC" S1 T10
+    while heat.heaters[1].current > 100
+        G4 S5
 
 M98 P"0:/sys/essential/leds/dimmwhite.g"
 M98 P"0:/sys/essential/leds/red.g"
-M303 T1 S300
+
+M303 T1 S{var.tt} A{heat.heaters[3].current} F0.5
 
 while heat.heaters[1].state = "tuning"
         G4 S10
