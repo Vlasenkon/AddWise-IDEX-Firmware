@@ -1,0 +1,9 @@
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28
+
+G91
+G1 Z20
+G90
+
+T0 P0
+G1 X-55 U55 Y-170 F18000

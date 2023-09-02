@@ -1,0 +1,51 @@
+; ask for SSID and Password;
+M291 R"Enter WiFi Network Name (SSID)" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+var nn = {input}
+M291 R"Enter WiFi Network Name Password" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+var pp = {input}
+
+; save it as a file
+echo >"essential/autogen/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
+
+; write saved values to WiFi module
+M98 P"essential/autogen/WiFiPass.g"
+
+
+
+
+M291 R"Do you want to test Network Connection & switch WiFi mode?" P"The machine will disconnect from DWC, change the WiFi mode and light up green if network connection is successful" S3
+
+M552 S-1
+G4 S1
+M552 S1
+
+while network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null && iterations < 30
+  G4 S1
+
+
+M98 P"0:/sys/essential/leds/dimmwhite.g"
+
+if network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null
+	M98 P"0:/sys/essential/leds/red.g"
+	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
+	M552 S-1
+	G4 S1
+	M552 S2
+	M291 S2 R"Connection was not established" P"Please try again"
+else
+	M98 P"0:/sys/essential/leds/end.g"
+	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Client Mode" R1
+
+	M552 S-1
+	G4 S1
+	M552 S2
+			
+	var ip = network.interfaces[0].actualIP
+	M291 S3 R{"Success, your IP address is: """^var.ip^""""} P{"To access DWC, in your browser enter """^var.ip^""" or ""http://22idex.local"" Press ""OK"" to switch mode now or restart the machine"}
+
+	M552 S-1
+	G4 S1
+	M552 S1
+
+M98 P"essential/leds/statusoff.g"
+M98 P"0:/sys/essential/leds/restorewhite.g"
