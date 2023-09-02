@@ -39,3 +39,4 @@ else
 
 if !exists(param.W)
   M116 H2 S10
+  M98 P"essential/autogen/chamberwait.g"
