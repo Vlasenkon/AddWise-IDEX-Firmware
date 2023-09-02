@@ -4,4 +4,4 @@ echo >>"essential/autogen/faultdetection.g" "; Please edit contents of '/macros/
 echo >>"essential/autogen/faultdetection.g" "M570 H3 P999999 T999999 ; Disable Chamber Heater fault detection"
 M570 H3 P999999 T999999
 
-M291 R"Setting was changed" P" " S1
+echo "Fault Detection Disabled"
