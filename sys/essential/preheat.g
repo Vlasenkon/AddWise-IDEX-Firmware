@@ -1,7 +1,7 @@
 var S0 = tools[0].standby[0]
 var S1 = tools[1].standby[0]
 
-var standbydelta = 0  ;change this valve if you want to enable standby temperatures
+var standbydelta = 100  ;change this valve if you want to enable standby temperatures
 
 
 var R0 = {var.S0}-{var.standbydelta}
