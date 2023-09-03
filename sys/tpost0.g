@@ -7,10 +7,11 @@ M106 R2
 
 
 ; Lower Z to 10mm if lower than that for safety
-if move.axes[2].machinePosition < 10
-	G91
-	G1 F18000 Z{10}-move.axes[2].machinePosition
+
+
+if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
 	G90
+	G1 F18000 Z10
 
 G90
 G1 Y-70 U999 X-999 F18000

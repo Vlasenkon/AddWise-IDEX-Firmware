@@ -23,6 +23,6 @@ M106 R1  ; Recover part cooling
 G1 R1 X0 Y0 Z1 F18000 ; go to 5mm above position of the last print move
 G1 R1 X0 Y0 Z0        ; go back to the last print move
 
-M98 P"0:/sys/essential/EnToolRetr.g" ; Enable ToolChange Retraction
+M98 P"0:/sys/essential/ToolRetraction.g" ; Enable ToolChange Retraction
 
 M98 P"essential/leds/resume.g"

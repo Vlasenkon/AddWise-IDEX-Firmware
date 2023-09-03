@@ -4,17 +4,22 @@ var S1 = tools[1].standby[0]
 var standbydelta = 100  ;change this valve if you want to enable standby temperatures
 
 
-; Set sStandby temp, if temp > 300C delta increased 150%
+;Set Standby temp, if temp > 300C delta increased 150%
+var R0 = 0
 if var.S0 > 300
-  var R0 = {var.S0}-{var.standbydelta}*1.5
+  set var.R0 = {var.S0} - {var.standbydelta}*1.5
 else
-  var R0 = {var.S0}-{var.standbydelta}
+  set var.R0 = {var.S0} - {var.standbydelta}
 
-
+var R1 = 0
 if var.S1 > 300
-  var R1 = {var.S1}-{var.standbydelta}*1.5
+  set var.R1 = {var.S1}-{var.standbydelta}*1.5
 else
-  var R1 = {var.S1}-{var.standbydelta}
+  set var.R1 = {var.S1}-{var.standbydelta}
+
+
+echo var.R0
+echo var.R1
 
 
 ; Preheat
@@ -26,13 +31,13 @@ if var.S0 > {var.standbydelta} && var.S1 > {var.standbydelta}
   M568 P3 S{var.S0, var.S1} R{var.R0, var.R1}
   if !exists(param.W)
     M116 P3 S20
-elif var.R0 > {var.standbydelta}
+elif var.S0 > {var.standbydelta}
   T0 P0
   G10 P0 S{var.S0} R{var.R0}
   G10 P1 S{0} R{0}
   if !exists(param.W)
     M116 P0 S20
-elif var.R1 > {var.standbydelta}
+elif var.S1 > {var.standbydelta}
   T1 P0
   G10 P1 S{var.S1} R{var.R1}
   G10 P0 S{0} R{0}
