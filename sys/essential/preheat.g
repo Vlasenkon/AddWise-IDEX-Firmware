@@ -4,8 +4,17 @@ var S1 = tools[1].standby[0]
 var standbydelta = 100  ;change this valve if you want to enable standby temperatures
 
 
-var R0 = {var.S0}-{var.standbydelta}
-var R1 = {var.S1}-{var.standbydelta}
+; Set sStandby temp, if temp > 300C delta increased 150%
+if var.S0 > 300
+  var R0 = {var.S0}-{var.standbydelta}*1.5
+else
+  var R0 = {var.S0}-{var.standbydelta}
+
+
+if var.S1 > 300
+  var R1 = {var.S1}-{var.standbydelta}*1.5
+else
+  var R1 = {var.S1}-{var.standbydelta}
 
 
 ; Preheat
