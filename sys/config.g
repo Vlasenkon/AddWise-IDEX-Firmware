@@ -132,22 +132,6 @@ M563 P3 S"Mirroring Mode" D0:1 H0:1 X0:3 F1:3      ; tool 2 uses both extruders 
 G10 P3 X0 Y0 U0 S0 R0                              ; set tool offsets and temperatures for tool 3
 M567 P3 E1:1                                       ; set mix ratio 100% on both extruders
 
-; Custom settings
-M80 C"pson"
-
-; Miscellaneous
-M575 P1 S1 B57600                                  ; Define PanelDUE
-;M929 P"eventlog.txt" S1                           ; logging to file eventlog.txt
-;M915 X Y U S15 R3                                 ; Enable stall detection
-;M911 S18 R23.5 P"M913 X0 Y0 G91 M83 G1 Z3"        ; set voltage thresholds and actions to run on power loss
-T1 P0
-T0 P0
-
-; Wait for voltage to stabilize and enable Z motors
-while boards[0].vIn.current < 22 && iterations < 20
-  G4 P250
-
-M17 Z
 
 ; Load persistent variables
 M98 P"essential/autogen/uoffset.g"
@@ -156,6 +140,22 @@ M98 P"essential/autogen/zoffset.g"
 M98 P"essential/autogen/pickupposition.g"
 M98 P"essential/autogen/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
+M98 P"essential/autogen/eventlogging.g"
+echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
+T0 P0                                                                           ; Select Tool 0
+
+
+
+; Custom settings
+M575 P1 S1 B57600                                  ; Define PanelDUE
+M80 C"pson"
+
+
+; Wait for voltage to stabilize and hold Z motors
+while boards[0].vIn.current < 22 && iterations < 20
+  G4 P250
+M17 Z                                                                           ; Hold Z motors with idle current
+
 
 if boards[0].shortName = "2Ethernet"
   ;Ethernet
@@ -165,6 +165,3 @@ else
 
 M98 P"essential/leds/startup.g"
 
-
-; Disable ToolChange Retraction
-echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"

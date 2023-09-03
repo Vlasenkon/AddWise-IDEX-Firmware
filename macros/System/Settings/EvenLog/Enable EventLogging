@@ -1,0 +1,1 @@
+echo >"essential/autogen/eventlogging.g" "M929 P"eventlog.txt" S1 ; EventLogging Enabled"
