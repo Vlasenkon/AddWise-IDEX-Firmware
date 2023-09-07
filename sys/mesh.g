@@ -1,7 +1,7 @@
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   M98 P"homeall.g" L1 S1 Z1
 
-M98 R P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
+M98 R1 P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 
 M204 P5000 T5000
 

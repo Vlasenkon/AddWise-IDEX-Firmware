@@ -120,6 +120,7 @@ M106 P6 C"W LED" H-1 B0 S0
 M563 P0 S"Left Head" D0 H0 F3                      ; define tool 0
 G10 P0 X0 Y0 Z0                                    ; set tool 0 axis offsets
 G10 P0 R0 S0                                       ; set initial tool 0 active and standby temperatures to 0C
+
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool 1
 M98 P"essential/autogen/tooloffset.g"              ; Load tool offsets
 G10 P1 R0 S0                                       ; set initial tool 1 active and standby temperatures to 0C
@@ -141,6 +142,7 @@ M98 P"essential/autogen/pickupposition.g"
 M98 P"essential/autogen/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 M98 P"essential/autogen/eventlogging.g"
+M98 P"0:/sys/essential/autogen/StandbyTemp.g"
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 T0 P0                                                                           ; Select Tool 0
 

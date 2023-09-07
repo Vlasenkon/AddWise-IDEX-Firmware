@@ -1,1 +1,3 @@
-echo >"essential/autogen/chamberwait.g" "Do not wait for Chamber Temp"
+echo >"essential/autogen/chamberwait.g" ";Do not wait for Chamber Temp"
+
+echo "Setting Changed"

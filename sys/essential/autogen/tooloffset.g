@@ -3,4 +3,4 @@
 ; Load persistent variables
 
 ; Set tool offsets
-G10 P1 U-3.6328344 Y-0.1950218
+G10 P1 U-0.5828367 Y0.4549781

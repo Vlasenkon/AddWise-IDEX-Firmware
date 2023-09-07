@@ -1,1 +1,1 @@
-M116 C0 S5 ; Wait for Chamber Temp
+;Do not wait for Chamber Temp

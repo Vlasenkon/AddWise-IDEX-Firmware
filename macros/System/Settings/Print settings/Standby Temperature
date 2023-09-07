@@ -1,0 +1,23 @@
+M291 R"Set Stadby temperature delta" P" " S4 K{"Disable","100 deg C",}
+
+var dd = 0
+
+if input = 0
+    set var.dd = 0
+elif input = 1
+    set var.dd = 100
+else
+    ;
+
+if exists(global.standbydelta)
+    set global.standbydelta = var.dd
+else
+    global standbydelta = var.dd
+
+
+echo >"essential/autogen/StandbyTemp.g" "; This file is Auto Generated"
+
+echo >>"essential/autogen/StandbyTemp.g" "if exists(global.standbydelta)"
+echo >>"essential/autogen/StandbyTemp.g" "    set global.standbydelta = "^{var.dd}^""
+echo >>"essential/autogen/StandbyTemp.g" "else"
+echo >>"essential/autogen/StandbyTemp.g" "    global standbydelta = "^{var.dd}^""

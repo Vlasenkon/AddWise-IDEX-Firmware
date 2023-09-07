@@ -3,8 +3,6 @@
 
 M204 P5000 T5000
 
-M106 R2
-
 
 ; Lower Z to 10mm if lower than that for safety
 
@@ -25,3 +23,7 @@ G1 X-30
 G1 X30
 G1 X-30
 G90
+G4 S1
+
+M106 S0
+M106 R2

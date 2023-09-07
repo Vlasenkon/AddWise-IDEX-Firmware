@@ -36,19 +36,16 @@ if state.currentTool == 0
   G1 X-30
   G1  X30
   G1 X-30
-  echo "0"
 elif state.currentTool == 1
   G1 X-30
   G1  X30
   G1 X-30
   G1  X30
-  echo "1"
 elif state.currentTool == 3
   G1  X30
   G1 X-30
   G1  X30
   G1 X-30
-  echo "3"
 
 G90
 

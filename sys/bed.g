@@ -4,7 +4,7 @@ if !exists(param.Z)
 else
   M98 P"homez.g" L1 S1 Z1 C1
 
-M98 R P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
+M98 R1 P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 
 ; Fast Bed Leveling
 M558 K0 P5 C"duex.e6stop" H50 F18000 T18000
