@@ -6,7 +6,7 @@ M83                                                ; ...but relative extruder mo
 M550 P"22IDEX"                                     ; set printer name
 
 ; Network
-M98 P"essential/autogen/wifimode.g"                ; setup network
+;M98 P"essential/autogen/wifimode.g"                ; setup network
 M586 P0 S1                                         ; enable HTTP
 M586 P1 S0                                         ; disable FTP
 M586 P2 S0                                         ; disable Telnet
@@ -41,8 +41,8 @@ M208 X-205 U-155   Y-175 Z0   S1                   ; set axis minima
 M208 U205  X155  Y175  Z450 S0                     ; set axis maxima
 
 ; Endstops
-M574 X1 S1 P"E0stop"                               ; configure active-low endstop for low end on X
-M574 U2 S1 P"E1stop"                               ; configure active-low endstop for high end on U
+;M574 X1 S1 P"E0stop"                               ; configure active-low endstop for low end on X
+;M574 U2 S1 P"E1stop"                               ; configure active-low endstop for high end on U
 M574 Y2 S3                                         ; configure motor load detection for Y motors
 M98 P"essential/autogen/filamentsensor0.g"         ; configure active-high filament sensor for T0
 M98 P"essential/autogen/filamentsensor1.g"         ; configure active-high filament sensor for T1
@@ -120,7 +120,6 @@ M106 P6 C"W LED" H-1 B0 S0
 M563 P0 S"Left Head" D0 H0 F3                      ; define tool 0
 G10 P0 X0 Y0 Z0                                    ; set tool 0 axis offsets
 G10 P0 R0 S0                                       ; set initial tool 0 active and standby temperatures to 0C
-
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool 1
 M98 P"essential/autogen/tooloffset.g"              ; Load tool offsets
 G10 P1 R0 S0                                       ; set initial tool 1 active and standby temperatures to 0C
@@ -142,7 +141,6 @@ M98 P"essential/autogen/pickupposition.g"
 M98 P"essential/autogen/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 M98 P"essential/autogen/eventlogging.g"
-M98 P"0:/sys/essential/autogen/StandbyTemp.g"
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 T0 P0                                                                           ; Select Tool 0
 
@@ -152,17 +150,33 @@ T0 P0                                                                           
 M575 P1 S1 B57600                                  ; Define PanelDUE
 M80 C"pson"
 
-
-; Wait for voltage to stabilize and hold Z motors
-while boards[0].vIn.current < 22 && iterations < 20
-  G4 P250
-M17 Z                                                                           ; Hold Z motors with idle current
-
-
-if boards[0].shortName = "2Ethernet"
-  ;Ethernet
-else
-  echo >"0:/sys/runonce.g" "M98 P""0:/sys/essential/testwifi.g"""
-
-
 M98 P"essential/leds/startup.g"
+
+
+
+
+
+;================================================================================================================================================================
+
+
+M950 J1 C"E0stop"
+M581 P1 T2 S0 R0
+
+M950 J2 C"E1stop"
+M581 P2 T3 S0 R0
+
+
+M280 P0 S0
+G4 S1
+M280 P0 S170
+
+
+
+
+echo >"0:/sys/runonce.g" "M552 S-1"
+echo >>"0:/sys/runonce.g" "G4S0.25"
+echo >>"0:/sys/runonce.g" "M552 S0"
+echo >>"0:/sys/runonce.g" "G4S0.25"
+echo >>"0:/sys/runonce.g" "M587 S""AddWise"" P""SubtractWise"""
+echo >>"0:/sys/runonce.g" "G4S0.25"
+echo >>"0:/sys/runonce.g" "M552 S2"
