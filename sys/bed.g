@@ -19,9 +19,9 @@ G29 S2 ; Clear height map
 
 M558 K0 P5 C"duex.e6stop" H5 F300 T18000
 M98 P"essential/autogen/ProbeOffset.g"
-G30 P0 X147.5  Y-147.5 Z-99999 ; probe near an adjusting screw
-G30 P1 X-147.5 Y-147.5 Z-99999 ; probe near an adjusting screw
-G30 P2 X0      Y147.5  Z-99999 S3 ; probe near an adjusting screw and make adjustments needed
+G30 P0 X137.5  Y-137.5 Z-99999 ; probe near an adjusting screw
+G30 P1 X-137.5 Y-137.5 Z-99999 ; probe near an adjusting screw
+G30 P2 X0      Y137.5  Z-99999 S3 ; probe near an adjusting screw and make adjustments needed
 
 
 if exists(param.L) && exists(param.S) && exists(param.Z)
