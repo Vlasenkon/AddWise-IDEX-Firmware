@@ -9,7 +9,7 @@ M98 R1 P"essential/attachedcheck.g" ; make sure probe is conected, pick if negat
 ; Fast Bed Leveling
 M558 K0 P5 C"duex.e6stop" H50 F18000 T18000
 M98 P"essential/autogen/ProbeOffset.g"
-G1 U999 F18000 ; Move U - carriage off the way
+G1 U{move.axes[3].max} F18000 ; Move U - carriage off the way
 G30 P0 X-36.3 Y-34.3 Z-99999         ; probe near an adjusting screw
 G30 P1 X0     Y50    Z-99999   ; probe near an adjusting screw
 G30 P2 X36.3 Y-34.3 Z-99999 S3 ; probe near an adjusting screw and report adjustments needed
@@ -42,4 +42,4 @@ else
   M98 P"homez.g" F1
 
 if !exists(param.S)
-  G1 X-999 U999 Y150 Z100 F18000
+  G1 X{move.axes[0].min} U{move.axes[3].max} Y150 Z100 F18000

@@ -67,7 +67,7 @@ else
 ; Test Tool Height Diviation
 
 T0
-G0 F18000 U999
+G0 F18000 U{move.axes[3].max}
 
 
 G0 F18000 X0 Y-150 Z1
@@ -97,7 +97,7 @@ G10 P1 S0 R0
 G10 P2 S0 R0
 G10 P3 S0 R0
 
-G1 F18000 X-999 U999 Y150 Z100
+G1 F18000 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100
 
 if abs(var.ddd) <= 0.07
   M291 R{"Calibration Success, deviation is "^var.ddd^" mm"} P" " S2

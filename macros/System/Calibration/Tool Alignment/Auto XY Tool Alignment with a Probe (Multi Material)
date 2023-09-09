@@ -15,7 +15,7 @@ M116 P1 S10
 M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S3
 
 G90 ; Absolute
-G1 Y0 U999 F18000
+G1 Y0 U{move.axes[3].max} F18000 F18000
 M291 R"Connect the probe and place it in the center of the print bed" P"Click OK when ready to proceed" S3
 ; Park second tool
 T0
@@ -73,7 +73,7 @@ var diffLY = var.fpLY - var.spLY
 var cpLY = var.fpLY - var.diffLY / 2
 
 G0 Y-2
-G0 X-999
+G0 X{move.axes[0].min}
 
 
 ; ===== Probe with the Left tool =====
@@ -153,7 +153,7 @@ echo "Current offsets: U"^{global.uoffset}^" Y"^{global.yoffset}
 ; Park second tool
 G0 Z5
 G90
-G0 X-999 U999 Z200 F18000
+G0 X{move.axes[0].min} U{move.axes[3].max} F18000 Z200 F18000
 
 G10 P0 R0 S0
 G10 P1 R0 S0

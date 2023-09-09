@@ -11,7 +11,7 @@ M98 R P"essential/attachedcheck.g" ; make sure probe is conected, pick if negati
 
 T0
 G90                 ; absolute positioning
-G1 U999 F18000      ; Move second tool out of the way
+G1 U{move.axes[3].max} F18000      ; Move second tool out of the way
 G1 X{0 - sensors.probes[0].offsets[0]} Y{-150 - sensors.probes[0].offsets[1]} F18000
 M98 R P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 M558 K0 P5 C"duex.e6stop" H5 F300 T18000
@@ -62,4 +62,4 @@ G10 P1 R0 S0
 G10 P2 R0 S0
 G10 P3 R0 S0
 
-G0 F18000 Z20 Y150 X-999 U999
+G0 F18000 Z20 Y150 X{move.axes[0].min} U{move.axes[3].max}

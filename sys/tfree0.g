@@ -1,3 +1,5 @@
+G90
+
 M204 P5000 T5000
 
 M98 P"essential/autogen/printretract.g" R1
@@ -10,4 +12,5 @@ if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.s
 	G90
 	G1 F18000 Z10
 
-G1 X-999 U999 F18000
+G90
+G1 X{move.axes[0].min} U{move.axes[3].max} F18000

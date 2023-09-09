@@ -5,7 +5,7 @@ G60 S2 ; Remember last tool selected
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   G28
 
-G1 F18000 Z400 Y-70 X-999 U999
+G1 F18000 Z400 Y-70 X{move.axes[0].min} U{move.axes[3].max} F18000
 M400
 
 M116 S15; Wait for the temperatures to be reached

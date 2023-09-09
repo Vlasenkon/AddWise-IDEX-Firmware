@@ -18,7 +18,7 @@ G29
 
 ;Purging and Cleaning the nozzles
 G90
-G1 Y-70 X-999 U999 F18000
+G1 Y-70 X{move.axes[0].min} U{move.axes[3].max} F18000
 
 
 ; Purge

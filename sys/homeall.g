@@ -25,4 +25,4 @@ else
  
 
 if !exists(param.S)
-  G1 X-999 U999 Y150 Z100 F18000
+  G1 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100 F18000

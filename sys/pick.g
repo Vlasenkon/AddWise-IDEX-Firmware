@@ -18,7 +18,7 @@ G1 f1000  Y-5    ; Return with probe
 G1 f18000 Y-30   ; Return with probe
 G90
 
-G1 f18000 U999
+G1 f18000 U{move.axes[3].max} F18000
 M400
 
 M280 P0 S0       ; Take probe holder out of the way
