@@ -32,7 +32,7 @@ M92 X80.4 Y80.4 U80.4 Z1600 E400:400               ; set steps per mm
 M566 X600 U600 Y600 Z244 E300:300                  ; set maximum jerk (mm/min)
 M203 X30000 U30000 Y30000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
 M201 X2500 U2500 Y2500 Z1000 E5000:5000            ; set accelerations (mm/s^2)
-M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I50     ; set motor currents (mA) and motor idle factor in per cent
+M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I20     ; set motor currents (mA) and motor idle factor in per cent
 M84 S5                                             ; set idle timeout
 M204 P5000 T5000
 
@@ -118,7 +118,7 @@ M106 P6 C"W LED" H-1 B0 S0
 
 ; Tools
 M563 P0 S"Left Head" D0 H0 F3                      ; define tool 0
-G10 P0 X0 Y0 Z0 U0                                 ; set tool 0 axis offsets
+G10 P0 X0 Y0 Z0                                    ; set tool 0 axis offsets
 G10 P0 R0 S0                                       ; set initial tool 0 active and standby temperatures to 0C
 
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool 1
