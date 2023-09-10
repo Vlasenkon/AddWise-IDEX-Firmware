@@ -31,6 +31,7 @@ M204 P5000 T5000
 G90
 G1 Y168 F18000
 G91                     ; relative positioning
+G1 H1 X-375 U375 F6000       ; move quickly to X axis endstop and stop there (first pass)
 G1 H1 X-375 F6000       ; move quickly to X axis endstop and stop there (first pass)
 G1 H1 U375 F6000        ; move quickly to U axis endstop and stop there (first pass)
 G1 H2 X10 U-10 F6000
@@ -66,6 +67,7 @@ G90 ; absolute positioning
 G90
 G1 Y170 F6000
 G91                     ; relative positioning
+G1 H1 X-375 U375 F600
 G1 H1 X-375 F600       ; move quickly to X axis endstop and stop there (first pass)
 G1 H1 U375 F600        ; move quickly to U axis endstop and stop there (first pass)
 

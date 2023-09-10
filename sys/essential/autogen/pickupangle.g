@@ -2,6 +2,6 @@
 ; Please edit contents of '/macros/System/Calibration/Z Probe/Adjust pickup angle'
 ; Set Z-Probe servo angle
 if exists(global.probePickAngle)
-  set global.probePickAngle = 167
+  set global.probePickAngle = 170
 else
-  global probePickAngle = 167
+  global probePickAngle = 170

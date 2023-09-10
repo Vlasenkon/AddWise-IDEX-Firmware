@@ -29,7 +29,7 @@ M671 X-224:224:0 Y-168.12:-168.12:195.74 S100      ; leadscrews at left, right a
 
 M350 X16 Y16 U16 Z64 E16:16 I1                     ; configure microstepping with interpolation
 M92 X80.4 Y80.4 U80.4 Z1600 E400:400               ; set steps per mm
-M566 X600 U600 Y600 Z244 E300:300                  ; set maximum jerk (mm/min)
+M566 X600 U600 Y600 Z244 E600:600                  ; set maximum jerk (mm/min)
 M203 X30000 U30000 Y30000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
 M201 X2500 U2500 Y2500 Z1000 E5000:5000            ; set accelerations (mm/s^2)
 M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I50     ; set motor currents (mA) and motor idle factor in per cent
