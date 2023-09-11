@@ -8,4 +8,4 @@ M291 R"Home U" P" " S3
 G28 U
 
 M291 R"Move Axis?" P" " S3
-M98 P"0:/macros/Close the Lid"
+G1 F18000 Y-999 X-50 U50

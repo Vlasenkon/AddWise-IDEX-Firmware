@@ -9,7 +9,7 @@ M140 S0 R0
 
 
 M141 S50 R50
-M291 R"Chamber Heater Test" P" " S3
+M291 R"Chamber Heater Test" P"Make sure that Small & Large fans start spinning" S3
 M141 S0 R0
 
 

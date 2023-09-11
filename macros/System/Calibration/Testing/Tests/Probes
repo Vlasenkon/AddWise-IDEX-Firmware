@@ -9,7 +9,7 @@ M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 
 
 
-M291 R"Enable Probe" P"ESD Warning" S3
+M291 R"Enable Probe" P"ESD Warning, Touch Left & Right Nozzle and Bed, Z - Probe value should change" S3
 M98 P"0:/macros/System/Calibration/Testing/Enable XY - Probe"
 
 M291 R"Disable Probe" P" " S3
