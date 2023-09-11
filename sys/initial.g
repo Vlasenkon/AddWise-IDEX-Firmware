@@ -1,19 +1,59 @@
-; Preheat
 M98 P"essential/leds/start_cold.g"
-M98 P"essential/preheat.g"
+M106 P5 S1 ; Turn E-Cooling Fan on
+
+var S0 = tools[0].active[0]
+var S1 = tools[1].active[0]
+var R0 = tools[0].standby[0]
+var R1 = tools[1].standby[0]
+
+; Preheat
+if var.S0 > 0 && var.S1 > 0
+  T3 P0
+  M568 P0 S{var.S0} R{var.S0}
+  M568 P1 S{var.S1} R{var.S1}
+  M568 P2 S{var.S0, var.S1} R{var.S0, var.S1}
+  M568 P3 S{var.S0, var.S1} R{var.S0, var.S1}
+  if !exists(param.W)
+    M116 P3 S20
+
+
+elif var.S0 > 0
+  T0 P0
+  M568 P0 S{var.S0} R{var.S0}
+  if !exists(param.W)
+    M116 P0 S20
+
+
+elif var.S1 > 0
+  T1 P0
+  M568 P1 S{var.S1} R{var.S1}
+  if !exists(param.W)
+    M116 P1 S20
+
+
+else
+  T0 P0
+  M568 P0 S{0} R{0}
+  M568 P1 S{0} R{0}
+  M568 P2 S{0, 0} R{0, 0}
+  M568 P3 S{0, 0} R{0, 0}
+
+
+
+;if !exists(param.W)
+  M116 H2 S10
+  M98 P"essential/autogen/chamberwait.g"
+
+
 M98 P"essential/leds/start_hot.g"
 
-; Turn E-Cooling Fan on
-M106 P5 S1
 
-; Save selectrd tool to slot 0
-G60 S0
+G60 S0 ; Save selectrd tool to slot 0
 
-; Home the machine
-M98 P"homeall.g" Z1 S1 L1
+M98 P"homeall.g" Z1 S1 L1 ; Home the machine
 
-; Run Mesh Compensation
-G29
+G29 ; Run Mesh Compensation
+
 
 
 ;Purging and Cleaning the nozzles
@@ -46,8 +86,30 @@ elif state.currentTool == 3
   G1 X-30
   G1  X30
   G1 X-30
-
 G90
 
+
+
+; Distrubit Temperature
+if var.S0 > 0 && var.S1 > 0
+  M568 P0 S{var.S0} R{var.R0}
+  M568 P1 S{var.S1} R{var.R1}
+  M568 P2 S{var.S0, var.S1} R{var.R0, var.R1}
+  M568 P3 S{var.S0, var.S1} R{var.R0, var.R1}
+elif var.S0 > 0
+  M568 P0 S{var.S0} R{var.R0}
+  M568 P1 S{0} R{0}
+  M568 P2 S{0, 0} R{0, 0}
+  M568 P3 S{0, 0} R{0, 0}
+elif var.S1 > 0
+  M568 P0 S{0} R{0}
+  M568 P1 S{var.S1} R{var.R1}
+  M568 P2 S{0, 0} R{0, 0}
+  M568 P3 S{0, 0} R{0, 0}
+else
+  M568 P0 S{0} R{0}
+  M568 P1 S{0} R{0}
+  M568 P2 S{0, 0} R{0, 0}
+  M568 P3 S{0, 0} R{0, 0}
 
 M98 P"0:/sys/essential/ToolRetraction.g"  ; Enable ToolChange Retraction

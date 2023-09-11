@@ -2,6 +2,6 @@
 ; Please edit contents of '/macros/System/Calibration/Z Probe/Ajust pickup position'
 ; Set X probe pickup position
 if exists(global.probePickX)
-  set global.probePickX = 93.172
+  set global.probePickX = 92.488
 else
-  global probePickX = 93.172
+  global probePickX = 92.488
