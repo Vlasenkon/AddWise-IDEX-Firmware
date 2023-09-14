@@ -10,7 +10,7 @@ M116 S5
 T-1
 T R1                 ; select the tool that was active last time the print was paused
 M83                  ; relative extruder moves
-G1 E50 F{60}*{10}    ; extrude filament
+G1 E50 F{60}*{3}     ; extrude filament
 T-1
 T R1                 ; select the tool that was active last time the print was paused
 

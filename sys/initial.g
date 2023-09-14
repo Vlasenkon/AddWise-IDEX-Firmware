@@ -1,6 +1,10 @@
 M98 P"essential/leds/start_cold.g"
 M106 P5 S1 ; Turn E-Cooling Fan on
 
+
+
+
+
 var S0 = tools[0].active[0]
 var S1 = tools[1].active[0]
 var R0 = tools[0].standby[0]
@@ -32,6 +36,9 @@ elif var.S1 > 0
 
 
 else
+  abort "Print cancelled due to Selected Temperature Error"
+  M98 P"essential/leds/fault.g"
+  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
@@ -40,7 +47,7 @@ else
 
 
 
-;if !exists(param.W)
+if !exists(param.W)
   M116 H2 S10
   M98 P"essential/autogen/chamberwait.g"
 
@@ -72,7 +79,7 @@ G1 Y-70 X{move.axes[0].min} U{move.axes[3].max} F18000
 ; Purge
 T R0        ; Load previously selected tool and purge 50mm of filament
 M83
-G1 E50 F300
+G1 E50 F{60}*{3}     ; extrude filament
 G4 S1
 
 ; Clean the nozzles
@@ -115,6 +122,10 @@ elif var.S1 > 0
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
 else
+  abort "Print cancelled due to Selected Temperature Error"
+  M98 P"essential/leds/fault.g"
+  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
+  T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
   M568 P2 S{0, 0} R{0, 0}

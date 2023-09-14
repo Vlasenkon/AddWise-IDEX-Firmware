@@ -20,6 +20,7 @@ M98 P"essential/autogen/chamberfinishbehavior.g"	; decide what to do with chambe
 M98 P"essential/autogen/powerendbehavior.g"	        ; decide what to do with power after printing is finished
 
 
+G90
 G1 Y150 F18000
 
 ; Disable Fans
