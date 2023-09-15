@@ -2,8 +2,6 @@
 ; called before a print from SD card is resumed
 
 M204 P5000 T5000
-
-M98 P"essential/autogen/pausetemp.g"
 M116 S5
 
 

@@ -8,7 +8,7 @@ M204 P5000 T5000
 G1 U{move.axes[3].max} F18000 F18000
 M558 K0 P5 C"duex.e6stop" H3 F300 T30000  ; Redefine probe with appropriate parameters
 M98 P"essential/autogen/ProbeOffset.g"      ; Set probe offsets
-M557 X-165:155 Y-146:165 P6:6               ; Define mesh grid
+M557 X-165:155 Y-146:165 P8:8               ; Define mesh grid
 M376 H0                                     ; Disable compensation taper
 G29 S0                                      ; Run mesh bed leveling
 G1 Z20 F18000
