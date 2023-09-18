@@ -4,24 +4,27 @@ if !exists(param.Z)
 else
   M98 P"homez.g" L1 S1 Z1 C1
 
+
+M561 ; clear any bed transform
+G29 S2 ; Clear height map
+
+
 M98 R1 P"essential/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 
 ; Fast Bed Leveling
 M558 K0 P5 C"duex.e6stop" H50 F18000 T18000
 M98 P"essential/autogen/ProbeOffset.g"
-G1 U{move.axes[3].max} F18000 ; Move U - carriage off the way
-G30 P0 X-36.3 Y-34.3 Z-99999         ; probe near an adjusting screw
-G30 P1 X0     Y50    Z-99999   ; probe near an adjusting screw
-G30 P2 X36.3 Y-34.3 Z-99999 S3 ; probe near an adjusting screw and report adjustments needed
-
-M561 ; clear any bed transform
-G29 S2 ; Clear height map
+G1 U999 F18000 ; Move U - carriage off the way
+G30 P0 X0     Y50    Z-99999    ; probe near an adjusting screw
+G30 P1 X36.3  Y-34.3 Z-99999    ; probe near an adjusting screw
+G30 P2 X-36.3 Y-34.3 Z-99999 S3 ; probe near an adjusting screw and report adjustments needed
 
 M558 K0 P5 C"duex.e6stop" H5 F300 T18000
 M98 P"essential/autogen/ProbeOffset.g"
-G30 P0 X147.5  Y-147.5 Z-99999 ; probe near an adjusting screw
-G30 P1 X-147.5 Y-147.5 Z-99999 ; probe near an adjusting screw
-G30 P2 X0      Y147.5  Z-99999 S3 ; probe near an adjusting screw and make adjustments needed
+G30 P0 X-150 Y-140 Z-99999 ; probe near an adjusting screw
+G30 P1 X150  Y-140 Z-99999 ; probe near an adjusting screw
+G30 P2 X150  Y150  Z-99999 ; probe near an adjusting screw
+G30 P3 X-150 Y150  Z-99999 S3 ; probe near an adjusting screw and make adjustments needed
 
 
 if exists(param.L) && exists(param.S) && exists(param.Z)

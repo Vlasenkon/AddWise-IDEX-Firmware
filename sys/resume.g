@@ -4,6 +4,8 @@
 M204 P5000 T5000
 M116 S5
 
+M568 P0 A1
+M568 P1 A1
 
 T-1
 T R1                 ; select the tool that was active last time the print was paused
@@ -18,8 +20,9 @@ M106 P5 S1
 M106 R1  ; Recover part cooling
 
 
-G1 R1 X0 Y0 Z1 F18000 ; go to 5mm above position of the last print move
-G1 R1 X0 Y0 Z0        ; go back to the last print move
+G1 R1 Z2 F18000       ; go above the position of the last print move
+G1 R1 X0 Y0 F18000    ; go back to the last print move
+G1 R1 Z0              ; go back to the last print move
 
 M98 P"0:/sys/essential/ToolRetraction.g" ; Enable ToolChange Retraction
 

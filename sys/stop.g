@@ -17,8 +17,5 @@ M104 T3 S0 R0 ; Extruder heater off
 M98 P"essential/autogen/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
 M98 P"essential/autogen/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
 
-M98 P"essential/leds/stop.g"
-
-
 ; Disable ToolChange Retraction
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"

@@ -25,7 +25,7 @@ M569 P9 S0
 
 M584 X1 Y0:9 U8 Z5:6:7 E3:4                        ; set drive mapping
 M669 K0 Y1:1:0:1                                   ; set kinematics type and kinematics parameters
-M671 X-224:224:0 Y-168.12:-168.12:195.74 S100      ; leadscrews at left, right and middle
+M671 X-222.5:222.5:0 Y-170.5:-170.5:193.5 S100     ; leadscrews at left, right and middle
 
 M350 X16 Y16 U16 Z64 E16:16 I1                     ; configure microstepping with interpolation
 M92 X80.4 Y80.4 U80.4 Z1600 E400:400               ; set steps per mm
@@ -142,7 +142,7 @@ M98 P"essential/autogen/pickupposition.g"
 M98 P"essential/autogen/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 M98 P"essential/autogen/eventlogging.g"
-M98 P"0:/sys/essential/autogen/StandbyTemp.g"
+M98 P"essential/autogen/xcomp.g"
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 T0 P0                                                                           ; Select Tool 0
 

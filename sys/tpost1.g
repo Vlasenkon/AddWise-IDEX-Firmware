@@ -6,7 +6,7 @@ if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.s
 	G1 F18000 Z10
 
 G90
-G1 Y-70 X{move.axes[0].min} U{move.axes[3].max} F18000
+G1 Y-70 X-999 U999 F18000
 
 M98 P"essential/autogen/printretract.g" E1
 

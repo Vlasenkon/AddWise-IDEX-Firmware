@@ -1,7 +1,7 @@
-while network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null && iterations < 30
+while network.interfaces[0].actualIP = "0.0.0.0" && iterations < 30
   G4 S1
 
-if network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null
+if network.interfaces[0].actualIP = "0.0.0.0"
   M98 P"essential/leds/statusoff.g"
   M98 P"0:/sys/essential/leds/dimmwhite.g"
   M98 P"0:/sys/essential/leds/red.g"
