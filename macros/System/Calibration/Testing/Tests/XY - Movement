@@ -4,7 +4,7 @@ G10 P1 S350 R350
 G10 P2 S350 R350
 G10 P3 S350 R350
 M140 S150 R150
-M141 S90 R90
+M141 S95 R95
 
 ; Fans
 M106 P1 S0.5
@@ -20,13 +20,13 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 ;M570 H2 P1 T10
 
 ;Wait for temp
-M116 H0 S1
-M116 H1 S1
+M116 H0 S5
+M116 H1 S5
 
 
 
 
-while sensors.analog[3].lastReading <= 65
+while sensors.analog[3].lastReading <= 95
   ;Corners Left Tool
   T0
   G1 X-200 U200 Y160 F24000
@@ -93,4 +93,5 @@ M141 S0 R0
 M98 P"0:/macros/Close the Lid"
 G1 Z440
 M106 P5 S1
-M98 P"0:/sys/sleep.g"
+M98 P"0:/sys/end.g"
+M81S1
