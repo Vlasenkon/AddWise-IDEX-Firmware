@@ -144,11 +144,11 @@ M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 M98 P"essential/autogen/eventlogging.g"
 M98 P"essential/autogen/xcomp.g"
 echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
-T0 P0                                                                           ; Select Tool 0
-
-
 
 ; Custom settings
+T0 P0                                                                           ; Select Tool 0
+M568 P0 A2
+M568 P1 A1
 M575 P1 S1 B57600                                  ; Define PanelDUE
 M80 C"pson"
 

@@ -19,6 +19,8 @@ T R1                 ; select the tool that was active last time the print was p
 M106 P5 S1
 M106 R1  ; Recover part cooling
 
+M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset
+
 
 G1 R1 Z2 F18000       ; go above the position of the last print move
 G1 R1 X0 Y0 F18000    ; go back to the last print move

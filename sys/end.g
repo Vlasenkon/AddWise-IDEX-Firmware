@@ -3,6 +3,7 @@ echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"
 
 
 M204 P5000 T5000  ; reset accelerations
+M208 Z-1 S1       ; set axis minima to default
 
 M83               ; relative extruder moves
 G1 E-5 F3600      ; retract 10mm of filament

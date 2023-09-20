@@ -23,6 +23,7 @@ M106 S0
 M568 P0 A0
 M568 P1 A0
 
+M208 Z-1 S1         ; set axis minima to default
 
 ; If one of the heaters failed light alarm LEDs or normal pause LEDs otherwise
 if heat.heaters[0].state == "fault" || heat.heaters[1].state == "fault" || heat.heaters[2].state == "fault" || heat.heaters[3].state == "fault"
