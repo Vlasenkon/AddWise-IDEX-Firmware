@@ -12,8 +12,8 @@ M280 P0 S{global.probePickAngle}     ; Move probe holder to the 'pick/place' pos
 G4S1
 
 ; Go to probe pickup position
-G1 f18000 Y150 X{global.probePickX} U{move.axes[3].max} F18000
-G1 f18000 Y169
+G1 f18000 Y150 X{global.probePickX} U{move.axes[3].max-10} F18000
+G1 f18000 Y165
 
 
 M291 S2 P"Press ""OK"" to save new X pos (Y jogging only for convenience)" X1 Y1

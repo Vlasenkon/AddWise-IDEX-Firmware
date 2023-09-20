@@ -18,3 +18,5 @@ if sensors.probes[0].value[0] > 500
 
 if !exists(param.R)
   M42 P4 S0
+
+;R1 - Leave safety relay active for probing
