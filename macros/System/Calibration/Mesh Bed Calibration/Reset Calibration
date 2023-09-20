@@ -1,0 +1,9 @@
+if exists(global.xcomp)
+  set global.xcomp = 0
+else
+  global xcomp = 0
+echo >"essential/autogen/xcomp.g" "; Please edit the original file'"
+echo >>"essential/autogen/xcomp.g" "if exists(global.xcomp)"
+echo >>"essential/autogen/xcomp.g" "  set global.xcomp = 0"
+echo >>"essential/autogen/xcomp.g" "else"
+echo >>"essential/autogen/xcomp.g" "  global xcomp = 0"

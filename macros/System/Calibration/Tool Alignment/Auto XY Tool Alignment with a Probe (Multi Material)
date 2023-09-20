@@ -1,21 +1,37 @@
-M291 R" Machine will Home all Axis & Wait for Temperature" P" " S0
+M568 P0 A2
+M568 P1 A1
 
-T1 P0
-T0 P0
-G10 P0 R270 S270
-G10 P1 R270 S270
+
+M291 S5 F290 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+G10 P0 R{input} S{input}
+
+M291 S5 F290 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+G10 P1 R{input} S{input}
 
 G28                            ; Home the machine
 
-G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the manual cleaning position
 
 M116 P0 S10
 M116 P1 S10
 
+T-1
+T0
+M83            ; relative extruder moves
+G1 E-5 F{60}*{50}  ; retract filament
+T-1
+T0
+
+
+G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the manual cleaning position
+
+
 M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S3
 
+
+G28
+
 G90 ; Absolute
-G1 Y0 U{move.axes[3].max} F18000 F18000
+G1 Y0 U999 F18000
 M291 R"Connect the probe and place it in the center of the print bed" P"Click OK when ready to proceed" S3
 ; Park second tool
 T0
