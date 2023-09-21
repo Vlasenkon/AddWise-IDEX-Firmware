@@ -1,1 +1,1 @@
-M587 S"VlasenkoPA" P"jamnikjamnik"
+M587 S"SSID" P"Password"
