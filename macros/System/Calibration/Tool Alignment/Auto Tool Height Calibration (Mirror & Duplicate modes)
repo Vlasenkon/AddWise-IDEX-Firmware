@@ -27,18 +27,18 @@ G1 E-5 F{60}*{50}   ; retract filament
 T-1
 T0
 
-G1 F18000 X-30 U30 Y-150 Z200  ; Move tools to the manual cleaning position
+G1 F18000 X-30 U30 Y-30 Z200  ; Move tools to the manual cleaning position
 
 
 M291 R"Clean both Nozzles well with a metal brush" P"Click OK when ready to proceed" S3
 
-G1 F18000 X-999 U-100 Y-150 Z200 ;move to loosen heatbreak
+G1 F18000 X-999 U-100 Y-30 Z200 ;move to loosen heatbreak
 
 M291 R"Loosen the heat break on the Right tool" P"Click OK when ready to proceed" S3
 
 G28                            ; Home the machine
 
-G1 F18000 X0 U999 Y-150 Z5
+G1 F18000 X0 U999 Y-30 Z5
 M208 Z-2 S1
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a heigh where you start to feel the resistance of a nozzle when dragging a paper" Z1
 G4 P260
@@ -47,7 +47,7 @@ G91
 G1 Z20
 G90
 
-G1 X-999 U0 Y-150
+G1 X-999 U0 Y-30
 
 G91
 G1 Z{-20 - 0.10} F600
@@ -55,7 +55,7 @@ G90
 
 M291 S3 P"Remove the Paper & Press the Nozzle against the build plate manually (with a screwdriver) to tighten the Heat Break"
 
-G1 F18000 X-999 U-100 Y-150 Z200 ;move to tighten heatbreak
+G1 F18000 X-999 U-100 Y-30 Z200 ;move to tighten heatbreak
 
 M291 R"Tighten the heat break on the Right tool" P"Click OK when ready to proceed" S3
 
@@ -63,7 +63,7 @@ M291 R"Tighten the heat break on the Right tool" P"Click OK when ready to procee
 ;=========================================================================================================
 ;Verification
 
-G1 F18000 X0 U999 Y-150 Z5
+G1 F18000 X0 U999 Y-30 Z5
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a heigh where you start to feel the resistance of a nozzle when dragging a paper" Z1
 G4 P260
 var lt = move.axes[2].machinePosition
@@ -72,7 +72,7 @@ G91
 Z20
 G90
 
-G1 F18000 X-999 U0 Y-150 Z5
+G1 F18000 X-999 U0 Y-30 Z5
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a heigh where you start to feel the resistance of a nozzle when dragging a paper" Z1
 G4 P260
 var rt = move.axes[2].machinePosition
