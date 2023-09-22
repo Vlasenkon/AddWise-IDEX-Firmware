@@ -10,4 +10,4 @@ G10 P3 S0 R0
 M140 S0 R0    ; Bed heater off
 M141 S0       ; turn off chamber heater
 
-M98 P"essential/leds/stop.g"
+M98 P"0:/sys/led/stop.g"

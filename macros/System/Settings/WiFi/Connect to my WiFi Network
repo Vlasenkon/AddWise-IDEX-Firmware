@@ -5,10 +5,10 @@ M291 R"Enter WiFi Network Name Password" P"Case sensetive. Make sure to connect 
 var pp = {input}
 
 ; save it as a file
-echo >"essential/autogen/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
+echo >"0:/user/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
 
 ; write saved values to WiFi module
-M98 P"essential/autogen/WiFiPass.g"
+M98 P"0:/user/WiFiPass.g"
 
 
 
@@ -23,17 +23,17 @@ while network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = n
   G4 S1
 
 
-M98 P"0:/sys/essential/leds/dimmwhite.g"
+M98 P"0:/sys/led/dimmwhite.g"
 
 if network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null
-	M98 P"0:/sys/essential/leds/red.g"
+	M98 P"0:/sys/led/red.g"
 	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
 	M552 S-1
 	G4 S1
 	M552 S2
 	M291 S2 R"Connection was not established" P"Please try again"
 else
-	M98 P"0:/sys/essential/leds/end.g"
+	M98 P"0:/sys/led/end.g"
 	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Client Mode" R1
 
 	M552 S-1
@@ -47,5 +47,5 @@ else
 	G4 S1
 	M552 S1
 
-M98 P"essential/leds/statusoff.g"
-M98 P"0:/sys/essential/leds/restorewhite.g"
+M98 P"0:/sys/led/statusoff.g"
+M98 P"0:/sys/led/restorewhite.g"

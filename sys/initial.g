@@ -1,4 +1,4 @@
-M98 P"essential/leds/start_cold.g"
+M98 P"0:/sys/led/start_cold.g"
 M106 P5 S1 ; Turn E-Cooling Fan on
 
 
@@ -37,7 +37,7 @@ elif var.S1 > 0
 
 else
   abort "Print cancelled due to Selected Temperature Error"
-  M98 P"essential/leds/fault.g"
+  M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
   T0 P0
   M568 P0 S{0} R{0}
@@ -49,10 +49,10 @@ else
 
 if !exists(param.W)
   M116 H2 S10
-  M98 P"essential/autogen/chamberwait.g"
+  M98 P"0:/user/chamberwait.g"
 
 
-M98 P"essential/leds/start_hot.g"
+M98 P"0:/sys/led/start_hot.g"
 
 
 G60 S0 ; Save selectrd tool to slot 0
@@ -60,14 +60,14 @@ G60 S0 ; Save selectrd tool to slot 0
 M98 P"homeall.g" Z1 S1 L1 ; Home the machine
 if result !=0
   abort "Print cancelled due to Homing Error"
-  M98 P"essential/leds/fault.g"
+  M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
 
 
 G29 ; Run Mesh Compensation
 if result !=0
   abort "Print cancelled due to Mesh Compensation Error"
-  M98 P"essential/leds/fault.g"
+  M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Mesh Compensation Error"
 
 
@@ -123,7 +123,7 @@ elif var.S1 > 0
   M568 P3 S{0, 0} R{0, 0}
 else
   abort "Print cancelled due to Selected Temperature Error"
-  M98 P"essential/leds/fault.g"
+  M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
   T0 P0
   M568 P0 S{0} R{0}
@@ -131,6 +131,6 @@ else
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
 
-M98 P"0:/sys/essential/ToolRetraction.g"  ; Enable ToolChange Retraction
+M98 P"0:/sys/toolchangeretraction.g"  ; Enable ToolChange Retraction
 
 M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset

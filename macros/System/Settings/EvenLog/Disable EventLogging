@@ -1,1 +1,1 @@
-echo >"essential/autogen/eventlogging.g" "; EventLogging Disabled"
+echo >"0:/user/eventlogging.g" "; EventLogging Disabled"

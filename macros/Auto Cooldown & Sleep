@@ -9,9 +9,9 @@ else
     M98 P"homeall.g"
   
   M98 P"0:/macros/System/Settings/Job End Machine Behaviour/Bed Position/Lower the bed after print is finished"
-  M98 P"essential/autogen/lowerbed.g"               ; lower the bed (if needed)
-  M98 P"essential/autogen/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
-  M98 P"essential/autogen/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
+  M98 P"0:/user/lowerbed.g"               ; lower the bed (if needed)
+  M98 P"0:/user/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
+  M98 P"0:/user/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
   
   G90
   G1 Y160 F18000

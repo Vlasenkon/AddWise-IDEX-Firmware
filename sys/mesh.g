@@ -3,15 +3,15 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
   M98 P"homeall.g" L1 S1 Z1
 
 G29 S2                                      ; disable MBC
-M98 R1 P"essential/attachedcheck.g"         ; make sure probe is conected, pick if negative and leave relay active
+M98 R1 P"0:/sys/attachedcheck.g"         ; make sure probe is conected, pick if negative and leave relay active
 M204 P5000 T5000                            ; set accelerations
 G1 U999 F18000                              ; move U out of the way
 
 M558 K0 P5 C"duex.e6stop" H3 F300 T30000    ; define probe parameters
-M98 P"essential/autogen/ProbeOffset.g"      ; det probe offsets
+M98 P"0:/user/ProbeOffset.g"      ; det probe offsets
 M557 X-165:155 Y-146:165 P8                 ; define mesh grid
 G29 S0                                      ; run MBC
 M376 H40                                    ; enable compensation taper
-M98 P"0:/sys/essential/compensatex.g"       ; run X - rail twist compensation
+M98 P"0:/sys/compensatex.g"       ; run X - rail twist compensation
 G29 S1                                      ; enable MBC
 M98 P"homez.g" Z1 S1 F1                     ; fine home z to get final reference

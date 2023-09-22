@@ -1,5 +1,5 @@
 ; Disable ToolChange Retraction
-echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"
+echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"
 
 
 M204 P5000 T5000  ; reset accelerations
@@ -15,10 +15,10 @@ G91
 T0 P0
 
 
-M98 P"essential/autogen/lowerbed.g"                 ; lower the bed (if needed)
-M98 P"essential/autogen/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
-M98 P"essential/autogen/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
-M98 P"essential/autogen/powerendbehavior.g"	        ; decide what to do with power after printing is finished
+M98 P"0:/user/lowerbed.g"                 ; lower the bed (if needed)
+M98 P"0:/user/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
+M98 P"0:/user/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
+M98 P"0:/user/powerendbehavior.g"	        ; decide what to do with power after printing is finished
 
 
 G90
@@ -36,6 +36,6 @@ G10 P2 S0 R0
 G10 P3 S0 R0
 
 
-M98 P"essential/leds/end.g"
+M98 P"0:/sys/led/end.g"
 
 M84 XYU

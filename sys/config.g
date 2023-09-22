@@ -6,7 +6,7 @@ M83                                                ; ...but relative extruder mo
 M550 P"22IDEX"                                     ; set printer name
 
 ; Network
-M98 P"essential/autogen/wifimode.g"                ; setup network
+M98 P"0:/user/wifimode.g"                ; setup network
 M586 P0 S1                                         ; enable HTTP
 M586 P1 S0                                         ; disable FTP
 M586 P2 S0                                         ; disable Telnet
@@ -44,32 +44,32 @@ M208 U205  X155  Y175  Z450 S0                     ; set axis maxima
 M574 X1 S1 P"E0stop"                               ; configure active-low endstop for low end on X
 M574 U2 S1 P"E1stop"                               ; configure active-low endstop for high end on U
 M574 Y2 S3                                         ; configure motor load detection for Y motors
-M98 P"essential/autogen/filamentsensor0.g"         ; configure active-high filament sensor for T0
-M98 P"essential/autogen/filamentsensor1.g"         ; configure active-high filament sensor for T1
+M98 P"0:/user/filamentsensor0.g"         ; configure active-high filament sensor for T0
+M98 P"0:/user/filamentsensor1.g"         ; configure active-high filament sensor for T1
 
 ; Probe
 M950 S0 C"duex.pwm5"                               ; define servo pin 5 for Z-Probe holder actuation
 M558 K0 P5 C"duex.e6stop" H5 F18000 T30000
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"
 M950 P4 C"duex.fan3" Q500                          ; define output for safety relay
 M42  P4 S0
 
 ; Heaters
 M308 S0 A"Left Heater" P"e0temp" Y"pt1000"         ; configure sensor 0 as pt1000 on pin e0temp
 M950 H0 C"e0heat" T0                               ; create nozzle heater output on e0heat and map it to sensor 0
-M98 P"essential/autogen/PIDLeftHead.g"             ; disable bang-bang mode for heater and set PID parameters
+M98 P"0:/user/PIDLeftHead.g"             ; disable bang-bang mode for heater and set PID parameters
 M143 H0 S510                                       ; set temperature limit for heater 0
 M570 H0 P10 T20 R5
 
 M308 S1 A"Right Heater" P"e1temp" Y"pt1000"        ; configure sensor 1 as pt1000 on pin e1temp
 M950 H1 C"e1heat" T1                               ; create nozzle heater output on duex.e4heat and map it to sensor 2
-M98 P"essential/autogen/PIDRightHead.g"            ; disable bang-bang mode for heater and set PID parameters
+M98 P"0:/user/PIDRightHead.g"            ; disable bang-bang mode for heater and set PID parameters
 M143 H1 S510                                       ; set temperature limit for heater 1
 M570 H1 P10 T20 R5
 
 M308 S2 A"Bed Heater" P"duex.e4temp" Y"thermistor" T100000 B3800            ; configure sensor 0 as thermistor on pin bedtemp
 M950 H2 C"duex.fan5" Q10 T2                        ; create bed heater output on bedheat and map it to sensor 0
-M98 P"essential/autogen/PIDBedHead.g"              ; Disable bang-bang mode for the bed heater and set PWM limit
+M98 P"0:/user/PIDBedHead.g"              ; Disable bang-bang mode for the bed heater and set PWM limit
 M140 H2                                            ; map heated bed to heater 2
 M143 H2 S210                                       ; set temperature limit
 M570 H2 P10 T5 R3
@@ -79,7 +79,7 @@ M950 H3 C"duex.fan4" Q10 T3                        ; create chamber heater outpu
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; Chamber Heater
 M141 H3                                            ; map chamber to heater 3
 M143 H3 S110                                       ; set temperature limit for heater 0 to 100C
-M98 P"essential/autogen/faultdetection.g"          ; setup chamber heater fault detection
+M98 P"0:/user/faultdetection.g"          ; setup chamber heater fault detection
 
 M308 S4 A"Chamber Heater" P"duex.e3temp" Y"thermistor" T100000 B3950
 M143 H3 T4 S170 A2
@@ -122,7 +122,7 @@ G10 P0 X0 Y0 Z0 U0                                 ; set tool 0 axis offsets
 G10 P0 R0 S0                                       ; set initial tool 0 active and standby temperatures to 0C
 
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool 1
-M98 P"essential/autogen/tooloffset.g"              ; Load tool offsets
+M98 P"0:/user/tooloffset.g"              ; Load tool offsets
 G10 P1 R0 S0                                       ; set initial tool 1 active and standby temperatures to 0C
 
 M563 P2 S"Duplicate Mode" D0:1 H0:1 X0:3 F1:3      ; tool 2 uses both extruders and hot end heaters, maps X to both X and U, and uses both print cooling fans
@@ -135,15 +135,15 @@ M567 P3 E1:1                                       ; set mix ratio 100% on both 
 
 
 ; Load persistent variables
-M98 P"essential/autogen/uoffset.g"
-M98 P"essential/autogen/yoffset.g"
-M98 P"essential/autogen/zoffset.g"
-M98 P"essential/autogen/pickupposition.g"
-M98 P"essential/autogen/pickupangle.g"
+M98 P"0:/user/uoffset.g"
+M98 P"0:/user/yoffset.g"
+M98 P"0:/user/zoffset.g"
+M98 P"0:/user/pickupposition.g"
+M98 P"0:/user/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
-M98 P"essential/autogen/eventlogging.g"
-M98 P"essential/autogen/xcomp.g"
-echo >"essential/autogen/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
+M98 P"0:/user/eventlogging.g"
+M98 P"0:/user/xcomp.g"
+echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 
 ; Custom settings
 T0 P0                                                                           ; Select Tool 0
@@ -162,7 +162,7 @@ M17 Z                                                                           
 if boards[0].shortName = "2Ethernet"
   ;Ethernet
 else
-  echo >"0:/sys/runonce.g" "M98 P""0:/sys/essential/testwifi.g"""
+  echo >"0:/sys/runonce.g" "M98 P""0:/sys/testwifi.g"""
 
 
-M98 P"essential/leds/startup.g"
+M98 P"0:/sys/led/startup.g"

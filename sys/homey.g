@@ -3,7 +3,7 @@ if state.status == "off"
   G4 S3
 
 
-M98 P"essential/leds/homeall.g"
+M98 P"0:/sys/led/homeall.g"
 M98 P"tfree3.g"
 
 T0 P0

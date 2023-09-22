@@ -1,5 +1,5 @@
-M98 P"essential/leds/statusoff.g"
-M98 P"essential/leds/dimmwhite.g"
+M98 P"0:/sys/led/statusoff.g"
+M98 P"0:/sys/led/dimmwhite.g"
 ; Turn "Red" on
 var i = 0.0
 while var.i <= 1
