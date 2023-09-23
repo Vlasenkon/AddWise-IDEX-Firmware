@@ -1,7 +1,9 @@
 M291 R"Please wait while the nozzle is being heated up" P" " T5 ; Display message
 
 M98 P"0:/sys/led/start_cold.g"
-G60 S2
+
+M400
+G60 S2 ; Remember last tool selected
 
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   G28

@@ -1,5 +1,5 @@
 ; Disable ToolChange Retraction
-echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
 
 M204 P5000 T5000  ; reset accelerations
@@ -9,7 +9,7 @@ M83               ; relative extruder moves
 G1 E-5 F3600      ; retract 10mm of filament
 
 G91
-G0 Z10
+G1 Z10
 G91
 
 T0 P0

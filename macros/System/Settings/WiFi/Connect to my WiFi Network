@@ -1,7 +1,7 @@
 ; ask for SSID and Password;
-M291 R"Enter WiFi Network Name (SSID)" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+M291  J1 R"Enter WiFi Network Name (SSID)" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
 var nn = {input}
-M291 R"Enter WiFi Network Name Password" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+M291  J1 R"Enter WiFi Network Name Password" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
 var pp = {input}
 
 ; save it as a file
@@ -13,19 +13,24 @@ M98 P"0:/user/WiFiPass.g"
 
 
 
-M291 R"Do you want to test Network Connection & switch WiFi mode?" P"The machine will disconnect from DWC, change the WiFi mode and light up green if network connection is successful" S3
+M291 J1 R"Do you want to test Network Connection & switch WiFi mode?" P"The machine will disconnect from DWC, change the WiFi mode and light up green if network connection is successful" S3
 
+M98 P"0:/sys/led/restorewhite.g"
+
+M552 S0
+G4 S1
 M552 S-1
 G4 S1
 M552 S1
 
-while network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null && iterations < 30
+
+while network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1" && iterations < 30
   G4 S1
 
 
 M98 P"0:/sys/led/dimmwhite.g"
 
-if network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null
+if network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1"
 	M98 P"0:/sys/led/red.g"
 	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
 	M552 S-1

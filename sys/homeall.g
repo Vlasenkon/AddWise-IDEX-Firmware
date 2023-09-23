@@ -1,8 +1,10 @@
 ; Home Y
 M98 P"homey.g" L1
 
+M204 T2000
+
 ; Home X and U
-G1 Y165 F18000
+G1 Y162 F18000
 G91                     ; relative positioning
 G1 H1 X-375 U375 F6000  ; move quickly to both axis endstops and stop there (first pass)
 G1 H1 X-375 F6000       ; move quickly to X axis endstop and stop there (first pass)
@@ -22,7 +24,12 @@ elif exists(param.S)
   M98 P"bed.g" S1 Z1
 else
   M98 P"bed.g" Z1
- 
+if result !=0
+  M98 P"0:/sys/led/fault.g"
+  echo >>"Cancelled due to True Bed Leveling Error"
+  abort "Cancelled due to True Bed Leveling Error"
 
 if !exists(param.S)
-  G1 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100 F18000
+  G1 X-999 U999 F18000 Y150 Z100 F18000
+
+M204 T5000

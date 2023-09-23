@@ -2,9 +2,6 @@ M98 P"0:/sys/led/start_cold.g"
 M106 P5 S1 ; Turn E-Cooling Fan on
 
 
-
-
-
 var S0 = tools[0].active[0]
 var S1 = tools[1].active[0]
 var R0 = tools[0].standby[0]
@@ -36,9 +33,9 @@ elif var.S1 > 0
 
 
 else
-  abort "Print cancelled due to Selected Temperature Error"
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
+  abort "Print cancelled due to Selected Temperature Error"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
@@ -59,16 +56,16 @@ G60 S0 ; Save selectrd tool to slot 0
 
 M98 P"homeall.g" Z1 S1 L1 ; Home the machine
 if result !=0
-  abort "Print cancelled due to Homing Error"
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
+  abort "Print cancelled due to Homing Error"
 
 
 G29 ; Run Mesh Compensation
 if result !=0
-  abort "Print cancelled due to Mesh Compensation Error"
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Mesh Compensation Error"
+  abort "Print cancelled due to Mesh Compensation Error"
 
 
 ;Purging and Cleaning the nozzles
@@ -84,7 +81,7 @@ G4 S1
 
 ; Clean the nozzles
 G91
-G1 F18000
+G1 F6000
 
 if state.currentTool == 0
   G1  X30
@@ -122,15 +119,16 @@ elif var.S1 > 0
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
 else
-  abort "Print cancelled due to Selected Temperature Error"
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
+  abort "Print cancelled due to Selected Temperature Error"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
 
-M98 P"0:/sys/toolchangeretraction.g"  ; Enable ToolChange Retraction
+M98 P"0:/sys/entoolchangeretraction.g"  ; Enable ToolChange Retraction
 
 M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset
+M204 P5000 T5000                 ; set the accelerations

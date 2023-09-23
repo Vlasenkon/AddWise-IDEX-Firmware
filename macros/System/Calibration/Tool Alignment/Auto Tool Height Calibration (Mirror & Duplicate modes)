@@ -1,13 +1,10 @@
-;New Tool Height Adjustment
+T1 P0
+T0 P0
 
-M568 P0 A2
-M568 P1 A1
-
-
-M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" R"Set temperature of the filament that was last loaded in the Left Tool" P" "
+M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
 var ll = input
 
-M291 S5 F250 L190 H450 R"Set Right Tool Temperature" R"Set temperature of the filament that was last loaded in the Right Tool" P" "
+M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
 var rr = input
 
 G10 P0 R{var.ll} S{var.ll}
@@ -23,16 +20,15 @@ M116 P1 S10
 
 T3
 M83                 ; relative extruder moves
-G1 E-5 F{60}*{50}   ; retract filament
-T-1
+G1 E-20 F{60}*{50}   ; retract filament
 T0
 
-G1 F18000 X-30 U30 Y-30 Z200  ; Move tools to the manual cleaning position
+G1 F18000 X-30 U30 Y-150 Z200  ; Move tools to the manual cleaning position
 
 
 M291 R"Clean both Nozzles well with a metal brush" P"Click OK when ready to proceed" S3
 
-G1 F18000 X-999 U-100 Y-30 Z200 ;move to loosen heatbreak
+G1 F18000 X-999 U-100 Y-150 Z200 ;move to loosen heatbreak
 
 M291 R"Loosen the heat break on the Right tool" P"Click OK when ready to proceed" S3
 
@@ -50,7 +46,7 @@ G90
 G1 X-999 U0 Y-30
 
 G91
-G1 Z{-20 - 0.10} F600
+G1 Z{-20 - 0.16} F600
 G90
 
 M291 S3 P"Remove the Paper & Press the Nozzle against the build plate manually (with a screwdriver) to tighten the Heat Break"
@@ -69,7 +65,7 @@ G4 P260
 var lt = move.axes[2].machinePosition
 
 G91
-Z20
+G1 Z20
 G90
 
 G1 F18000 X-999 U0 Y-30 Z5
@@ -92,6 +88,6 @@ G10 P3 S0 R0
 G1 F18000 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100
 
 if abs(var.ddd) <= 0.07
-  M291 R{"Calibration Success, deviation is "^abs(var.ddd)^" mm"} P" " S2
+  M291 R{"Calibration Success, deviation is "^var.ddd^" mm"} P" " S2
 else
-  M291 S1 R"Calibration was not successful, Please repeat the procedure" P{"Deviation of "^abs(var.ddd)^" mm is too high."}
+  M291 S1 R"Calibration was not successful, Please repeat the procedure" P{"Deviation of "^var.ddd^" mm is too high."}

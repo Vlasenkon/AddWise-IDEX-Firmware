@@ -1,7 +1,7 @@
 ; resume.g
 ; called before a print from SD card is resumed
 
-M204 P5000 T5000
+M204 T5000                 ; set the accelerations
 
 M568 P0 A1
 M568 P1 A1
@@ -26,6 +26,8 @@ G1 R1 Z2 F18000       ; go above the position of the last print move
 G1 R1 X0 Y0 F18000    ; go back to the last print move
 G1 R1 Z0              ; go back to the last print move
 
-M98 P"0:/sys/toolchangeretraction.g" ; Enable ToolChange Retraction
+M98 P"0:/sys/entoolchangeretraction.g" ; Enable ToolChange Retraction
 
 M98 P"0:/sys/led/resume.g"
+
+M204 T5000                 ; set the accelerations

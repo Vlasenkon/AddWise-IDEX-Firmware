@@ -3,6 +3,7 @@ if !move.axes[1].homed || !move.axes[0].homed || !move.axes[3].homed
   M98 P"homeall.g" S1 L1 Z1
 
 T0                 ; Select first tool
+M204 T2000
 
 if !exists(param.Z)
   G91                ; relative positioning
@@ -39,6 +40,11 @@ if !exists(param.S)
 
 if !exists(param.L)
   M98 P"place.g"
+
+M204 T5000
+
+
+
 
 
 ;Z1 - Do not Lower Z before probing
