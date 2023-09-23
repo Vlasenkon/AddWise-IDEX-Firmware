@@ -143,7 +143,7 @@ M98 P"0:/user/pickupangle.g"
 M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
 M98 P"0:/user/eventlogging.g"
 M98 P"0:/user/xcomp.g"
-echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 
 ; Custom settings
 M280 P0 S0                    ; Take probe holder out of the way

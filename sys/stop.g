@@ -1,5 +1,5 @@
 ; Disable ToolChange Retraction
-echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
 
 M106 P5 S0
@@ -20,6 +20,3 @@ M98 P"0:/user/chamberfinishbehavior.g"	; decide what to do with chamber after pr
 M98 P"0:/user/resetzbabystep.g"
 M400
 echo >"0:/user/resetzbabystep.g" "; do nothing"
-
-; Disable ToolChange Retraction
-echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"

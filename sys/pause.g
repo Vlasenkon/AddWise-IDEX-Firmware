@@ -5,7 +5,7 @@ G60 S1
 
 
 ; Disable ToolChange Retraction
-echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
 M204 P5000 T5000
 

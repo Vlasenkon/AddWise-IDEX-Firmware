@@ -131,6 +131,6 @@ else
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
 
-M98 P"0:/sys/toolchangeretraction.g"  ; Enable ToolChange Retraction
+M98 P"0:/sys/entoolchangeretraction.g"  ; Enable ToolChange Retraction
 
 M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset
