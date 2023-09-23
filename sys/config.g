@@ -146,6 +146,7 @@ M98 P"0:/user/xcomp.g"
 echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"     ; Disable ToolChange Retraction
 
 ; Custom settings
+M280 P0 S0                    ; Take probe holder out of the way
 T0 P0                                                                           ; Select Tool 0
 M568 P0 A2
 M568 P1 A1

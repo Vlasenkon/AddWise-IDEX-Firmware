@@ -7,7 +7,7 @@ M98 P"0:/sys/led/homeall.g"
 M98 P"tfree3.g"
 
 T0 P0
-M98 P"0:/macros/System/Calibration/Z Probe/Rotate holder to 0 degree"
+M280 P0 S0              ; Take probe holder out of the way
 
 
 G91                        ; use relative positioning
@@ -18,7 +18,7 @@ G1 H2 X10 U-10 F18000
 M84 Y
 G4 S1
 
-M913 Y60 		           ; drop motor current
+M913 Y60 		             ; drop motor current
 M204 P250 T250
 M915 Y S5 R0 F0 	       ; set X and Y to sensitivity 3, do nothing when stall, unfiltered
 
