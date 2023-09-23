@@ -2,13 +2,13 @@
 ; called before a print from SD card is resumed
 
 M204 P5000 T5000
-M116 S5
 
 M568 P0 A1
 M568 P1 A1
 
 T-1
 T R1                 ; select the tool that was active last time the print was paused
+M116 S5
 M83                  ; relative extruder moves
 G1 E50 F{60}*{3}     ; extrude filament
 T-1

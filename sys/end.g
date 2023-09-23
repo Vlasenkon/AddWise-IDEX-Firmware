@@ -38,4 +38,10 @@ G10 P3 S0 R0
 
 M98 P"0:/sys/led/end.g"
 
+
+;reset Z baby steping if it was savedduring the ptint
+M98 P"0:/user/resetzbabystep.g"
+M400
+echo >"0:/user/resetzbabystep.g" "; do nothing"
+
 M84 XYU

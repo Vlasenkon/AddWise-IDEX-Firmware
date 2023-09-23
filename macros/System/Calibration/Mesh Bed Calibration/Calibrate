@@ -92,8 +92,7 @@ if exists(global.xcomp)
   set global.xcomp = var.dd
 else
   global xcomp = var.dd
-echo >"0:/user/xcomp.g" "; Please edit the original file'"
-echo >>"0:/user/xcomp.g" "if exists(global.xcomp)"
+echo >"0:/user/xcomp.g" "if exists(global.xcomp)"
 echo >>"0:/user/xcomp.g" "  set global.xcomp = "^{var.dd}
 echo >>"0:/user/xcomp.g" "else"
 echo >>"0:/user/xcomp.g" "  global xcomp = "^{var.dd}

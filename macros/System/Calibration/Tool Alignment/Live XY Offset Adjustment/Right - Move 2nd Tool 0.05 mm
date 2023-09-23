@@ -2,8 +2,7 @@
 set global.uoffset = global.uoffset - 0.05
 
 ; Generate uoffset.g (persistent uoffset var)
-echo >"0:/user/uoffset.g" "; Please edit contents of the original file"
-echo >>"0:/user/uoffset.g" "if exists(global.uoffset)"
+echo >"0:/user/uoffset.g" "if exists(global.uoffset)"
 echo >>"0:/user/uoffset.g" "  set global.uoffset = "^{global.uoffset}
 echo >>"0:/user/uoffset.g" "else"
 echo >>"0:/user/uoffset.g" "  global uoffset = "^{global.uoffset}

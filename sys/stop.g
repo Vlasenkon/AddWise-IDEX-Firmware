@@ -16,5 +16,10 @@ M208 Z-1 S1         ; set axis minima to default
 M98 P"0:/user/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
 M98 P"0:/user/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
 
+;reset Z baby steping if it was savedduring the ptint
+M98 P"0:/user/resetzbabystep.g"
+M400
+echo >"0:/user/resetzbabystep.g" "; do nothing"
+
 ; Disable ToolChange Retraction
 echo >"0:/user/printretract.g" "; ToolChange Retraction Disabled"
