@@ -1,4 +1,4 @@
-M291 L200 H450 F290 R"Enter calibration temperature" P"Do not leave printer unattended" S5
+M291 J1 L200 H450 F290 R"Enter calibration temperature" P"Do not leave printer unattended" S5
 var tt = {input}
 
 
