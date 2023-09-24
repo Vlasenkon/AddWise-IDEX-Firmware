@@ -67,14 +67,14 @@ M98 P"0:/user/PIDRightHead.g"                      ; configure PID parameters
 M143 H1 S510                                       ; configure temperature limit for the heater
 M570 H1 P10 T20 R5                                 ; configure heater fault detection
 
-M308 S2 A"Bed Heater" P"duex.e4temp" Y"thermistor" T100000 B3800 ; configure temperature sensor
+M308 S2 A"Bed Heater" P"duex.e4temp" Y"thermistor" T100000 B3900 ; configure temperature sensor
 M950 H2 C"duex.fan5" Q10 T2                        ; configure heater
 M98 P"0:/user/PIDBedHead.g"                        ; configure PID parameters
 M140 H2                                            ; map heated bed to heater
 M143 H2 S210                                       ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                  ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"duex.e2temp" Y"thermistor" T200000 B3333 ; configure temperature sensor
+M308 S3 A"Chamber Air" P"duex.e2temp" Y"thermistor" T200000 B3450 ; configure temperature sensor
 M950 H3 C"duex.fan4" Q10 T3                        ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; configure PID parameters
 M141 H3                                            ; map chamber to heater
