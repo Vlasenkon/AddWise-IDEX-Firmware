@@ -19,13 +19,12 @@ M552 S-1
 G4 S1
 M552 S1
 
-while network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null && iterations < 30
+while network.interfaces[0].actualIP = "0.0.0.0" && iterations < 30
   G4 S1
-
 
 M98 P"0:/sys/led/dimmwhite.g"
 
-if network.interfaces[0].ssid = "(unknown)" || network.interfaces[0].ssid = null
+if network.interfaces[0].actualIP = "0.0.0.0"
 	M98 P"0:/sys/led/red.g"
 	M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
 	M552 S-1
