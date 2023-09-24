@@ -1,3 +1,5 @@
+M204 T5000                 ; set the accelerations
+
 M80
 T0                      ; Select first tool
 G90
@@ -9,6 +11,8 @@ M42 P4 S0               ; Turn off relay, detach GND from PE and ground the prob
 G4 S1
 G1 f3000 Y{move.axes[1].max}           ; Place the probe
 
+M204 T1000                 ; set the accelerations
+
 G91
 G1 f18000 X-50          ; Shear probe off the tool head
 G1 f18000 Y-50
@@ -17,3 +21,5 @@ G90
 
 M280 P0 S0              ; Take probe holder out of the way
 G4 P250
+
+M204 T5000                 ; set the accelerations

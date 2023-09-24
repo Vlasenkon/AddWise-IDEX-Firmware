@@ -16,3 +16,5 @@ M98 P"0:/sys/led/stop.g"
 M98 P"0:/user/resetzbabystep.g"
 M400
 echo >"0:/user/resetzbabystep.g" "; do nothing"
+
+M204 T5000                 ; set the accelerations

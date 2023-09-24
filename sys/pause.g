@@ -7,7 +7,7 @@ G60 S1
 ; Disable ToolChange Retraction
 echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
-M204 P5000 T5000
+M204 T5000
 
 M83            ; relative extruder moves
 G1 E-5 F{60}*{50}  ; retract 10mm of filament

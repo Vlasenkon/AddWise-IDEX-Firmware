@@ -33,7 +33,7 @@ M566 X600 U600 Y600 Z244 E600:600                  ; set maximum jerk (mm/min)
 M203 X30000 U30000 Y30000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
 M201 X10000 U10000 Y10000 Z1000 E5000:5000         ; set accelerations (mm/s^2)
 M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I50     ; set motor currents (mA) and motor idle factor in per cent
-M84 S5                                             ; set idle timeout
+M84 S10                                            ; set idle timeout
 M204 P5000 T5000
 
 ; Axis Limits

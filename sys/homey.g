@@ -9,6 +9,7 @@ M98 P"tfree3.g"
 T0 P0
 M280 P0 S0              ; Take probe holder out of the way
 
+M204 T2000
 
 G91                        ; use relative positioning
 
@@ -42,4 +43,4 @@ if !exists(param.L)
 M400                       ; make sure everything has stopped before we make changes
 G90                        ; absolute positioning
 M913 Y100                  ; return current to 100%
-M204 P5000 T5000           ; Return the accelerations
+M204 T5000                 ; return the accelerations

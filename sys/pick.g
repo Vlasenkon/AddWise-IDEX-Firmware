@@ -6,7 +6,7 @@ G90              ; Absolute positioning
 G1 f18000 Y135 X{global.probePickX} U{move.axes[3].max}-10
 M400
 
-M204 P1000 T1000 ; Lower the accelerations a little
+M204 T1000 ; Lower the accelerations a little
 
 M280 P0 S{global.probePickAngle}     ; Move probe holder to the 'pick/place' position
 G4 S1
@@ -26,4 +26,5 @@ M42 P4 S1		 ; Turn on relay, engage probing (ESD Warning)
 ;G4 S1
 
 G90
-M204 P5000 T5000 ; Return the accelerations
+
+M204 T5000 ; Return the accelerations

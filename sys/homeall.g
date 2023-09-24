@@ -1,6 +1,8 @@
 ; Home Y
 M98 P"homey.g" L1
 
+M204 T2000
+
 ; Home X and U
 G1 Y165 F18000
 G91                     ; relative positioning
@@ -25,4 +27,6 @@ else
  
 
 if !exists(param.S)
-  G1 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100 F18000
+  G1 X-999 U999 F18000 Y150 Z100 F18000
+
+M204 T5000
