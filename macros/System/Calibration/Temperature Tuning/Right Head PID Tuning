@@ -37,6 +37,6 @@ var dd = heat.heaters[1].model.deadTime
 var ee = heat.heaters[1].model.coolingExp
 var vv = heat.heaters[1].model.standardVoltage
 
-echo >"0:/user/PIDRighttHead.g" "M307 H1 R"^{var.rr}^" K"^{var.kk1}^":"^{var.kk2}^" D"^{var.dd}^" E"^{var.ee}^" S1.00 B0 V"^{var.vv}
+echo >"0:/user/PIDRightHead.g" "M307 H1 R"^{var.rr}^" K"^{var.kk1}^":"^{var.kk2}^" D"^{var.dd}^" E"^{var.ee}^" S1.00 B0 V"^{var.vv}
 
 M291 R"PID tune has been finished" P"New values were saved" S1 T10

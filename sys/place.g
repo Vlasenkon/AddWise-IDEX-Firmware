@@ -1,9 +1,9 @@
 M204 T5000                 ; set the accelerations
 
-M80
 T0                      ; Select first tool
+
 G90
-G1 f18000 Y135 X{global.probePickX} U{move.axes[3].max}-10 ; Go to position
+G1 f18000 Y135 X{global.probePickX} U{move.axes[3].max-10} ; Go to position
 M400
 
 M280 P0 S{global.probePickAngle}         ; Move probe holder to the 'pick/place' position
@@ -13,13 +13,14 @@ G1 f3000 Y{move.axes[1].max}           ; Place the probe
 
 M204 T1000                 ; set the accelerations
 
+M280 P0 S0              ; Take probe holder out of the way
+G4 P250
+
 G91
-G1 f18000 X-50          ; Shear probe off the tool head
+G1 f6000 X-50          ; Shear probe off the tool head
 G1 f18000 Y-50
 G1 f18000 U{move.axes[3].max} F18000
 G90
 
-M280 P0 S0              ; Take probe holder out of the way
-G4 P250
 
 M204 T5000                 ; set the accelerations

@@ -9,7 +9,7 @@ M83               ; relative extruder moves
 G1 E-5 F3600      ; retract 10mm of filament
 
 G91
-G0 Z10
+G1 Z10
 G91
 
 T0 P0

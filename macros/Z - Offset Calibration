@@ -16,7 +16,7 @@ M290 R0 S0
 
 if move.axes[2].machinePosition < 20
   G91
-  G0 Z20
+  G1 Z20
   G90
 
 M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
@@ -43,7 +43,7 @@ M116 P0 S15
 T-1
 T0
 
-G0 F18000 X0 Y-150 Z5
+G1 F18000 X0 Y-150 Z5
 
 M208 Z-5 S1
 M400
@@ -68,4 +68,4 @@ G10 P1 R0 S0
 G10 P2 R0 S0
 G10 P3 R0 S0
 
-G0 F18000 Z20 Y150 X{move.axes[0].min} U{move.axes[3].max}
+G1 F18000 Z20 Y150 X{move.axes[0].min} U{move.axes[3].max}
