@@ -103,7 +103,7 @@ M950 F5 C"duex.fan8" Q500                          ; configure fan
 M106 P5 C"E Cooling" H-1 S0                        ; configure thermostatic contron
 
 M950 F7 C"bedheat" Q500                            ; configure fan
-M106 P7 H4 T40 S1                                  ; configure thermostatic contron
+M106 P7 H4 T50 S1                                  ; configure thermostatic contron
 
 ; LEDs
 M950 P1 C"duex.e5heat" Q5000                       ; Red LEDs
