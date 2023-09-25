@@ -148,9 +148,8 @@ echo >"0:/user/resetzbabystep.g" "; do nothing"
 
 ; Custom settings
 M280 P0 S0                                         ; rotate servo to 0 deg
+T1 P0                                              ; select tool 0
 T0 P0                                              ; select tool 0
-M568 P0 A2                                         ; set heater 0 to active
-M568 P1 A1                                         ; set heater 1 to standby
 M575 P1 S1 B57600                                  ; define PanelDUE
 M80 C"pson"                                        ; define PS_ON pin
 
