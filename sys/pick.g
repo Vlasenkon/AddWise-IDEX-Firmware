@@ -13,7 +13,7 @@ M204 T1000 ; Lower the accelerations a little
 M280 P0 S{global.probePickAngle}     ; Move probe holder to the 'pick/place' position
 G4 S1
 
-G1 f18000 Y{move.axes[1].max-5}   ; Pick the probe
+G1 f18000 Y{move.axes[1].max}   ; Pick the probe
 
 G91
 G1 f1000  Y-5    ; Return with probe

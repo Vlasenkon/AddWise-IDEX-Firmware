@@ -1,7 +1,7 @@
 M564 H0
 
 while true
-    M291 R"Move Z Down?" P"Move the Build Plate down unit all 3 motors reach bottom and the bed is leveled, expect to hear grinding noise" S4 K{"Move Z Down","Already at the bottom",}
+    M291 J1 R"Move Z Down?" P"Move the Build Plate down unit all 3 motors reach bottom and the bed is leveled, expect to hear grinding noise" S4 K{"Move Z Down","Already at the bottom",}
     if input = 0
         M84 Z
         G91

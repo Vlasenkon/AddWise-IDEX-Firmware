@@ -1,13 +1,11 @@
-;New Tool Height Adjustment
-
 M568 P0 A2
 M568 P1 A1
 
 
-M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" R"Set temperature of the filament that was last loaded in the Left Tool" P" "
+M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
 var ll = input
 
-M291 S5 F250 L190 H450 R"Set Right Tool Temperature" R"Set temperature of the filament that was last loaded in the Right Tool" P" "
+M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
 var rr = input
 
 G10 P0 R{var.ll} S{var.ll}

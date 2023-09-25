@@ -19,9 +19,9 @@ G1 H2 X10 U-10 F18000
 M84 Y
 G4 S1
 
-M913 Y60 		               ; drop motor current
-M204 P250 T250 
-M915 Y S5 R0 F0 	         ; set X and Y to sensitivity 3, do nothing when stall, unfiltered
+M913 Y60                   ; drop motor current
+M204 P500 T500 
+M915 Y S3 R0 F0            ; set X and Y to sensitivity 3, do nothing when stall, unfiltered
 
 
 G1 H1 Y500 F6000           ; move quickly to X axis endstop and stop there

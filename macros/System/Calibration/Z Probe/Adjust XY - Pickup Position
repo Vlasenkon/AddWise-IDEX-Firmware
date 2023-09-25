@@ -13,10 +13,10 @@ G4S1
 
 ; Go to probe pickup position
 G1 f18000 Y150 X{global.probePickX} U{move.axes[3].max-10} F18000
-G1 f18000 Y160
+G1 f18000 Y{move.axes[1].max-5}
 
 
-M291 S2 P"Press ""OK"" to save new X pos (Y jogging only for convenience)" X1 Y1
+M291 S3 P"Press ""OK"" to save new X pos (Y jogging only for convenience)" X1 Y1
 
 set global.probePickX = move.axes[0].machinePosition
 ; Generate pickupposition.g
