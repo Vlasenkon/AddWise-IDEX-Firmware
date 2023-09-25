@@ -48,7 +48,7 @@ G90
 G1 X-999 U0 Y-30
 
 G91
-G1 Z{-20 - 0.10} F600
+G1 Z{-20 - 0.16} F600
 G90
 
 M291 S3 P"Remove the Paper & Press the Nozzle against the build plate manually (with a screwdriver) to tighten the Heat Break"
