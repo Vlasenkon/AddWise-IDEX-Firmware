@@ -8,16 +8,15 @@ G10 P0 R{input} S{input}
 M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
 G10 P1 R{input} S{input}
 
-G28                            ; Home the machine
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28
 
 M116 P0 S10
 M116 P1 S10
 
-T-1
 T3
 M83            ; relative extruder moves
-G1 E-5 F{60}*{50}  ; retract filament
-T-1
+G1 E-20 F{60}*{50}  ; retract filament
 T0
 
 G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the manual cleaning position
