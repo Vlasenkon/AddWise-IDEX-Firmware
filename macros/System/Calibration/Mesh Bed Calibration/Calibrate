@@ -63,7 +63,7 @@ M98 P"place.g"
 
 
 G1 F18000 X-155 Y-150 Z5
-M291 S3 P"Press ""OK"" to save Z position" Z1
+M291 S3 R"Finding Z - Offset" P"Press ""OK"" to save Z position" Z1
 var ml = move.axes[2].userPosition
 
 G91
@@ -76,7 +76,7 @@ G91
 G1 Z-5 F18000
 G90
 
-M291 S3 P"Press ""OK"" to save Z position" Z1
+M291 S3 R"Finding Z - Offset" P"Press ""OK"" to save Z position" Z1
 var mr = move.axes[2].userPosition
 
 G91
