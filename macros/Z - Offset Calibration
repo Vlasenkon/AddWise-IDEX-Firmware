@@ -45,7 +45,7 @@ T0
 
 G1 F18000 X0 Y-150 Z5
 
-M208 Z-5 S1
+M208 Z-10 S1
 M400
 M291 S3 P"Press ""OK"" to save new Z offset" Z1
 

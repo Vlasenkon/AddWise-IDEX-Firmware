@@ -1,3 +1,4 @@
+
 M568 P0 A2
 M568 P1 A1
 
@@ -26,7 +27,7 @@ M291 R"Clean the Nozzle with a metal brush" P"Click OK when ready to proceed" S3
 
 M98 P"0:/sys/homeall.g" S1 L1 Z1
 
-M208 Z-2 S1         ; set axis minima to -1
+M208 Z-5 S1         ; set axis minima to -1
 
 
 M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
@@ -68,16 +69,17 @@ M291 S3 P"Press ""OK"" to save Z position" Z1
 var ml = move.axes[2].userPosition
 
 G91
-G1 Z5 F18000
+G1 Z5.5 F18000
 G90
 
 G1 F18000 X155 Y-150
 
 G91
-G1 F18000 Z-3
+G1 Z-5 F18000
+G90
+
 M291 S3 P"Press ""OK"" to save Z position" Z1
 var mr = move.axes[2].userPosition
-
 
 G91
 G1 Z10

@@ -25,12 +25,12 @@ G1 E-5 F{60}*{50}   ; retract filament
 T-1
 T0
 
-G1 F18000 X-30 U30 Y-30 Z200  ; Move tools to the manual cleaning position
+G1 F18000 X-30 U30 Y-150 Z200  ; Move tools to the manual cleaning position
 
 
 M291 R"Clean both Nozzles well with a metal brush" P"Click OK when ready to proceed" S3
 
-G1 F18000 X-999 U-100 Y-30 Z200 ;move to loosen heatbreak
+G1 F18000 X-999 U-100 Y-150 Z200 ;move to loosen heatbreak
 
 M291 R"Loosen the heat break on the Right tool" P"Click OK when ready to proceed" S3
 
