@@ -5,7 +5,7 @@ T0               ; Select first tool
 G90              ; Absolute positioning
 
 ; Go to probe pickup position
-G1 F18000 Y135 X{global.probePickX} U{move.axes[3].max-10}
+G1 F18000 Y140 X{global.probePickX} U{move.axes[3].max-10}
 M400
 
 M204 T1000 ; Lower the accelerations a little
@@ -32,9 +32,6 @@ if sensors.probes[0].value[0] > 500
 G91
 G1 F1000  Y-5    ; Return with probe
 G1 F18000 Y-30   ; Return with probe
-
-M204 T5000 ; Return the accelerations
-G1 F18000 X-50   ; Return with probe
 G90
 
 G1 U{move.axes[3].max} F18000
@@ -42,4 +39,5 @@ M400
 
 M280 P0 S0       ; Take probe holder out of the way
 
+M204 T5000 ; Return the accelerations
 G90

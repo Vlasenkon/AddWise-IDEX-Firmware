@@ -67,7 +67,7 @@ G4 P260
 var lt = move.axes[2].machinePosition
 
 G91
-Z20
+G1 Z20
 G90
 
 G1 F18000 X-999 U0 Y-30 Z5
@@ -90,6 +90,6 @@ G10 P3 S0 R0
 G1 F18000 X{move.axes[0].min} U{move.axes[3].max} F18000 Y150 Z100
 
 if abs(var.ddd) <= 0.07
-  M291 R{"Calibration Success, deviation is "^abs(var.ddd)^" mm"} P" " S2
+  M291 R{"Calibration Success, deviation is "^var.ddd^" mm"} P" " S2
 else
-  M291 S1 R"Calibration was not successful, Please repeat the procedure" P{"Deviation of "^abs(var.ddd)^" mm is too high."}
+  M291 S1 R"Calibration was not successful, Please repeat the procedure" P{"Deviation of "^var.ddd^" mm is too high."}

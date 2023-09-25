@@ -10,7 +10,13 @@ G1 U999 F18000                              ; move U out of the way
 M558 K0 P5 C"duex.e6stop" H2.5 F300 T30000  ; define probe parameters
 M98 P"0:/user/ProbeOffset.g"                ; det probe offsets
 M557 X-165:155 Y-146:165 P8                 ; define mesh grid
+
 G29 S0                                      ; run MBC
+if result !=0
+  M98 P"0:/sys/led/fault.g"
+  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Mesh Compensation Error"
+  abort "Print cancelled due to Mesh Compensation Error"
+
 M376 H40                                    ; enable compensation taper
 M98 P"0:/sys/compensatex.g"                 ; run X - rail twist compensation
 G29 S1                                      ; enable MBC
