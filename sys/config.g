@@ -49,7 +49,7 @@ M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
 ; Probe
 M950 S0 C"duex.pwm5"                               ; define servo pin
-M558 K0 P5 C"duex.e6stop" H5 F18000 T30000         ; define Z probe parameters
+M558 K0 P5 C"duex.e6stop" H5 F18000 T18000         ; define Z probe parameters
 M98 P"0:/user/ProbeOffset.g"                       ; define Z probe offsets
 M950 P4 C"duex.fan3" Q500                          ; define output for ESD protection
 M42  P4 S0                                         ; enable EDS protection
