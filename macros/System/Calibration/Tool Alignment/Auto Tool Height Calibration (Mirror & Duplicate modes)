@@ -1,6 +1,7 @@
 T1 P0
 T0 P0
 
+;set temps
 M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
 var ll = input
 
@@ -12,9 +13,12 @@ G10 P1 R{var.rr} S{var.rr}
 G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
 G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
 
-M291 R"Should Z - Offset Calibration be Performed?" P"Make sure Z-Offset was set correctly otherwise you risk damaging your machine" S4 K{"Calibrate Z - Offset","Z - Offset is Correct",}
+
+
+; 1 - Calibrate Z - Offset?
+M291 S4 J1 R"Should Z - Offset Calibration be Performed?" P"Make sure Z-Offset was set correctly otherwise you risk damaging your machine" K{"Calibrate Z - Offset","Z - Offset is Correct",}
 if input = 0
-  M98 P"0:/macros/Z - Offset Calibration"
+  M98 P"0:/macros/Z - Offset Calibration" H1
   G10 P0 R{var.ll} S{var.ll}
   G10 P1 R{var.rr} S{var.rr}
   G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
@@ -22,10 +26,13 @@ if input = 0
 
 
 
+; 2 - Calibrate or Test?
+M291 S4 J1 R"Should Tool Height Calibration be Performed?" P" " K{"Yes, Run the Calibration","No, Just Test Tool Height Deviation",}
 
-M291 R"Should Tool Height Calibration be Performed?" P" " S4 K{"Yes, Run the Calibration","No, Just Test Tool Height Deviation",}
+M98 P"homeall.g" S1
+
+; Calibrate
 if input = 0
-  M98 P"homeall.g" S1
   
   G90
   M116 P0 S10
@@ -33,7 +40,6 @@ if input = 0
   
   G29 S2
   
-  T-1
   T0
   T1
   T0
@@ -41,11 +47,13 @@ if input = 0
   
   T3
   M83
-  G1 E-20 F{60}*{20}
+  G1 E-15 F{60}*{20}
+
+  T0
   G1 X-30 U30 Y-120 Z100 F18000
   
   
-  M291 R"Loosen HeatBreak" P"Loosen HeatBreak screw on each hotend to allow HeatBlock to slide. Make sure both nozzles are clean" S2
+  M291 R"Loosen HeatBreak" P"Loosen HeatBreak screw on each hotend to allow HeatBlock to slide. Make sure both nozzles are clean" S3
   
   M913 Z100               ; set motor current
   
@@ -54,46 +62,38 @@ if input = 0
   G1 Z-3 F18000
   
   
-  M291 R" " P"Tighten the HeatBreak screw on each hotend" S2
+  M291 P" " R"Tighten the HeatBreak screw on each hotend" S2
   G1 Z200 F18000
   M208 Z0 S1
   M913 Z100                ; recover motor current
   M291 R"Fully tighten the HeatBreak screw on each hotend" P"Click ""OK"" when ready. Machine will test offsets on both tools" S2
-else
-  G10 P0 R{var.ll} S{var.ll}
-  G10 P1 R{var.rr} S{var.rr}
-  G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
-  G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
-  
-  M98 P"homeall.g" S1
-
-  M116 P0 S10
-  M116 P1 S10
 
 
 
+; 3 - Test Tool Height Deviation Script
 
-; Test Tool Height Deviation
+T3
+M83
+G1 E-15 F{60}*{20}
 
 T0
-G0 F18000 U999
 
-
-G0 F18000 X0 Y-150 Z1
+G1 F18000 X0 Y-150 Z3
 M208 Z-1 S1
+
+
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a height where you start to feel the resistance of a nozzle when dragging paper" Z1
 var lll = move.axes[2].machinePosition
 
 G91
-G1 Z5
+G1 Z20.5
+G90
+G1 F18000 X-999 U0 Y-150
+G91
+G1 Z-20
 G90
 
-T1
 
-
-M83
-G1 E-5 F1200
-G0 F18000 X0 Y-150 Z1
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a height where you start to feel the resistance of a nozzle when dragging paper" Z1
 var rrr = move.axes[2].machinePosition
 

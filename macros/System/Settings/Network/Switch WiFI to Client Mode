@@ -5,4 +5,5 @@ if !exists(param.R)
     M552 S-1
     G4S1
     M98 P"0:/user/wifimode.g"
+    G4S1
 	M98 P"0:/sys/testwifi.g"

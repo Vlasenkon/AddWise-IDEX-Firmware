@@ -1,25 +1,40 @@
-; Save offset only if machine doesn't do anything
+; Save Z - offset
 
-
-set global.zoffset = global.zoffset - move.axes[2].babystep  ; Apply babystepping to zoffset
-
-echo >"0:/user/probeoffset.g" "; Set Z probe trigger value, offset and trigger height"
-echo >>"0:/user/probeoffset.g" "G31 P500 X0 Y28.50 Z"^{global.zoffset}
-
-
-echo >"0:/user/zoffset.g" "if exists(global.zoffset)"
-echo >>"0:/user/zoffset.g" "  set global.zoffset = "^{global.zoffset}
-echo >>"0:/user/zoffset.g" "else"
-echo >>"0:/user/zoffset.g" "  global zoffset = "^{global.zoffset}
-  
 
 if {state.status == "processing" || state.status == "pausing" || state.status == "paused" || state.status == "resuming"}
   echo >"0:/user/resetzbabystep.g" "if move.axes[2].machinePosition < 10"
   echo >>"0:/user/resetzbabystep.g" " G90"
   echo >>"0:/user/resetzbabystep.g" " G1 Z10"
+  
+  echo >"0:/user/resetzbabystep.g" "if move.axes[2].machinePosition < 10"
+  echo >>"0:/user/resetzbabystep.g" " G90"
+  echo >>"0:/user/resetzbabystep.g" " G1 Z10"
+  
+  echo >>"0:/user/resetzbabystep.g" "set global.zoffset = global.zoffset - move.axes[2].babystep  ; Apply babystepping to zoffset"
+  
+  echo >>"0:/user/resetzbabystep.g" "echo >""0:/user/probeoffset.g"" ""; Set Z probe trigger value, offset and trigger height"""
+  echo >>"0:/user/resetzbabystep.g" "echo >>""0:/user/probeoffset.g"" ""G31 P500 X0 Y28.50 Z""^{global.zoffset}"
+  
+  echo >>"0:/user/resetzbabystep.g" "echo >""0:/user/zoffset.g"" ""if exists(global.zoffset)"""
+  echo >>"0:/user/resetzbabystep.g" "echo >>""0:/user/zoffset.g"" ""  set global.zoffset = ""^{global.zoffset}"
+  echo >>"0:/user/resetzbabystep.g" "echo >>""0:/user/zoffset.g"" ""else"""
+  echo >>"0:/user/resetzbabystep.g" "echo >>""0:/user/zoffset.g"" ""  global zoffset = ""^{global.zoffset}"
+  
   echo >>"0:/user/resetzbabystep.g" "M290 R0 S0"
+
 else
   if move.axes[2].machinePosition < 10
     G90
     G1 Z10
+  
+  set global.zoffset = global.zoffset - move.axes[2].babystep  ; Apply babystepping to zoffset
+
+  echo >"0:/user/probeoffset.g" "; Set Z probe trigger value, offset and trigger height"
+  echo >>"0:/user/probeoffset.g" "G31 P500 X0 Y28.50 Z"^{global.zoffset}
+  
+  echo >"0:/user/zoffset.g" "if exists(global.zoffset)"
+  echo >>"0:/user/zoffset.g" "  set global.zoffset = "^{global.zoffset}
+  echo >>"0:/user/zoffset.g" "else"
+  echo >>"0:/user/zoffset.g" "  global zoffset = "^{global.zoffset}
+
   M290 R0 S0
