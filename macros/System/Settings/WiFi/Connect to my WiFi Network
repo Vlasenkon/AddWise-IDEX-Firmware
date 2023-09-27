@@ -32,14 +32,14 @@ M98 P"0:/sys/led/dimmwhite.g"
 
 if network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1"
 	M98 P"0:/sys/led/red.g"
-	M98 P"0:/macros/System/Settings/Network/Switch WiFI to Access Point Mode" R1
+	M98 P"0:/macros/System/Settings/Ethernet/Switch WiFI to Access Point Mode" R1
 	M552 S-1
 	G4 S1
 	M552 S2
 	M291 S2 R"Connection was not established" P"Please try again"
 else
 	M98 P"0:/sys/led/end.g"
-	M98 P"0:/macros/System/Settings/Network/Switch WiFI to Client Mode" R1
+	M98 P"0:/macros/System/Settings/Ethernet/Switch WiFI to Client Mode" R1
 
 	M552 S-1
 	G4 S1

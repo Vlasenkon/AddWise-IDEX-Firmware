@@ -13,4 +13,4 @@ M589 S"22 IDEX" P"1234567890" I192.168.0.1
 G4 S1
 M552 S2
 
-M98 P"0:/macros/System/Settings/Network/Switch WiFI to Access Point Mode" R1
+M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
