@@ -6,7 +6,11 @@ M83                                                ; relative extruder moves
 M550 P"22IDEX"                                     ; set printer name
 
 ; Network
-M98 P"0:/user/wifimode.g"                          ; setup network
+if boards[0].shortName = "2Ethernet"
+  echo >"0:/sys/runonce.g" "M98 P""0:/user/ethernet.g"""
+else
+  M98 P"0:/user/wifimode.g" 
+  
 M586 P0 S1                                         ; enable HTTP
 M586 P1 S0                                         ; disable FTP
 M586 P2 S0                                         ; disable Telnet
@@ -160,10 +164,7 @@ while boards[0].vIn.current < 22 && iterations < 20
 M17 Z            ; Hold Z motors with idle current
 
 ; test internet connection
-if boards[0].shortName = "2Ethernet"
-  ;Ethernet
-else
+if boards[0].shortName = "2WiFi"
   echo >"0:/sys/runonce.g" "M98 P""0:/sys/testwifi.g"""
-
 
 M98 P"0:/sys/led/startup.g"                        ; startup LED

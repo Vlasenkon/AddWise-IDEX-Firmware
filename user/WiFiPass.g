@@ -1,1 +1,1 @@
-M587 S"SSID" P"Password"
+M587 S"AddWise" P"SubtractWise"

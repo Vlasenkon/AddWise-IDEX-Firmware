@@ -13,6 +13,8 @@ if network.interfaces[0].actualIP = "0.0.0.0"
   M552 S0
   G4 S1
   M589 S"22 IDEX" P"1234567890" I192.168.0.1
+  G4 S0.5
+  M98 P"0:/user/WiFiPass.g"
   G4 S1
   M552 S2
   
