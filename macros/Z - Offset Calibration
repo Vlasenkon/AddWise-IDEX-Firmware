@@ -47,7 +47,7 @@ M400
 M291 S3 P"Press ""OK"" to save new Z offset" Z1
 
 
-set global.zoffset = global.zoffset - move.axes[2].machinePosition - {0.04}  ; Apply babystepping to zoffset
+set global.zoffset = global.zoffset - move.axes[2].machinePosition - {0.08}  ; Apply babystepping to zoffset
 
 echo >"0:/user/probeoffset.g" "; Set Z probe trigger value, offset and trigger height"
 echo >>"0:/user/probeoffset.g" "G31 P500 X0 Y28.50 Z"^{global.zoffset}

@@ -24,15 +24,15 @@ G28                            ; Home the machine
 G1 F18000 X0 U999 Y-30 Z5
 M208 Z-2 S1
 M291 S3 R"Finding Z - Offset" P"Move Z - Axis UP or DOWN with small increments to find a heigh where you start to feel the resistance of a nozzle when dragging a paper" Z1
-G4 P260
 G91
 G1 Z20
 G90
+M291 S3 R"Remove the Paper" P"Click ""OK"" when ready"
 G1 X-999 U0 Y-30
 G91
 G1 Z{-20 - 0.16} F600
 G90
-M291 S3 P"Remove the Paper & Press the Nozzle against the build plate manually (with a screwdriver) to tighten the Heat Break"
+M291 S3 R"Press the Nozzle against the build plate manually (with a screwdriver) and tighten the Heat Break" P" "
 G1 F18000 X-999 U-100 Y-30 Z200 ;move to tighten heatbreak
 M291 R"Tighten the heat break on the Right tool" P"Click OK when ready to proceed" S3
 ;=========================================================================================================
