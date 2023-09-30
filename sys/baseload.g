@@ -1,6 +1,12 @@
 M291 R"Please wait while the nozzle is being heated up" P" " S1 T5 ; Display message
 M98 P"0:/sys/led/start_cold.g"
-  
+
+;Load Speed
+if !exists(param.S)
+  var ss = 600
+else
+  var ss = 200
+
 M400
 G60 S2 ; Remember last tool selected
 
@@ -19,13 +25,13 @@ M98 P"0:/sys/led/start_hot.g"
 M291 R"Feed the filament, material will be extruded" P" " S4 K{"Extrude","Cancel",} ; Display user prompt
   if input = 0
     M83 ; Extruder to relative mode
-    G1 E10 F900 ; Extrude
-    G1 E200 F300 ; Extrude
+    G1 E10 F{var.ss} ; Extrude
+    G1 E200 F{var.ss} ; Extrude
     while true
       M400
       M291 R"Should more filament be extruded?" P" " S4 K{"Extrude","Cancel",} ; Display user prompt
       if input = 0
-        G1 E100 F300 ; Extrude
+        G1 E100 F{var.ss} ; Extrude
         M400
           continue
       else
