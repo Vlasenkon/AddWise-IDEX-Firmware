@@ -4,10 +4,11 @@ M98 P"0:/sys/led/start_cold.g"
 
 
 ;Unload Speed
+var ss = 0
 if !exists(param.S)
-  var ss = 1200
+  set var.ss = 1200
 else
-  var ss = 200
+  set var.ss = 200
 
 
 M400

@@ -2,10 +2,11 @@ M291 R"Please wait while the nozzle is being heated up" P" " S1 T5 ; Display mes
 M98 P"0:/sys/led/start_cold.g"
 
 ;Load Speed
+var ss = 0
 if !exists(param.S)
-  var ss = 600
+  set var.ss = 600
 else
-  var ss = 200
+  set var.ss = 200
 
 M400
 G60 S2 ; Remember last tool selected
