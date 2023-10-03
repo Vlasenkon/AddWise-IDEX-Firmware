@@ -3,7 +3,7 @@ if boards[0].shortName != "2Ethernet"
 	M99
 
 if network.interfaces[0].actualIP != "0.0.0.0"
-	echo >"0:/user/ethernet.g" "M552 P"^{network.interfaces[0].actualIP}
+	echo >"0:/user/ethernet.g" "M552 S1 P"^{network.interfaces[0].actualIP}
 else
 	M291 S1 R"Error: No Network Connection" P" "
 	M99
