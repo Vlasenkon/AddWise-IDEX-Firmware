@@ -31,8 +31,8 @@ M584 X1 Y0:9 U8 Z5:6:7 E3:4                        ; set motor mapping
 M669 K0 Y1:1:0:1                                   ; set kinematics parameters
 M671 X-222.5:222.5:0 Y-170.5:-170.5:193.5 S100     ; leadscrews at left, right and rear
 
-M350 X16 Y16 U16 Z64 E16:16 I1                     ; configure microstepping
-M92 X80.4 Y80.4 U80.4 Z1600 E400:400               ; set steps per mm
+M350 X16 Y16 U16 Z16 E16:16 I1                     ; configure microstepping
+M92 X80.4 Y80.4 U80.4 Z400 E400:400                ; set steps per mm
 M566 X600 U600 Y600 Z244 E600:600                  ; set maximum jerk (mm/min)
 M203 X30000 U30000 Y30000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
 M201 X10000 U10000 Y10000 Z1000 E5000:5000         ; set accelerations (mm/s^2)
@@ -161,6 +161,7 @@ M80 C"pson"                                        ; define PS_ON pin
 ; Wait for voltage to stabilize and hold Z motors
 while boards[0].vIn.current < 22 && iterations < 20
   G4 P250
+
 M17 Z            ; Hold Z motors with idle current
 
 ; test internet connection
