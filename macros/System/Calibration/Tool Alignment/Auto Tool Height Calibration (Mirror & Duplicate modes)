@@ -50,7 +50,7 @@ if input = 0
   G1 E-15 F{60}*{20}
 
   T0
-  G1 X-30 U30 Y-120 Z100 F18000
+  G1 X-30 U30 Y-90 Z100 F18000
   
   
   M291 R"Loosen HeatBreak" P"Loosen HeatBreak screw on each hotend to allow HeatBlock to slide. Make sure both nozzles are clean" S3
@@ -78,7 +78,7 @@ G1 E-15 F{60}*{20}
 
 T0
 
-G1 F18000 X0 Y-150 Z3
+G1 F18000 X0 Y-90 Z3
 M208 Z-1 S1
 
 
@@ -88,7 +88,7 @@ var lll = move.axes[2].machinePosition
 G91
 G1 Z20.5
 G90
-G1 F18000 X-999 U0 Y-150
+G1 F18000 X-999 U0 Y-90
 G91
 G1 Z-20
 G90
