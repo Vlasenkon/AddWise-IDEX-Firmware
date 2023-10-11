@@ -47,7 +47,7 @@ M208 U205  X155  Y175  Z450 S0                     ; set axis maxima
 ; Endstops
 M574 X1 S1 P"E0stop"                               ; configure endstop
 M574 U2 S1 P"E1stop"                               ; configure endstop
-M574 Y1 S3                                         ; configure endstop
+M574 Y2 S3                                         ; configure endstop
 M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
 M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
