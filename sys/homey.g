@@ -81,11 +81,13 @@ G90
 G1 Y150 F18000
 
 
+; Lower Z
 if !exists(param.L)
   G91
   G1 H2 Z-20 F18000
   G90
 
+; Reset parameters
 M400                       ; make sure everything has stopped before we make changes
 G90                        ; absolute positioning
 M913 Y100                  ; return current to 100%
