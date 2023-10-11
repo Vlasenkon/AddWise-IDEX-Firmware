@@ -49,9 +49,6 @@ G91                        ; relative positioning
 G1 H1 X-375 U375 F6000     ; move quickly to both axis endstops and stop there (first pass)
 G1 H1 X-375 F6000          ; move quickly to X axis endstop and stop there (first pass)
 G1 H1 U375 F6000           ; move quickly to U axis endstop and stop there (first pass)
-G1 H2 X5 U-5 F18000        ; go back a few mm
-G1 H1 X-10 F240            ; move slowly to X axis endstop once more (second pass)
-G1 H1 U10 F240             ; move slowly to U axis endstop once more (second pass)
 G90                        ; absolute positioning
 
 
@@ -78,7 +75,12 @@ G1 H1 Y5 F240
 
 M584 Y0:9
 G90
-G1 Y150 F18000
+G1 Y162 F6000
+G91
+G1 H1 X-20 F240            ; move slowly to X axis endstop once more (second pass)
+G1 H1 U20 F240             ; move slowly to U axis endstop once more (second pass)
+G90                        ; absolute positioning
+
 
 
 ; Lower Z
