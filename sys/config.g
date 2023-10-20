@@ -34,7 +34,7 @@ M671 X-222.5:222.5:0 Y-170.5:-170.5:193.5 S100     ; leadscrews at left, right a
 M350 X16 Y16 U16 Z16 E16:16 I1                     ; configure microstepping
 M92 X80.4 Y80.4 U80.4 Z400 E400:400                ; set steps per mm
 M566 X600 U600 Y600 Z244 E600:600                  ; set maximum jerk (mm/min)
-M203 X30000 U30000 Y30000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
+M203 X18000 U18000 Y18000 Z1800 E10000:10000       ; set maximum speeds (mm/min)
 M201 X10000 U10000 Y10000 Z1000 E5000:5000         ; set accelerations (mm/s^2)
 M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I50     ; set motor currents (mA) and motor idle factor in per cent
 M84 S10                                            ; set idle timeout
@@ -63,13 +63,13 @@ M308 S0 A"Left Heater" P"e0temp" Y"pt1000"         ; configure temperature senso
 M950 H0 C"e0heat" T0                               ; configure heater
 M98 P"0:/user/PIDLeftHead.g"                       ; configure PID parameters
 M143 H0 S510                                       ; configure temperature limit for the heater
-M570 H0 P10 T20 R5                                 ; configure heater fault detection
+M570 H0 P30 T50 R10                                ; configure heater fault detection
 
 M308 S1 A"Right Heater" P"e1temp" Y"pt1000"        ; configure temperature sensor
 M950 H1 C"e1heat" T1                               ; configure heater
 M98 P"0:/user/PIDRightHead.g"                      ; configure PID parameters
 M143 H1 S510                                       ; configure temperature limit for the heater
-M570 H1 P10 T20 R5                                 ; configure heater fault detection
+M570 H1 P30 T50 R10                                ; configure heater fault detection
 
 M308 S2 A"Bed Heater" P"duex.e4temp" Y"thermistor" T100000 B3900 ; configure temperature sensor
 M950 H2 C"duex.fan5" Q10 T2                        ; configure heater
