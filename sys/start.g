@@ -1,4 +1,4 @@
-M572 D0:1 S0.035 ; set pressure advance
+M572 D0:1 S0.05 ; set pressure advance
 
 M80 ; Turn ON 24V PSU
 
