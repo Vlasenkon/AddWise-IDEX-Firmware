@@ -1,0 +1,30 @@
+T0
+
+G1 U999 F18000
+
+M208 Z-5 S1
+
+G90
+G1 X0 Y-90 Z2 F18000
+
+M558 K0 P5 C"duex.e6stop" H5 F300 T300
+M42 P4 S1                      ; Turn on relay
+G4 P260
+G38.4 K0 Z-5 ; Probe Z
+
+G91 ; Relative
+G1 Z10 F18000
+M400
+
+G90
+
+var posx = {move.axes[0].machinePosition}
+var posz = {move.axes[2].machinePosition}
+
+M558 K0 P5 C"duex.e6stop" H5 F1200 T1200
+
+while  iterations < 500; && sensors.probes[0].value[0] > 500
+    G38.4 K0 X{var.posx}-1 Z{var.posz}-0.5
+    set var.posx = var.posx -0.5
+    G38.4 K0 X{var.posx}+1 Z{var.posz}-0.5
+    set var.posx = var.posx -0.5
