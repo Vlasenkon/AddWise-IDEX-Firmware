@@ -1,6 +1,30 @@
-;Auto XY - Offset Calibration
+if !exists(param.S)
 
-if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+  var ll = input
+  
+  M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+  var rr = input
+  
+  G10 P0 R{var.ll} S{var.ll}
+  G10 P1 R{var.rr} S{var.rr}
+  G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
+  G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
+
+  if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+    G28
+
+  M116 P0 S10
+  M116 P1 S10
+  
+  T3
+  M83                 ; relative extruder moves
+  G1 E-20 F{60}*{50}   ; retract filament
+  T0
+  
+  G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the cleaning position
+  M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
+  
   G28
 
 G29 S2     ; disable Mesh Bed Leveling
@@ -11,6 +35,8 @@ M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G1 U999 F18000
 
+
+;==== Find Z refference point ====
 
 G90
 G1 X-20 Y80 Z2 F18000
@@ -63,6 +89,11 @@ var spLY = move.axes[1].userPosition
 var diffLY = var.fpLY - var.spLY
 var cpLY = var.fpLY - var.diffLY / 2
 
+
+
+
+;==== Find Z refference point ====
+
 G90
 G1 Y{var.cpLY}
 
@@ -71,8 +102,6 @@ G1 Z10
 
 G90
 G1 X{move.axes[0].min}
-
-
 
 ; ===== Probe with the Left tool =====
 
@@ -161,9 +190,18 @@ echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^
 G10 P1 U{global.uoffset} Y{global.yoffset} Z{global.rtzoffset}
 
 
-M42 P4 S0                ; Turn off relay
-M208 Z0 S1               ; set axis minima
-
-; Park second tool
-G90
-G1 X-999 U999 Y150 Z200
+if !exists(param.S)
+  G10 P0 S0 R0
+  G10 P1 S0 R0
+  G10 P2 S0 R0
+  G10 P3 S0 R0
+  
+  M42 P4 S0                ; Turn off relay
+  M208 Z0 S1
+  M558 K0 P5 C"duex.e6stop" H5 F300 T18000
+  M98 P"0:/user/probeoffset.g"                       ; load global variables
+  
+  M98 P"place.g"
+  
+  G90
+  G1 X-999 U999 Y150 Z200 F18000
