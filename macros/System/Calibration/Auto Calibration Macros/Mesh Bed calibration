@@ -11,7 +11,7 @@ if !exists(param.S)
   G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
 
   if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
-    G28
+    M98 P"0:/sys/homeall.g" S1
 
   M116 P0 S10
   
@@ -22,7 +22,7 @@ if !exists(param.S)
   G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the cleaning position
   M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
   
-  G28
+  M98 P"0:/sys/homeall.g" S1 L1
 
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
@@ -30,6 +30,7 @@ M208 Z-5 S1
 M558 K0 P5 C"duex.e6stop" H5 F300 T18000
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
+G90
 G1 U999 F18000
 
 ;=====Test with a probe======
@@ -128,10 +129,6 @@ G1 Z5
 
 var nr = (var.nr1 + var.nr2 + var.nr3)/3
 
-G90
-G1 X-999 U999 Y150 Z200
-
-
 
 ;====Calculate  Values====
 
@@ -164,8 +161,6 @@ if !exists(param.S)
   M208 Z0 S1
   M558 K0 P5 C"duex.e6stop" H5 F300 T18000
   M98 P"0:/user/probeoffset.g"                       ; load global variables
-  
-  M98 P"place.g"
   
   G90
   G1 X-999 U999 Y150 Z200 F18000
