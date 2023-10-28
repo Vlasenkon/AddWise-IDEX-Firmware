@@ -1,15 +1,22 @@
-T0
+;Auto XY - Offset Calibration
 
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28
+
+G29 S2     ; disable Mesh Bed Leveling
+M290 R0 S0
+M208 Z-5 S1
+M558 K0 P5 C"duex.e6stop" H5 F300 T18000
+M98 P"0:/user/probeoffset.g"                       ; load global variables
+T0
 G1 U999 F18000
 
-M208 Z-5 S1
 
 G90
 G1 X-20 Y80 Z2 F18000
 
-M558 K0 P5 C"duex.e6stop" H5 F300 T300
+
 M42 P4 S1                      ; Turn on relay
-G4 P260
 G38.4 K0 Z-5 ; Probe Z
 
 G91 ; Relative
@@ -64,6 +71,7 @@ G1 Z10
 
 G90
 G1 X{move.axes[0].min}
+
 
 
 ; ===== Probe with the Left tool =====
@@ -122,43 +130,7 @@ G1 Z5 F18000
 G90
 
 
-
-
-; ===== Tool Height Test =====
-
-G90
-G1 U{var.cpRX} Y{var.cpRY-20}
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var rrr = move.axes[2].machinePosition
-
-G91
-G1 Z5
-G90
-G1 F18000 X{var.cpRX} U999 Y{var.cpLY-20}
-
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var lll = move.axes[2].machinePosition
-
-set global.rtzoffset = {var.lll} - {var.rrr}
-
-
-G90
-G1 Z50
-
-G1 F18000 X-999 U999 Y150
-
-if abs(global.rtzoffset) <= 0.07
-  M291 R{"Good, deviation is "^global.rtzoffset^" mm"} P" " S0
-else
-  M291 R{"Re calibrate Tool Height, deviation is "^global.rtzoffset^" mm"} P" " S0
-
-
-
-
+echo "Current offsets: U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
 
 
 
@@ -189,27 +161,9 @@ echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^
 G10 P1 U{global.uoffset} Y{global.yoffset} Z{global.rtzoffset}
 
 
-
-echo "Current offsets: U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+M42 P4 S0                ; Turn off relay
+M208 Z0 S1               ; set axis minima
 
 ; Park second tool
-G91
-G1 Z20 F18000
 G90
-G1 X{move.axes[0].min} U{move.axes[3].max} F18000
+G1 X-999 U999 Y150 Z200

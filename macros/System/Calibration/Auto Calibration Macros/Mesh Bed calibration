@@ -1,0 +1,133 @@
+; Auto Mesh Bed calibration
+
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28
+
+G29 S2     ; disable Mesh Bed Leveling
+M290 R0 S0
+M208 Z-5 S1
+M558 K0 P5 C"duex.e6stop" H5 F300 T18000
+M98 P"0:/user/probeoffset.g"                       ; load global variables
+T0
+G1 U999 F18000
+
+;=====Test with a probe======
+M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
+
+G90
+G1 F18000 Z20 X{-155 - sensors.probes[0].offsets[0]} Y{0 - sensors.probes[0].offsets[1]}
+
+G91
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pl1 = move.axes[2].machinePosition
+G1 Z5
+
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pl2 = move.axes[2].machinePosition
+G1 Z5
+
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pl3 = move.axes[2].machinePosition
+G1 Z5
+
+var pl = (var.pl1 + var.pl2 + var.pl3)/3
+
+G90
+G1 F18000 X{155 - sensors.probes[0].offsets[0]} Y{0 - sensors.probes[0].offsets[1]}
+
+G91
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pr1 = move.axes[2].machinePosition
+G1 Z5
+
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pr2 = move.axes[2].machinePosition
+G1 Z5
+
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pr3 = move.axes[2].machinePosition
+G1 Z5
+
+var pr = (var.pr1 + var.pr2 + var.pr3)/3
+
+
+M98 P"place.g"
+
+
+;=====Test with a nozzle====
+M42 P4 S1                      ; Turn on relay
+
+G90
+G1 F18000 X-155 Y0 Z5
+
+G91
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl1 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl2 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl3 = move.axes[2].machinePosition
+G1 Z5
+
+var nl = (var.nl1 + var.nl2 + var.nl3)/3
+
+G90
+
+
+G1 F18000 X155 Y0
+
+G91
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr1 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr2 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr3 = move.axes[2].machinePosition
+G1 Z5
+
+var nr = (var.nr1 + var.nr2 + var.nr3)/3
+
+G90
+G1 X-999 U999 Y150 Z200
+
+
+
+;====Calculate  Values====
+
+var dl = var.pl - var.nl
+var dr = var.pr - var.nr
+var dd = var.dl - var.dr
+
+
+echo "Mesh bed adjusted for "^{var.dd}^" mm"
+
+
+if exists(global.xcomp)
+  set global.xcomp = var.dd
+else
+  global xcomp = var.dd
+  
+echo >"0:/user/xcomp.g" "if exists(global.xcomp)"
+echo >>"0:/user/xcomp.g" "  set global.xcomp = "^{var.dd}
+echo >>"0:/user/xcomp.g" "else"
+echo >>"0:/user/xcomp.g" "  global xcomp = "^{var.dd}

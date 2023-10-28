@@ -142,6 +142,7 @@ M567 P3 E1:1                                       ; set mix ratio 100% on both 
 M98 P"0:/user/uoffset.g"                           ; load global variables
 M98 P"0:/user/yoffset.g"                           ; load global variables
 M98 P"0:/user/zoffset.g"                           ; load global variables
+M98 P"0:/user/probeoffset.g"                       ; load global variables
 M98 P"0:/user/rtzoffset.g"                         ; load global variables
 M98 P"0:/user/pickupposition.g"                    ; load global variables
 M98 P"0:/user/pickupangle.g"                       ; load global variables

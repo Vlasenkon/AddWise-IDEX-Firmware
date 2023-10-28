@@ -4,7 +4,7 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 
 if move.axes[2].machinePosition < 20
   G91
-  G1 F18000 Z{20}-move.axes[2].machinePosition
+  G1 F18000 Z20
   G90
 
 T0 P0
