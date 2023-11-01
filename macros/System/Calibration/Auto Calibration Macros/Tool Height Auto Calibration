@@ -111,15 +111,8 @@ if   abs(var.ddd) < 0.05
 else
   M291 R{"Calibration will be performed, deviation is "^var.ddd^" mm"} P" " S3
   
+  ;====Left is Lower====
   if var.ddd > 0
-    G90
-    G1 X100 U999 Z200 F18000
-    
-    M291 R"Loosen the heat break" P"Click OK when ready to proceed" S3
-    
-    G1 U999 X0 Y-10 F18000
-  
-  if var.ddd < 0
     G90
     G1 U-100 X-999 Z200 F18000
 
@@ -127,19 +120,39 @@ else
     
     G1 X-999 U{0}-{global.uoffset} Y{-10}-{global.yoffset} F18000
 
-  G90
-  G1 Z5 F18000
-  G1 Z{var.lll} F600
+    G90
+    G1 Z5 F18000
+    G1 Z{var.lll} F600
+    
+    M291 R"Tighten the heat break while press it down" P"Click OK when ready to proceed" S2
+    
+    G90
+    G1 U-100 Z200 F18000
+
   
-  M291 R"Tighten the heat break while press it down" P"Click OK when ready to proceed" S2
-  
-  G90
-  G1 U-100 Z200 F18000
+  ;====Right is Lower====
+  if var.ddd < 0
+    G90
+    G1 X100 U999 Z200 F18000
+    
+    M291 R"Loosen the heat break" P"Click OK when ready to proceed" S3
+    
+    G1 U999 X0 Y-10 F18000
+
+    G90
+    G1 Z5 F18000
+    G1 Z{var.rrr} F600
+    
+    M291 R"Tighten the heat break while press it down" P"Click OK when ready to proceed" S2
+    
+    G90
+    G1 X100 Z200 F18000
   
   M291 R"Fully Tighten the heat break" P"Click OK when ready to proceed" S2
 
 if abs(var.ddd) > 0.05
   M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
+
 
 if !exists(param.S)
   G10 P0 S0 R0

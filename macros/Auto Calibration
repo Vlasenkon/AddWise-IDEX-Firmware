@@ -4,8 +4,8 @@
 ;M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
 ;var rr = input
 
-var ll = 0
-var rr = 0
+var ll = 250
+var rr = 250
 
 G10 P0 R{var.ll} S{var.ll}
 G10 P1 R{var.rr} S{var.rr}
@@ -36,14 +36,13 @@ M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G1 U999 F18000
 
+M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
+M400
 
 M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Z - Offset Calibration" S1
 M400
 
 M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Mesh Bed calibration" S1
-M400
-
-M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
 M400
 
 M98 P"0:/macros/System/Calibration/Auto Calibration Macros/XY - Offset Calibration" S1
