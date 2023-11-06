@@ -67,11 +67,17 @@ M584 Y0
 M574 Y2 S1 P"Zstop"
 G1 H1 Y5 F240
 
+var ll = move.axes[1].machinePosition
 
 M584 Y9
 M574 Y2 S1 P"Ystop"
 G1 H1 Y5 F240
 
+var rr = move.axes[1].machinePosition
+
+var dd = var.ll - var.rr
+
+echo "Div "^{var.dd}
 
 M584 Y0:9
 G90
