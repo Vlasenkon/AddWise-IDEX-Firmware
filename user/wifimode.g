@@ -1,1 +1,1 @@
-M552 S1 ; Enable Access Point mode
+M552 S2 ; Enable Access Point mode
