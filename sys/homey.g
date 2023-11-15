@@ -51,33 +51,49 @@ G1 H1 X-375 F6000          ; move quickly to X axis endstop and stop there (firs
 G1 H1 U375 F6000           ; move quickly to U axis endstop and stop there (first pass)
 G90                        ; absolute positioning
 
-
 ; Home with Y End Stops
 G91
 G1 X10 U-10 F18000
 
+
+;=== Home with both end stops ===
 G90
+
+
 M574 Y2 S1 P"Zstop+Ystop"
 G1 H1 Y190 F600
 G91
 G1 Y-5 F1200
 G1 H1 Y10 F240
 
-M584 Y0
-M574 Y2 S1 P"Zstop"
-G1 H1 Y5 F240
-
+G92 Y150
+G4 P260
 var ll = move.axes[1].machinePosition
 
+
+;=== Home with Right end stop ===
 M584 Y9
 M574 Y2 S1 P"Ystop"
-G1 H1 Y5 F240
+G1 H4 Y5 F240
 
-var rr = move.axes[1].machinePosition
+;=== Home with Left end stop ===
+M584 Y0
+M574 Y2 S1 P"Zstop"
+G1 H4 Y5 F240
 
-var dd = var.ll - var.rr
 
-echo "Div "^{var.dd}
+G4 P260
+var rr = move.axes[1].machinePosition - {5}
+
+var dd = var.rr - var.ll
+
+if var.dd > 1.5
+  echo "Div "^{var.dd}
+
+G92 Y999
+
+
+
 
 M584 Y0:9
 G90
