@@ -18,4 +18,4 @@ if network.interfaces[0].actualIP = "0.0.0.0"
   G4 S1
   M552 S2
   
-  M291 S2 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
+  M291 S0 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
