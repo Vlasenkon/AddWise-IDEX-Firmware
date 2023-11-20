@@ -16,7 +16,7 @@ M204 T2000
 M574 Y1 S3
 G91                        ; use relative positioning
 G1 H2 Z20 F6000            ; lift Z relative to current position
-G1 H2 X10 U-10 F18000
+G1 H2 X10 U-10 F6000
 
 M84 Y
 G4 S1
@@ -44,7 +44,7 @@ M204 T5000                 ; return the accelerations
 
 ; Home X and U
 G90
-G1 Y162 F18000
+G1 Y162 F6000
 G91                        ; relative positioning
 G1 H1 X-375 U375 F6000     ; move quickly to both axis endstops and stop there (first pass)
 G1 H1 X-375 F6000          ; move quickly to X axis endstop and stop there (first pass)
@@ -53,7 +53,7 @@ G90                        ; absolute positioning
 
 ; Home with Y End Stops
 G91
-G1 X10 U-10 F18000
+G1 X10 U-10 F6000
 
 
 ;=== Home with both end stops ===
