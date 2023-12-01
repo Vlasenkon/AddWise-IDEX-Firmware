@@ -1,4 +1,4 @@
 if exists(global.zoffset)
-  set global.zoffset = 12.16167
+  set global.zoffset = 12.15083
 else
-  global zoffset = 12.16167
+  global zoffset = 12.15083
