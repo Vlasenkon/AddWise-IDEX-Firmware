@@ -5,8 +5,10 @@ G90                                                ; absolute coordinates
 M83                                                ; relative extruder moves
 M550 P"22IDEX"                                     ; set printer name
 
+M80 C"pson"                                        ; define PS_ON pin
+
 ; Wait a moment for the CAN expansion boards to start 
-;G4 P2000
+G4 S2
 
 ; Network
 ;if boards[0].shortName = "2Ethernet"
@@ -28,18 +30,22 @@ M586 P0 S1                                         ; enable HTTP
 M586 P1 S0                                         ; disable FTP
 M586 P2 S0                                         ; disable Telnet
 
+
+
 ; Drives
 M569 P0.0 S1                                         ; motor direction
-M569 P0.1 S0                                         
+M569 P0.1 S1                                         
 M569 P0.2 S0                                          
 M569 P0.3 S1                                          
-M569 P0.4 S1                                          
+M569 P0.4 S0                                          
 M569 P0.5 S0                                          
 M569 P1.0 S0                                         
 M569 P1.1 S0                                          
 M569 P1.2 S0                                         
 
-M584 X0.2 Y0.1:0.4 U0.3 Z1.0:1.1:1.2 E0.0:0.5                        ; set motor mapping
+
+M584 X0.2 Y0.1:0.4 U0.3 Z1.0:1.1:1.2 E0.0:0.5      ; set motor mapping
+
 M669 K0 Y1:1:0:1                                   ; set kinematics parameters
 M671 X-222.5:222.5:0 Y-170.5:-170.5:193.5 S100     ; leadscrews at left, right and rear
 
@@ -56,10 +62,11 @@ M204 P5000 T5000
 M208 X-205 U-155   Y-175 Z0   S1                   ; set axis minima
 M208 U205  X155  Y175  Z450 S0                     ; set axis maxima
 
+
 ; Endstops
-M574 X1 S1 P"io3.in"                               ; configure endstop
-M574 U2 S1 P"io4.in"                               ; configure endstop
-M574 Y2 S3                                         ; configure endstop
+M574 X1 S1 P"io4.in"                               ; configure endstop
+M574 U2 S1 P"io5.in"                               ; configure endstop
+M574 Y1 S1 P"io1.in+io2.in"                          ; configure endstop
 ;;M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
 ;;M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
@@ -90,33 +97,34 @@ M140 H2                                            ; map heated bed to heater
 M143 H2 S210                                       ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                  ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"1.temp1" Y"thermistor" T200000 B3900 ; configure temperature sensor
+M308 S3 A"Chamber Air" P"1.temp2" Y"thermistor" T100000 B3900 ; configure temperature sensor
+;M308 S3 A"Chamber Air" P"temp3" Y"thermistor" T200000 B3900 ; configure temperature sensor
 M950 H3 C"1.out1" Q10 T3                           ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; configure PID parameters
 M141 H3                                            ; map chamber to heater
 M143 H3 S110                                       ; configure temperature limit for the heater
 M98 P"0:/user/faultdetection.g"                    ; configure heater fault detection
 
-M308 S4 A"Chamber Heater" P"temp3" Y"thermistor" T100000 B3950  ; configure temperature sensor
-M143 H3 T4 S170 A2                                              ; configure temperature limit for the heater
+M308 S4 A"Chamber Heater" P"1.temp1" Y"thermistor" T100000 B3950  ; configure temperature sensor
+M143 H3 S170 T4 A2                                              ; configure temperature limit for the heater
 
 
 ; Fans
 M950 F2 C"out4" Q500                               ; configure fan
-M106 P2 H0 T70 S1                                  ; configure thermostatic contron
+M106 P2 H0 T70 S1 B0                                  ; configure thermostatic contron
 M950 F3 C"out5" Q500                               ; configure fan
-M106 P3 C"X - Fan" H-1 S0                          ; configure thermostatic contron
+M106 P3 C"X - Fan" H-1 S0 B0                          ; configure thermostatic contron
 
 M950 F0 C"out7" Q500                               ; configure fan
-M106 P0 H1 T70 S1                                  ; configure thermostatic contron
+M106 P0 H1 T70 S1 B0                                  ; configure thermostatic contron
 M950 F1 C"out8" Q500                               ; configure fan
-M106 P1 C"U - Fan" H-1 S0                          ; configure contron
+M106 P1 C"U - Fan" H-1 S0 B0                          ; configure contron
 
 M950 F4 C"1.out2" Q5000                            ; configure Chamber Heater fan
-M106 P4 H4 T70 S0                                  ; configure thermostatic contron
+M106 P4 H4 T80 S1 B0                                 ; configure thermostatic contron
 
 M950 F7 C"1.out5" Q500                             ; configure CrFan
-M106 P7 H4 T50 S1                                  ; configure thermostatic contron
+M106 P7 H3 T50 S1 B0                                  ; configure thermostatic contron
 
 ; LEDs
 M950 P1 C"1.out6" Q5000                       ; Red LEDs
@@ -126,7 +134,7 @@ M42 P2 S0
 M950 P3 C"1.out8" Q5000                       ; Blue LEDs
 M42 P3 S0
 M950 F6 C"1.out3" Q5000                       ; White LEDs
-M106 P6 C"W LED" H-1 B0 S0
+M106 P6 C"W LED" H-1 S0 B0
 
 
 ; Tools
@@ -155,7 +163,7 @@ M567 P3 E1:1                                       ; set mix ratio 100% on both 
 ;M98 P"0:/user/rtzoffset.g"                         ; load global variables
 ;M98 P"0:/user/pickupposition.g"                    ; load global variables
 ;M98 P"0:/user/pickupangle.g"                       ; load global variables
-;M98 P"0:/user/eventlogging.g"                      ; load global variables
+M98 P"0:/user/eventlogging.g"                      ; load global variables
 ;M98 P"0:/user/xcomp.g"                             ; load global variables
 
 ;echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
@@ -166,13 +174,11 @@ M280 P0 S0                                         ; rotate servo to 0 deg
 T1 P0                                              ; select tool 0
 T0 P0                                              ; select tool 0
 M575 P1 S1 B57600                                  ; define PanelDUE
-M80 C"pson"                                        ; define PS_ON pin
 
 ; Wait for voltage to stabilize and hold Z motors
-;while boards[0].vIn.current < 22 && iterations < 20
-;  G4 P250
-
-;M17 Z            ; Hold Z motors with idle current
+while boards[0].vIn.current < 22 && boards[1].vIn.current < 22 && iterations < 20
+  G4 P250
+M17 Z            ; Hold Z motors with idle current
 
 ; test internet connection
 ;if boards[0].shortName = "2WiFi"
