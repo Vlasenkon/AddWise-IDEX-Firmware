@@ -89,7 +89,7 @@ G1 Z10
 M42 P4 S0                ; Turn off relay
 
 var rrr = (var.rr1 + var.rr2 + var.rr3)/3
-var ddd = {var.lll - var.rrr}/10
+var ddd = {var.lll - var.rrr}
 
 
 

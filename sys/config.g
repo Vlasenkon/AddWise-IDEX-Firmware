@@ -47,7 +47,7 @@ M569 P1.2 S0
 M584 X0.2 Y0.1:0.4 U0.3 Z1.0:1.1:1.2 E0.0:0.5      ; set motor mapping
 
 M669 K0 Y1:1:0:1                                   ; set kinematics parameters
-M671 X-222.5:222.5:0 Y-170.5:-170.5:193.5 S100     ; leadscrews at left, right and rear
+M671 X222.5:0:-222.5 Y-170.5:193.5:-170.5 S100     ; leadscrews at left, right and rear
 
 M350 X16 Y16 U16 Z16 E16:16 I1                     ; configure microstepping
 M92 X80.4 Y80.4 U80.4 Z400 E400:400                ; set steps per mm
@@ -59,8 +59,8 @@ M84 S10                                            ; set idle timeout
 M204 P5000 T5000
 
 ; Axis Limits
-M208 X-205 U-155   Y-175 Z0   S1                   ; set axis minima
-M208 U205  X155  Y175  Z450 S0                     ; set axis maxima
+M208 X-208 U-162 Y-175 Z0   S1                   ; set axis minima
+M208  U208  X162  Y175 Z450 S0                     ; set axis maxima
 
 
 ; Endstops

@@ -1,4 +1,4 @@
 if exists(global.yoffset)
-  set global.yoffset = 0.6156616
+  set global.yoffset = -0.3109512
 else
-  global yoffset = 0.6156616
+  global yoffset = -0.3109512
