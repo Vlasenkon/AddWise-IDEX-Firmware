@@ -1,5 +1,5 @@
 ; Set X probe pickup position
 if exists(global.probePickX)
-  set global.probePickX = 95.896
+  set global.probePickX = 102.699
 else
-  global probePickX = 95.896
+  global probePickX = 102.699

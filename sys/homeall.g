@@ -1,6 +1,11 @@
 ; Home Y
 M98 P"homey.g" L1
 
+
+M98 P"homex.g"
+
+M98 P"homeu.g"
+
 if exists(param.L) && exists(param.S)
   M98 P"bed.g" L1 S1 Z1
 elif exists(param.L)
