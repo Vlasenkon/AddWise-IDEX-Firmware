@@ -1,4 +1,4 @@
-echo >"0:/user/filamentsensor1.g" "M591 P1 C""xstop"" S0 D1 ; Disable filament sensor 1 monitoring"
-M591 P1 C"xstop" S0 D1
+echo >"0:/user/filamentsensor1.g" "M591 P1 C""io6"" S0 D1 ; Disable filament sensor 1 monitoring"
+M591 P1 C"io6" S0 D1
 
 echo "Sensor 1 Disabled"
