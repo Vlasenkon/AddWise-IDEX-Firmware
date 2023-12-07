@@ -1,12 +1,12 @@
 M42 P4 S1
-G4 P250              ; Wait for Probe value to stabilize
+G4 P260              ; Wait for Probe value to stabilize
 M400
 
 ; If probe unavailable, try to pick it up
 if sensors.probes[0].value[0] > 500
   M98 P"pick.g"
   
-G4 P250              ; Wait for Probe value to stabilize
+G4 P260              ; Wait for Probe value to stabilize
 
 ; If probe is still unavailable, open safety relay and return
 if sensors.probes[0].value[0] > 500

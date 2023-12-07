@@ -33,7 +33,7 @@ M586 P2 S0                                         ; disable Telnet
 
 
 ; Drives
-M569 P0.0 S1                                         ; motor direction
+M569 P0.0 S1                                       ; motor direction
 M569 P0.1 S1                                         
 M569 P0.2 S0                                          
 M569 P0.3 S1                                          
@@ -59,33 +59,33 @@ M84 S10                                            ; set idle timeout
 M204 P5000 T5000
 
 ; Axis Limits
-M208 X-208 U-162 Y-175 Z0   S1                   ; set axis minima
+M208 X-208 U-162 Y-175 Z0   S1                     ; set axis minima
 M208  U208  X162  Y175 Z450 S0                     ; set axis maxima
 
 
 ; Endstops
-M574 X1 S1 P"io4.in"                               ; configure endstop
-M574 U2 S1 P"io5.in"                               ; configure endstop
-M574 Y1 S1 P"io1.in+io2.in"                          ; configure endstop
+M574 X1 S1 P"io4.in"                                ; configure endstop
+M574 U2 S1 P"io5.in"                                ; configure endstop
+M574 Y1 S1 P"io1.in+io2.in"                         ; configure endstop
 ;M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
 ;M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
 ; Probe 
 M950 S0 C"out9"                                    ; define servo pin
-M558 K0 P8 C"1.io4.in" H5 F18000 T18000         ; define Z probe parameters
+M558 K0 P8 C"1.io4.in" H5 F18000 T18000            ; define Z probe parameters
 M98 P"0:/user/ProbeOffset.g"                       ; define Z probe offsets
-M950 P4 C"1.out4" Q500                          ; define output for ESD protection
+M950 P4 C"1.out4" Q500                             ; define output for ESD protection
 M42  P4 S0                                         ; enable EDS protection
 
 ; Heaters
-M308 S0 A"Left Heater" P"temp0" Y"pt1000"         ; configure temperature sensor
-M950 H0 C"out1" T0                               ; configure heater
+M308 S0 A"Left Heater" P"temp0" Y"pt1000"          ; configure temperature sensor
+M950 H0 C"out1" T0                                 ; configure heater
 M98 P"0:/user/PIDLeftHead.g"                       ; configure PID parameters
 M143 H0 S510                                       ; configure temperature limit for the heater
 M570 H0 P30 T50 R10                                ; configure heater fault detection
 
-M308 S1 A"Right Heater" P"temp1" Y"pt1000"        ; configure temperature sensor
-M950 H1 C"out2" T1                               ; configure heater
+M308 S1 A"Right Heater" P"temp1" Y"pt1000"         ; configure temperature sensor
+M950 H1 C"out2" T1                                 ; configure heater
 M98 P"0:/user/PIDRightHead.g"                      ; configure PID parameters
 M143 H1 S510                                       ; configure temperature limit for the heater
 M570 H1 P30 T50 R10                                ; configure heater fault detection
@@ -97,8 +97,7 @@ M140 H2                                            ; map heated bed to heater
 M143 H2 S210                                       ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                  ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T100000 B3900 ; configure temperature sensor
-;M308 S3 A"Chamber Air" P"temp3" Y"thermistor" T200000 B3900 ; configure temperature sensor
+M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3900 ; configure temperature sensor
 M950 H3 C"1.out1" Q10 T3                           ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; configure PID parameters
 M141 H3                                            ; map chamber to heater
@@ -106,25 +105,25 @@ M143 H3 S110                                       ; configure temperature limit
 M98 P"0:/user/faultdetection.g"                    ; configure heater fault detection
 
 M308 S4 A"Chamber Heater" P"1.temp2" Y"thermistor" T100000 B3950  ; configure temperature sensor
-M143 H3 S170 T4 A2                                              ; configure temperature limit for the heater
+M143 H3 S170 T4 A2                                                ; configure temperature limit for the heater
 
 
 ; Fans
 M950 F2 C"out4" Q500                               ; configure fan
-M106 P2 H0 T70 S1 B0                                  ; configure thermostatic contron
+M106 P2 H0 T70 S1 B0                               ; configure thermostatic contron
 M950 F3 C"out5" Q500                               ; configure fan
-M106 P3 C"X - Fan" H-1 S0 B0                          ; configure thermostatic contron
+M106 P3 C"X - Fan" H-1 S0 B0                       ; configure thermostatic contron
 
 M950 F0 C"out7" Q500                               ; configure fan
-M106 P0 H1 T70 S1 B0                                  ; configure thermostatic contron
+M106 P0 H1 T70 S1 B0                               ; configure thermostatic contron
 M950 F1 C"out8" Q500                               ; configure fan
-M106 P1 C"U - Fan" H-1 S0 B0                          ; configure contron
+M106 P1 C"U - Fan" H-1 S0 B0                       ; configure contron
 
 M950 F4 C"1.out2" Q5000                            ; configure Chamber Heater fan
-M106 P4 H4 T80 S1 B0                                 ; configure thermostatic contron
+M106 P4 H4 T80 S1 B0                               ; configure thermostatic contron
 
 M950 F7 C"1.out5" Q500                             ; configure CrFan
-M106 P7 H3 T50 S1 B0                                  ; configure thermostatic contron
+M106 P7 H3 T50 S1 B0                               ; configure thermostatic contron
 
 ; LEDs
 M950 P1 C"1.out6" Q5000                       ; Red LEDs
@@ -143,7 +142,7 @@ G10 P0 X0 Y0 Z0 U0                                 ; set tool offsets
 G10 P0 R0 S0                                       ; set initial tool active and standby temperatures
 
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool
-M98 P"0:/user/tooloffset.g"                       ; Load tool offsets
+M98 P"0:/user/tooloffset.g"                        ; Load tool offsets
 G10 P1 R0 S0                                       ; set initial tool active and standby temperatures
 
 M563 P2 S"Duplicate Mode" D0:1 H0:1 X0:3 F1:3      ; tool 2 uses both extruders and hot end heaters, maps X to both X and U, and uses both print cooling fans
