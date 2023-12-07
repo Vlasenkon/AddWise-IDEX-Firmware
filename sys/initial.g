@@ -1,5 +1,4 @@
 M98 P"0:/sys/led/start_cold.g"
-M106 P5 S1 ; Turn E-Cooling Fan on
 
 
 var S0 = tools[0].active[0]

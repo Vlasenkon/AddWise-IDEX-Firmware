@@ -16,7 +16,6 @@ G1 Z100 F18000 ; lift Z
 G90            ; absolute positioning
 G1 Y150 F6000
 
-M106 P5 S0
 M106 S0
 
 

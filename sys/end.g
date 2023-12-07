@@ -25,7 +25,6 @@ G90
 G1 Y150 F18000
 
 ; Disable Fans
-M106 P5 S0
 M106 P3 S0
 M106 P1 S0
 

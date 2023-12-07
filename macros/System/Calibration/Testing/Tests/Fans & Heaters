@@ -1,8 +1,3 @@
-M106 P5 S1
-M291 R"E Cooling Fan Test" P" " S3
-M106 P5 S0
-
-
 M140 S50 R50
 M291 R"Bed Heater Test" P" " S3
 M140 S0 R0

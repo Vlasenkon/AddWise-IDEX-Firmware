@@ -9,7 +9,6 @@ M141 S95 R95
 ; Fans
 M106 P1 S0.5
 M106 P3 S0.5
-M106 P5 S1
 
 ; Homing XYU axis if they are not homed
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
@@ -92,6 +91,5 @@ M140 S0 R0
 M141 S0 R0
 M98 P"0:/macros/Close the Lid"
 G1 Z440
-M106 P5 S1
 M98 P"0:/sys/end.g"
 M81S1

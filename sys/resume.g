@@ -15,8 +15,6 @@ T-1
 T R1                 ; select the tool that was active last time the print was paused
 
 
-
-M106 P5 S1
 M106 R1  ; Recover part cooling
 
 M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset

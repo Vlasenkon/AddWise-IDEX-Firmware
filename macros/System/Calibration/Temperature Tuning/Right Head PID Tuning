@@ -3,7 +3,6 @@ var tt = {input}
 
 
 ; Disable Fans
-M106 P5 S0
 M106 P3 S0
 M106 P1 S0
 

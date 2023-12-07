@@ -1,7 +1,6 @@
 M291 S3 J1 R"PID tune will be started" P"Click OK if ready to proceed, do not leave printer unattended"
 
 ; Disable Fans
-M106 P5 S0
 M106 P3 S0
 M106 P1 S0
 
