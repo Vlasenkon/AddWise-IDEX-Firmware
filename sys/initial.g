@@ -11,7 +11,9 @@ M568 P1 S{0} R{0}
 M568 P2 S{0, 0} R{0, 0}
 M568 P3 S{0, 0} R{0, 0}
 
-M116 H2 S20
+if !exists(param.W)
+  M116 H2 S10
+  M98 P"0:/user/chamberwait.g"
 
 
 ; Preheat
@@ -47,20 +49,13 @@ else
   M568 P3 S{0, 0} R{0, 0}
 
 
-
-
-
-if !exists(param.W)
-  M116 H2 S10
-  M98 P"0:/user/chamberwait.g"
-
-
 M98 P"0:/sys/led/start_hot.g"
 
 
 G60 S0 ; Save selectrd tool to slot 0
 
-M98 P"homeall.g" Z1 S1 L1 ; Home the machine
+;M98 P"0:/sys/homeall.g"; Z1 S1 L1 ; Home the machine
+G28
 if result !=0
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
