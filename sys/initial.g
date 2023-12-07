@@ -6,6 +6,14 @@ var S1 = tools[1].active[0]
 var R0 = tools[0].standby[0]
 var R1 = tools[1].standby[0]
 
+M568 P0 S{0} R{0}
+M568 P1 S{0} R{0}
+M568 P2 S{0, 0} R{0, 0}
+M568 P3 S{0, 0} R{0, 0}
+
+M116 H2 S20
+
+
 ; Preheat
 if var.S0 > 0 && var.S1 > 0
   T3 P0
@@ -16,20 +24,17 @@ if var.S0 > 0 && var.S1 > 0
   if !exists(param.W)
     M116 P3 S20
 
-
 elif var.S0 > 0
   T0 P0
   M568 P0 S{var.S0} R{var.S0}
   if !exists(param.W)
     M116 P0 S20
 
-
 elif var.S1 > 0
   T1 P0
   M568 P1 S{var.S1} R{var.S1}
   if !exists(param.W)
     M116 P1 S20
-
 
 else
   M98 P"0:/sys/led/fault.g"
@@ -40,6 +45,8 @@ else
   M568 P1 S{0} R{0}
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
+
+
 
 
 
@@ -129,5 +136,5 @@ else
 
 M98 P"0:/sys/entoolchangeretraction.g"  ; Enable ToolChange Retraction
 
-M208 Z-1 S1         ; set axis minima to allow for wider range of Z - Offset
+M208 Z-1 S1                      ; set axis minima to allow for wider range of Z - Offset
 M204 P5000 T5000                 ; set the accelerations
