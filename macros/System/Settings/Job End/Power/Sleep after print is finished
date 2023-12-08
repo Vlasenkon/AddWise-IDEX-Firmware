@@ -2,10 +2,10 @@
 
 
 var aa = "M98 P""0:/macros/System/Settings/"
-var bb = "Job end machine behaviour/Bed Position"
+var bb = "Job End/Bed Position"
 var cc = "/Lower the bed after print is finished"""
 
-M98 P"0:/macros/System/Settings/Job end machine behaviour/Bed Position/Lower the bed after print is finished"
+M98 P"0:/macros/System/Settings/Job end/Bed Position/Lower the bed after print is finished"
 
 echo >"0:/user/powerendbehavior.g" ""^{var.aa}^""^{var.bb}^""^{var.cc}
 
