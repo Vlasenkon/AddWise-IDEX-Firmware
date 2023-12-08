@@ -1,1 +1,1 @@
-M591 P1 C"duex.e2stop" S1 D0 ; Enable filament sensor 0 monitoring
+M591 P1 C"1.io3" S1 D0 ; Enable filament sensor 0 monitoring
