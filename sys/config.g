@@ -67,8 +67,8 @@ M208  U208  X162  Y175 Z450 S0                     ; set axis maxima
 M574 X1 S1 P"io4.in"                                ; configure endstop
 M574 U2 S1 P"io5.in"                                ; configure endstop
 M574 Y1 S1 P"io1.in+io2.in"                         ; configure endstop
-;M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
-;M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
+M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
+M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
 ; Probe 
 M950 S0 C"out9"                                    ; define servo pin
