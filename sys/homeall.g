@@ -1,19 +1,19 @@
 ; Home Y
-M98 P"homey.g" L1
+M98 P"0:/sys/homey.g" L1
 
-
-M98 P"homex.g"
-
-M98 P"homeu.g"
+;G28 X
+;G28 U
+M98 P"0:/sys/homex.g"
+M98 P"0:/sys/homeu.g"
 
 if exists(param.L) && exists(param.S)
-  M98 P"bed.g" L1 S1 Z1
+  M98 P"0:/sys/bed.g" L1 S1 Z1
 elif exists(param.L)
-  M98 P"bed.g" L1 Z1
+  M98 P"0:/sys/bed.g" L1 Z1
 elif exists(param.S)
-  M98 P"bed.g" S1 Z1
+  M98 P"0:/sys/bed.g" S1 Z1
 else
-  M98 P"bed.g" Z1
+  M98 P"0:/sys/bed.g" Z1
 if result !=0
   M98 P"0:/sys/led/fault.g"
   echo >>"Cancelled due to True Bed Leveling Error"

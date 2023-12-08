@@ -1,4 +1,4 @@
 if exists(global.xcomp)
-  set global.xcomp = 2.739167
+  set global.xcomp = 0.0191669
 else
-  global xcomp = 2.739167
+  global xcomp = 0.0191669
