@@ -19,7 +19,7 @@ if !exists(param.S)
   M83                 ; relative extruder moves
   G1 E-20 F{60}*{50}   ; retract filament
   
-  G1 F18000 X-50 U50 Y-150 Z200  ; Move tools to the cleaning position
+  G1 F18000 X-50 U50 Y-150 Z125  ; Move tools to the cleaning position
   M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
   
   M98 P"0:/sys/homeall.g" S1 L1
@@ -163,4 +163,4 @@ if !exists(param.S)
   M98 P"0:/user/probeoffset.g"                       ; load global variables
   
   G90
-  G1 X-999 U999 Y150 Z200 F18000
+  G1 X-999 U999 Y150 Z100 F18000
