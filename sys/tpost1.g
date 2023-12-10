@@ -1,4 +1,4 @@
-M204 T5000
+;M204 T5000
 
 ; Lower Z to 10mm if lower than that for safety
 if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
@@ -17,8 +17,7 @@ G1 X-30
 G1 X30
 G90
 
-;M106 S0
 M106 R2
 G1 R2 Z0
 
-M204 T5000
+;M204 T5000
