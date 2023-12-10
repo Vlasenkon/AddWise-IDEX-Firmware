@@ -38,7 +38,7 @@ M569 P0.1 S1
 M569 P0.2 S0                                          
 M569 P0.3 S1                                          
 M569 P0.4 S0                                          
-M569 P0.5 S0                                          
+M569 P0.5 S1                                          
 M569 P1.0 S0                                         
 M569 P1.1 S0                                          
 M569 P1.2 S0                                         
@@ -59,8 +59,8 @@ M84 S10                                            ; set idle timeout
 M204 P5000 T5000
 
 ; Axis Limits
-M208 X-208 U-162 Y-175 Z0   S1                     ; set axis minima
-M208  U208  X162  Y175 Z450 S0                     ; set axis maxima
+M208 X-206 U-161 Y-175 Z0   S1                     ; set axis minima
+M208  U206  X161  Y175 Z450 S0                     ; set axis maxima
 
 
 ; Endstops
