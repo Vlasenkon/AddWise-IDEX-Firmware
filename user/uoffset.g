@@ -1,4 +1,4 @@
 if exists(global.uoffset)
-  set global.uoffset = 1.610695
+  set global.uoffset = 0.4166641
 else
-  global uoffset = 1.610695
+  global uoffset = 0.4166641
