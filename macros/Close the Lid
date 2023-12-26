@@ -1,0 +1,11 @@
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+  G28
+
+
+if move.axes[2].machinePosition < 20
+  G91
+  G1 F18000 Z{20}-move.axes[2].machinePosition
+  G90
+
+T0 P0
+G1 X-55 U55 Y-170 F18000

@@ -1,0 +1,9 @@
+echo >"0:/user/wifimode.g" "M552 S1 ; Enable Access Point mode"
+
+if !exists(param.R)
+    M291 R"Do you want to restart WiFi module and switch mode now?" P" " S3
+    M552 S-1
+    G4S1
+    M98 P"0:/user/wifimode.g"
+    G4S1
+	M98 P"0:/sys/testwifi.g"

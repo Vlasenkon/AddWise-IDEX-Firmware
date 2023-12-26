@@ -1,6 +1,0 @@
-M291 P"Before connecting to the WiFi  use M587 command to define Name and Password of WiFi network. Click OK if this step is already done or Cancel" S3
-
-M291 P"WiFi module will try to connect to specified WiFi network, if the connection is successful Blue LED will light up on the mainboard (right board, top left corner), if not restart the machine by unplugging power cable for 5 seconds." S3
-M291 P"If connected successfully go to your router's settings to find IP address assigned to your printer or connect with USB to the mainboard and send M552 command (via a preferred application like Pronterface or similar) to get IP address manually" S3
-
-M291 P"It is recommended to assign a static IP address to the machine, this should be done through your router's settings or by adding machines IP adress after command used previously: M587 S P I192.168.0.1 (Replace  with your IP)" S3

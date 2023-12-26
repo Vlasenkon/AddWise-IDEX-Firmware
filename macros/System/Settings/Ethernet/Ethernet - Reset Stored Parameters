@@ -1,0 +1,1 @@
+echo >"0:/user/ethernet.g" "M552 S1"
