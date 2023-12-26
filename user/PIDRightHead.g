@@ -1,0 +1,1 @@
+M307 H1 R2.498 K0.223:0.031 D10.16 E1.35 S1.00 B0 V24.2        ; disable bang-bang mode for heater  and set PWM limit
