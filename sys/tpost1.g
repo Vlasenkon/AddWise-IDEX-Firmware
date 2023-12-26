@@ -6,7 +6,7 @@ if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.s
 	G1 F18000 Z10
 
 G90
-G1 Y-70 X-999 U999 F18000
+G1 Y-75 X-999 U999 F18000
 
 M98 P"0:/user/toolchangeretraction.g" E1
 
