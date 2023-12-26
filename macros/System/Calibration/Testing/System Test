@@ -1,0 +1,464 @@
+M291 R"Bed Heater Test" P" " S3
+M140 S50 R50
+G4 S2
+M140 S-273.1 R0
+
+
+M291 R"Chamber Heater Test" P" " S3
+
+M141 S50 R50
+G4 S2
+M141 S-273.1 R0
+
+
+M291 R"Chamber Fan Test" P" " S3
+M106 P4 S1 H4 T10
+G4 S5
+M106 P4 S1 H4 T60
+
+M291 R"E Cooling Fan Test" P" " S3
+M106 P5 S1
+G4 S5
+M106 P5 S0
+
+M291 R"Left Tool Fan Test" P" " S3
+M106 P3 S1
+G4 S5
+M106 P3 S0
+
+M291 R"Right Tool Fan Test" P" " S3
+M106 P1 S1
+G4 S5
+M106 P1 S0
+
+M291 R"Left Tool Heater & Fan Test" P" " S3
+T0 P0
+G10 P0 R80 S80
+M116 S20
+G10 P0 R0 S0
+
+M291 R"Right Tool Heater & Fan Test" P" " S3
+T1 P0
+G10 P1 R80 S80
+M116 S20
+G10 P1 R0 S0
+T0 P0
+
+M291 R"Left Extruder Motor Direction Test" P" " S3
+M302 P1
+T0 P0
+M83 ; Extruder to relative mode
+G1 E200 F3000 ; Feed filament
+
+
+M291 R"Right Extruder Motor Direction Test" P" " S3
+M302 P1
+T1 P0
+M83 ; Extruder to relative mode
+G1 E200 F3000 ; Feed filament
+T0 P0
+
+M291 R"LED Test" P" " S3
+
+M106 P6 S0
+G4 S.25
+M42 P1 S0.1
+G4 S2
+M42 P1 S0
+G4 S.25
+M42 P2 S0.1
+G4 S2
+M42 P2 S0
+G4 S.25
+M42 P3 S0.1
+G4 S2
+M42 P3 S0
+
+M42 P1 S1
+M42 P2 S1
+M42 P3 S1
+G4 S3
+M42 P1 S0
+M42 P2 S0
+M42 P3 S0
+M106 P6 S1
+
+M291 R"BLTouch Self Test" P" " S3
+M280 P0 S120 I1
+
+
+M291 R"Check Belt tension and Tilt the Bed" P"Click OK when ready. Machine will be homed" S3
+G28
+
+M291 R"Z Binding Test" P"Click OK when ready. Z Axis will go all the way down" S3
+G90
+G1 Z440 F3000
+G1 Z450
+G1 Z440
+G1 Z450
+G1 Z440
+
+
+
+
+
+
+
+
+
+M291 R"XY Movement test" P"Click OK when ready" S3
+;Corners Left Tool
+T0
+G1 X-200 U200 Y160 F24000
+G1 X-200 Y-175
+G1 X144  Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+;Diagonal 1
+G1 X144 Y-175
+G1 X-200 Y160
+
+;Diagonal 2
+G1 X144  Y160
+G1 X-200 Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+
+;Corners Right Tool
+G1 X-200 U200 Y160
+G1 U200 Y-175
+G1 U-144  Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+;Diagonal 1
+G1 U-144 Y-175
+G1 U200 Y160
+
+;Diagonal 2
+G1 U-144  Y160
+G1 U200 Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+
+
+;Mirror Mode Corners
+T3
+G1 X-200 Y160 F18000
+G1 X-200 Y-175
+G1 X-25  Y-175
+G1 X-25  Y160
+G1 X-200 Y160
+
+;Mirror Mode ZigZag
+G1 X-25  Y103
+G1 X-200 Y65
+G1 X-25  Y0
+G1 X-200 Y-65
+G1 X-25 Y-118
+G1 X-200 Y-175
+
+G1 X-25  Y-175
+
+G1 X-200 Y-63
+G1 X-25  Y48
+G1 X-200 Y160
+
+
+;Duplicate Mode ZigZag
+T2
+G1 X97.5    Y48
+G1 X-102.5 Y-63
+G1 X2.5  Y-175
+G1 X2.5  Y160
+
+
+M291 R"Should XY Movement test be performed again? 2/5" P"Click OK when ready" S3
+;Corners Left Tool
+T0
+G1 X-200 U200 Y160 F24000
+G1 X-200 Y-175
+G1 X144  Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+;Diagonal 1
+G1 X144 Y-175
+G1 X-200 Y160
+
+;Diagonal 2
+G1 X144  Y160
+G1 X-200 Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+
+;Corners Right Tool
+G1 X-200 U200 Y160
+G1 U200 Y-175
+G1 U-144  Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+;Diagonal 1
+G1 U-144 Y-175
+G1 U200 Y160
+
+;Diagonal 2
+G1 U-144  Y160
+G1 U200 Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+
+
+;Mirror Mode Corners
+T3
+G1 X-200 Y160 F18000
+G1 X-200 Y-175
+G1 X-25  Y-175
+G1 X-25  Y160
+G1 X-200 Y160
+
+;Mirror Mode ZigZag
+G1 X-25  Y103
+G1 X-200 Y65
+G1 X-25  Y0
+G1 X-200 Y-65
+G1 X-25 Y-118
+G1 X-200 Y-175
+
+G1 X-25  Y-175
+
+G1 X-200 Y-63
+G1 X-25  Y48
+G1 X-200 Y160
+
+
+;Duplicate Mode ZigZag
+T2
+G1 X97.5    Y48
+G1 X-102.5 Y-63
+G1 X2.5  Y-175
+G1 X2.5  Y160
+
+
+
+
+M291 R"Should XY Movement test be performed again? 3/5" P"Click OK when ready" S3
+;Corners Left Tool
+T0
+G1 X-200 U200 Y160 F24000
+G1 X-200 Y-175
+G1 X144  Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+;Diagonal 1
+G1 X144 Y-175
+G1 X-200 Y160
+
+;Diagonal 2
+G1 X144  Y160
+G1 X-200 Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+
+;Corners Right Tool
+G1 X-200 U200 Y160
+G1 U200 Y-175
+G1 U-144  Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+;Diagonal 1
+G1 U-144 Y-175
+G1 U200 Y160
+
+;Diagonal 2
+G1 U-144  Y160
+G1 U200 Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+
+
+;Mirror Mode Corners
+T3
+G1 X-200 Y160 F18000
+G1 X-200 Y-175
+G1 X-25  Y-175
+G1 X-25  Y160
+G1 X-200 Y160
+
+;Mirror Mode ZigZag
+G1 X-25  Y103
+G1 X-200 Y65
+G1 X-25  Y0
+G1 X-200 Y-65
+G1 X-25 Y-118
+G1 X-200 Y-175
+
+G1 X-25  Y-175
+
+G1 X-200 Y-63
+G1 X-25  Y48
+G1 X-200 Y160
+
+
+;Duplicate Mode ZigZag
+T2
+G1 X97.5    Y48
+G1 X-102.5 Y-63
+G1 X2.5  Y-175
+G1 X2.5  Y160
+
+
+
+
+
+M291 R"Should XY Movement test be performed again? 4/5" P"Click OK when ready" S3
+;Corners Left Tool
+T0
+G1 X-200 U200 Y160 F24000
+G1 X-200 Y-175
+G1 X144  Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+;Diagonal 1
+G1 X144 Y-175
+G1 X-200 Y160
+
+;Diagonal 2
+G1 X144  Y160
+G1 X-200 Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+
+;Corners Right Tool
+G1 X-200 U200 Y160
+G1 U200 Y-175
+G1 U-144  Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+;Diagonal 1
+G1 U-144 Y-175
+G1 U200 Y160
+
+;Diagonal 2
+G1 U-144  Y160
+G1 U200 Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+
+
+;Mirror Mode Corners
+T3
+G1 X-200 Y160 F18000
+G1 X-200 Y-175
+G1 X-25  Y-175
+G1 X-25  Y160
+G1 X-200 Y160
+
+;Mirror Mode ZigZag
+G1 X-25  Y103
+G1 X-200 Y65
+G1 X-25  Y0
+G1 X-200 Y-65
+G1 X-25 Y-118
+G1 X-200 Y-175
+
+G1 X-25  Y-175
+
+G1 X-200 Y-63
+G1 X-25  Y48
+G1 X-200 Y160
+
+
+;Duplicate Mode ZigZag
+T2
+G1 X97.5    Y48
+G1 X-102.5 Y-63
+G1 X2.5  Y-175
+G1 X2.5  Y160
+
+
+
+
+
+M291 R"Should XY Movement test be performed again? 5/5" P"Click OK when ready" S3
+;Corners Left Tool
+T0
+G1 X-200 U200 Y160 F24000
+G1 X-200 Y-175
+G1 X144  Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+;Diagonal 1
+G1 X144 Y-175
+G1 X-200 Y160
+
+;Diagonal 2
+G1 X144  Y160
+G1 X-200 Y-175
+G1 X144  Y160
+G1 X-200 Y160
+
+
+;Corners Right Tool
+G1 X-200 U200 Y160
+G1 U200 Y-175
+G1 U-144  Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+;Diagonal 1
+G1 U-144 Y-175
+G1 U200 Y160
+
+;Diagonal 2
+G1 U-144  Y160
+G1 U200 Y-175
+G1 U-144  Y160
+G1 U200 Y160
+
+
+
+;Mirror Mode Corners
+T3
+G1 X-200 Y160 F18000
+G1 X-200 Y-175
+G1 X-25  Y-175
+G1 X-25  Y160
+G1 X-200 Y160
+
+;Mirror Mode ZigZag
+G1 X-25  Y103
+G1 X-200 Y65
+G1 X-25  Y0
+G1 X-200 Y-65
+G1 X-25 Y-118
+G1 X-200 Y-175
+
+G1 X-25  Y-175
+
+G1 X-200 Y-63
+G1 X-25  Y48
+G1 X-200 Y160
+
+
+;Duplicate Mode ZigZag
+T2
+G1 X97.5    Y48
+G1 X-102.5 Y-63
+G1 X2.5  Y-175
+G1 X2.5  Y160

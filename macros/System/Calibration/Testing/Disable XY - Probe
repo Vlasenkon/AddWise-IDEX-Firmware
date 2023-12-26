@@ -1,3 +1,0 @@
-;M558 K0 P5 C"!duex.e6stop"     ; Reassign the probe
-;G4 P500
-M42 P4 S0                      ; Turn on relay

@@ -1,24 +1,15 @@
-M204 T5000
+; tpost0.g
+; called after tool 0 has been selected
 
-; Lower Z to 10mm if lower than that for safety
-if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
-	G90
-	G1 F18000 Z10
 
 G90
-G1 Y-70 X-999 U999 F18000
-
-M98 P"0:/user/toolchangeretraction.g" E1
-
+G1 Y-75 U999 X-999 F18000
 G91
-G1 X30 F12000
+;M83
+;G1 E3 F600
+
+G1 X30
 G1 X-30
 G1 X30
 G1 X-30
 G90
-
-;M106 S0
-M106 R2
-G1 R2 Z0
-
-M204 T5000
