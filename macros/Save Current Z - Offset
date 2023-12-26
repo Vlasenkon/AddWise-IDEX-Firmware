@@ -30,7 +30,7 @@ else
   set global.zoffset = global.zoffset - move.axes[2].babystep  ; Apply babystepping to zoffset
 
   echo >"0:/user/probeoffset.g" "; Set Z probe trigger value, offset and trigger height"
-  echo >>"0:/user/probeoffset.g" "G31 P500 X0 Y28.50 Z"^{global.zoffset}
+  echo >>"0:/user/probeoffset.g" "G31 P500 X19.50 Y-23.00 Z"^{global.zoffset}
   
   echo >"0:/user/zoffset.g" "if exists(global.zoffset)"
   echo >>"0:/user/zoffset.g" "  set global.zoffset = "^{global.zoffset}
