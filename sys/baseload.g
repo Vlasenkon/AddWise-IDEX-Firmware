@@ -43,5 +43,7 @@ G60 S2 ; Remember last tool selected
 T-1  ; Deselect all tools
 T R2 ; Select tool from memory slot
 
-G10 S0 R0 ; Turn off the heater
-M84 E0:1
+
+if {state.status != "pausing" || state.status != "paused" || state.status != "resuming"}
+  G10 S0 R0 ; Turn off the heater
+  M84 E0:1
