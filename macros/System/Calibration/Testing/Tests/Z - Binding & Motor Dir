@@ -12,9 +12,9 @@ M83 ; Extruder to relative mode
 G1 E100 F1000 ; Feed filament
 T0 P0
 
-
 M564 H0
 M291 R"Move Z - Axis" P" " S3 Z1
+
 
 M84
 M291 R"Check Belt Tension" P" " S3

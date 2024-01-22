@@ -18,8 +18,6 @@ M291 R"Right Tool Fan Test" P" " S3
 M106 P1 S0
 
 
-
-
 T0 P0
 G10 P0 R80 S80
 M291 R"Left Tool Heater & Fan Test" P" " S3
