@@ -59,14 +59,14 @@ M84 S10                                            ; set idle timeout
 M204 P5000 T5000
 
 ; Axis Limits
-M208 X-206 U-161 Y-175 Z0   S1                     ; set axis minima
-M208  U206  X161  Y175 Z450 S0                     ; set axis maxima
+M208 X-208 U-161 Y-175 Z0   S1                     ; set axis minima
+M208  U208  X161  Y175 Z450 S0                     ; set axis maxima
 
 
 ; Endstops
-M574 X1 S1 P"io4.in"                                ; configure endstop
-M574 U2 S1 P"io5.in"                                ; configure endstop
-M574 Y1 S1 P"io1.in+io2.in"                         ; configure endstop
+M574 X1 S1 P"io4.in"                               ; configure endstop
+M574 U2 S1 P"io5.in"                               ; configure endstop
+M574 Y1 S1 P"io1.in+io2.in"                        ; configure endstop
 M98 P"0:/user/filamentsensor0.g"                   ; configure endstop
 M98 P"0:/user/filamentsensor1.g"                   ; configure endstop
 
