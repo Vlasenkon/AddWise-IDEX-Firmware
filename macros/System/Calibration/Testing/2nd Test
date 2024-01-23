@@ -2,9 +2,9 @@ M291 R"Was Z - Probe Set Up?" P" " S3
 
 M98 P"0:/macros/System/Calibration/Testing/Tests/True Bed Leveling"
 
-M98 P"0:/macros/System/Calibration/Testing/Tests/XY - Auto Alignment"
-
 
 M98 P"0:/macros/Close the Lid"
+
 M291 R"Close Door & Lid" P"Machine will heat up and move watch for spikes in temperature graph" S3
+
 M98 P"0:/macros/System/Calibration/Testing/Tests/XY - Movement"
