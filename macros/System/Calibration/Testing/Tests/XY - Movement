@@ -25,7 +25,7 @@ M116 H1 S5
 
 
 
-while sensors.analog[3].lastReading <= 95
+while sensors.analog[3].lastReading <= 80
   ;Corners Left Tool
   T0
   G1 X-200 U200 Y160 F24000
