@@ -27,6 +27,7 @@ M116 S15; Wait for the temperatures to be reached
 M98 P"0:/sys/led/start_hot.g"
   
 M291 R"Retracting Filament" P" " T5 ; Display  message
+G1 E10 F600 ; Extrude
 G1 E-20 F{var.ss} ; Retract
 G1 E-100 F{var.ss} ; Retract
 M400 ; Wait for the moves to finish
