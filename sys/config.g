@@ -97,14 +97,14 @@ M140 H2                                            ; map heated bed to heater
 M143 H2 S210                                       ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                  ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3900 ; configure temperature sensor
+M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3050 ; configure temperature sensor
 M950 H3 C"1.out1" Q10 T3                           ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; configure PID parameters
 M141 H3                                            ; map chamber to heater
 M143 H3 S110                                       ; configure temperature limit for the heater
 M98 P"0:/user/faultdetection.g"                    ; configure heater fault detection
 
-M308 S4 A"Chamber Heater" P"1.temp2" Y"thermistor" T100000 B2900  ; configure temperature sensor
+M308 S4 A"Chamber Heater" P"1.temp2" Y"thermistor" T100000 B3700  ; configure temperature sensor
 M143 H3 S170 T4 A2                                                ; configure temperature limit for the heater
 
 
