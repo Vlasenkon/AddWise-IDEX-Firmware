@@ -92,9 +92,12 @@ var dd = var.zp - var.zn
 echo "New Z offset is: "^{var.dd}^" mm"
 
 
+;======= Aditional offset ======= Increase (+) to lower, Decrease (-) to raise
+
+set global.zoffset = var.dd - {0.3}  ; Apply babystepping to zoffset (add for less Z offset)
+
 ;======= Aditional offset =======
 
-set global.zoffset = var.dd + {0.1}  ; Apply babystepping to zoffset (add for less Z offset)
 
 echo >"0:/user/probeoffset.g" "; Set Z probe trigger value, offset and trigger height"
 echo >>"0:/user/probeoffset.g" "G31 P500 X0 Y28.50 Z"^{global.zoffset}
