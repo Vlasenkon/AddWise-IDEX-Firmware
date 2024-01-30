@@ -120,7 +120,8 @@ M950 F1 C"out8" Q500                               ; configure fan
 M106 P1 C"U - Fan" H-1 S0 B0                       ; configure contron
 
 M950 F4 C"1.out2" Q5000                            ; configure Chamber Heater fan
-M106 P4 H4 T80 S1 B0                               ; configure thermostatic contron
+M106 P4 H4 T80 S1 B1                               ; configure thermostatic contron
+;M106 P4 H-1 S0.5 B1
 
 M950 F7 C"1.out5" Q500                             ; configure CrFan
 M106 P7 H3 T50 S1 B0                               ; configure thermostatic contron
