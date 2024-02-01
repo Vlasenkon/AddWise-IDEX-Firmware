@@ -94,7 +94,7 @@ echo "New Z offset is: "^{var.dd}^" mm"
 
 ;======= Aditional offset ======= Increase (+) to lower, Decrease (-) to raise
 
-set global.zoffset = var.dd - {0.3}  ; Apply babystepping to zoffset (add for less Z offset)
+set global.zoffset = var.dd - {0.25}  ; Apply babystepping to zoffset (add for less Z offset)
 
 ;======= Aditional offset =======
 

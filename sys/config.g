@@ -104,7 +104,7 @@ M141 H3                                            ; map chamber to heater
 M143 H3 S110                                       ; configure temperature limit for the heater
 M98 P"0:/user/faultdetection.g"                    ; configure heater fault detection
 
-M308 S4 A"Chamber Heater" P"1.temp2" Y"thermistor" T100000 B3700  ; configure temperature sensor
+M308 S4 A"Chamber Heater" P"1.temp2" Y"thermistor" T100000 B3950  ; configure temperature sensor
 M143 H3 S170 T4 A2                                                ; configure temperature limit for the heater
 
 

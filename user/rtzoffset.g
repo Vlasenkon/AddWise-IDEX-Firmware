@@ -1,4 +1,4 @@
 if exists(global.rtzoffset)
-  set global.rtzoffset = -0.0108334
+  set global.rtzoffset = 0
 else
-  global rtzoffset = -0.0108334
+  global rtzoffset = 0
