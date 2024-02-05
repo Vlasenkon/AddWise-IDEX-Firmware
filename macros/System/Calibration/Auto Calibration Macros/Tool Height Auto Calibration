@@ -65,6 +65,8 @@ G1 Z5
 
 var lll = (var.ll1 + var.ll2 + var.ll3)/3
 
+;echo "Left "^{var.lll}^" mm"
+
 
 G90
 G1 X-999 F18000
@@ -91,10 +93,16 @@ M42 P4 S0                ; Turn off relay
 var rrr = (var.rr1 + var.rr2 + var.rr3)/3
 var ddd = {var.lll - var.rrr}
 
+;echo "Right "^{var.rrr}^" mm"
 
 
-if   abs(var.ddd) < 0.05
-  set global.rtzoffset = var.ddd
+
+if   abs(var.ddd) < 0.05 ; ===If delta is less than allowed value===
+
+  if exists(global.rtzoffset)
+    set global.rtzoffset = var.ddd
+  else
+    global rtzoffset = var.ddd
 
   ; Generate rtzoffset.g
   echo >"0:/user/rtzoffset.g" "if exists(global.rtzoffset)"
@@ -108,7 +116,8 @@ if   abs(var.ddd) < 0.05
 
   echo "Good, deviation is "^{var.ddd}^" mm"
 
-else
+else ; ===If delta is more than allowed value===
+
   M291 R{"Calibration will be performed, deviation is "^var.ddd^" mm"} P" " S3
   
   ;====Left is Lower====
