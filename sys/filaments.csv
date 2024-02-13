@@ -1,4 +1,3 @@
-RepRapFirmware filament assignment file v1 generated at 2023-08-01 14:49
+RepRapFirmware filament assignment file v1 generated at 2022-07-15 10:46
 extruder,filament
-1,ABS or ASA
-0,ABS or ASA
+0,PEI (9085 or 1010)
