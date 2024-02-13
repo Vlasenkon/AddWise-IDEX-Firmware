@@ -1,3 +1,8 @@
+if state.status == "off"
+  M80                      ; Turn on power
+  G4 S3
+
+
 ; Preheat
 M98 P"essential/leds/start_cold.g"
 M98 P"essential/preheat.g"
