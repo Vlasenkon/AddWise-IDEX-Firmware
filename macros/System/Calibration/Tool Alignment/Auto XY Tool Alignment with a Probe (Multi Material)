@@ -178,4 +178,4 @@ G10 P1 R0 S0
 G10 P2 R0 S0
 G10 P3 R0 S0
 
-M291 R"Finished successfully, Remove the probe!" P" " T10
+M291 R"Finished successfully, Remove the probe!" P" " S2
