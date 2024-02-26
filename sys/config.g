@@ -11,9 +11,12 @@ if boards[0].shortName = "2Ethernet"
 else
   M98 P"0:/user/wifimode.g" 
   
-M586 P0 S1                                         ; enable HTTP
-M586 P1 S0                                         ; disable FTP
-M586 P2 S0                                         ; disable Telnet
+M586 P0 S1                                         ; HTTP or HTTPS
+M586 P1 S0                                         ; FTP or SFTP
+M586 P2 S0                                         ; Telnet or SSH
+;M586 P3 S0                                        ; Multicast discovery
+;M586 P4 S0                                        ; MQTT
+
 
 ; Drives
 M569 P0 S1                                         ; motor direction
