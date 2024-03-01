@@ -140,7 +140,7 @@ M80 C"pson"
 M280 P0 S90 I1					   				  ; Retract Probe
 
 ; Miscellaneous
-M929 P"eventlog.txt" S1                           ; start logging to file eventlog.txt
+;M929 P"eventlog.txt" S1                           ; start logging to file eventlog.txt
 ;M915 X Y U S15 R3                                ; Enable stall detection
 
 ;M911 S18 R23.5 P"M913 X0 Y0 G91 M83 G1 Z3"       ; set voltage thresholds and actions to run on power loss
