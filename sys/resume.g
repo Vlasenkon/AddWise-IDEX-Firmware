@@ -7,6 +7,7 @@ M568 P0 A1
 M568 P1 A1
 
 T-1
+T0
 T R1                 ; select the tool that was active last time the print was paused
 M116 H0 S5
 M116 H1 S5

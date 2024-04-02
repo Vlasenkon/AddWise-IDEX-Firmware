@@ -3,7 +3,7 @@
 ; General preferences
 G90                                                ; absolute coordinates
 M83                                                ; relative extruder moves
-M550 P"22IDEX V2"                                     ; set printer name
+M550 P"22IDEX"                                     ; set printer name
 
 ; Network
 if boards[0].shortName = "2Ethernet"
