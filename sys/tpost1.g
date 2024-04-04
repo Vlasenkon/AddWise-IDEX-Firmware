@@ -17,7 +17,11 @@ G1 X-30
 G1 X30
 G90
 
+;M98 P"0:/user/tooloffset.g"
+
 M106 R2
 G1 R2 Z0
+
+M98 P"0:/user/tooloffset.g"
 
 ;M204 T5000
