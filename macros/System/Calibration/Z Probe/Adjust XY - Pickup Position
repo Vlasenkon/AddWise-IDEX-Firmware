@@ -1,4 +1,12 @@
 ; Homing XYU axis if they are not homed
+
+
+M564 H0
+G91
+G1 Z20
+G90
+M564 H1
+
 G28 Y
 G28 X
 G28 U
