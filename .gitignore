@@ -30,8 +30,12 @@
 *.exe
 *.out
 *.app
-gcodes/XY - tool alignment. Test ABS.gcode
-gcodes/Slicer Files.zip
-gcodes/Slicer Files.zip
-gcodes/XY - tool alignment. Test ABS.gcode
-sys/config.g.bak
+sys/.DS_Store
+macros/System/Settings/Job End/.DS_Store
+macros/System/Settings/.DS_Store
+macros/System/Calibration/Testing/.DS_Store
+macros/System/Calibration/.DS_Store
+macros/System/.DS_Store
+macros/.DS_Store
+filaments/.DS_Store
+www/.DS_Store

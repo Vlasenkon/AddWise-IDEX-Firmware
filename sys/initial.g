@@ -83,21 +83,21 @@ if var.S0 > 0 && var.S1 > 0
   M568 P2 S{var.S0, var.S1} R{var.R0, var.R1}
   M568 P3 S{var.S0, var.S1} R{var.R0, var.R1}
   if !exists(param.W)
-    M116 P3 S20
+    M116 P3 S5
 elif var.S0 > 0
   M568 P0 S{var.S0} R{var.R0}
   M568 P1 S{0} R{0}
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
   if !exists(param.W)
-    M116 P0 S20
+    M116 P0 S5
 elif var.S1 > 0
   M568 P0 S{0} R{0}
   M568 P1 S{var.S1} R{var.R1}
   M568 P2 S{0, 0} R{0, 0}
   M568 P3 S{0, 0} R{0, 0}
   if !exists(param.W)
-    M116 P1 S20
+    M116 P1 S5
 else
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
