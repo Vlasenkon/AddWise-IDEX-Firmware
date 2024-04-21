@@ -10,7 +10,6 @@ var R1 = tools[1].standby[0]
 var div = 100 ; Diviation for Nozzle temp During Wait for a bed
 
 
-
 ; Preheat (Cold) ===========================================================================
 
 ; Set Tool Temp
@@ -56,7 +55,7 @@ M98 P"0:/sys/led/start_hot.g"
 
 G60 S0 ; Save selectrd tool to slot 0
 
-M98 P"homeall.g" Z1 S1 L1 ; Home the machine
+M98 P"initial-homing.g" Z1 S1 L1 ; Home the machine
 if result !=0
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
