@@ -33,10 +33,7 @@ M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative
 
 G90
 G1 F18000 Z20 X{-155 - sensors.probes[0].offsets[0]} Y{-150 - sensors.probes[0].offsets[1]}
-G38.2 K0 Z{move.axes[2].min}
-if result !=0
-  abort "Cancelled due to Probe Error"
-  M98 P"0:/sys/led/fault.g"
+G30
 
 var pl = move.axes[2].userPosition
 
@@ -45,10 +42,7 @@ G1 Z5
 G90
 
 G1 F18000 X{155 - sensors.probes[0].offsets[0]} Y{-150 - sensors.probes[0].offsets[1]}
-G38.2 K0 Z{move.axes[2].min}
-if result !=0
-  abort "Cancelled due to Probe Error"
-  M98 P"0:/sys/led/fault.g"
+G30
 
 var pr = move.axes[2].userPosition
 
