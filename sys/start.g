@@ -11,3 +11,6 @@ M568 P2 S0 R0
 M568 P3 S0 R0
 
 M204 T5000                 ; set the accelerations
+
+; Disable ToolChange Retraction
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"

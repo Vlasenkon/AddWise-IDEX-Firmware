@@ -1,6 +1,8 @@
 M98 P"0:/sys/led/start_cold.g"
 M106 P5 S1 ; Turn E-Cooling Fan on
 
+; Disable ToolChange Retraction
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
 var S0 = tools[0].active[0]
 var S1 = tools[1].active[0]
@@ -55,7 +57,7 @@ M98 P"0:/sys/led/start_hot.g"
 
 G60 S0 ; Save selectrd tool to slot 0
 
-M98 P"initial-homing.g" Z1 S1 L1 ; Home the machine
+M98 P"0:/sys/homeall.g" Z1 S1 L1 ; Home the machine
 if result !=0
   M98 P"0:/sys/led/fault.g"
   echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
