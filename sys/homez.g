@@ -6,7 +6,7 @@ T0
 
 M558 P9 C"^zprobe.in" H5 F240 T18000
 ;G31 P500 X19.50 Y-23.00 Z3.16            ; set Z probe trigger value, offset and trigger height
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"
 ;When too Low => Subtract the difference
 ;When too High => Add the difference
 

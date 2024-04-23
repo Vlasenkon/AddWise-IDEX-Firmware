@@ -17,7 +17,7 @@ G90                  ; absolute positioning
 ;Fast Home Z
 T0
 M558 P9 C"^zprobe.in" H30 F1200 T18000
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"                       ; define Z probe offsets
 
 
 G90                      ; absolute positioning
@@ -31,7 +31,7 @@ G30 P1 X-36.3 Y-34.3 Z-99999   ; probe near an adjusting screw
 G30 P2 X0 Y50 Z-99999 S3 ; probe near an adjusting screw and report adjustments needed
 
 M558 P9 C"^zprobe.in" H5 F240 T18000
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"                       ; define Z probe offsets
 
 ;True Bed Leveling
 G32

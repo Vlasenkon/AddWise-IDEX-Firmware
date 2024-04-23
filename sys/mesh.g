@@ -6,7 +6,7 @@ G29 S2                                      ; disable MBC
 G1 U999 F18000                              ; move U out of the way
 
 M558 P9 C"^zprobe.in" H5 F240 T18000
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"
 M557 X-175:150 Y-160:150 P4                      ; define mesh grid
 
 G29 S0                                      ; run MBC

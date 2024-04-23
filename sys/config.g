@@ -3,10 +3,13 @@
 ; General preferences
 G90                                                ; send absolute coordinates...
 M83                                                ; ...but relative extruder moves
-M550 P"22 IDEX"                                    ; set printer name
+M550 P"22 IDEX V1"                                    ; set printer name
 
 ; Network
-M98 P"essential/autogen/wifimode.g"                ; enable network
+if boards[0].shortName = "2Ethernet"
+  echo >"0:/sys/runonce.g" "M98 P""0:/user/ethernet.g"""
+else
+  M98 P"0:/user/wifimode.g" 
 M586 P0 S1                                         ; enable HTTP
 M586 P1 S0                                         ; disable FTP
 M586 P2 S0                                         ; disable Telnet
@@ -52,7 +55,7 @@ M574 Z1 S2                                         ; configure Z-probe endstop f
 ; Z-Probe
 M950 S0 C"duex.pwm5"                               ; create servo pin 0 for BLTouch
 M558 K0 P9 C"^zprobe.in" H7 F240 T30000            ; set Z probe type to bltouch and the dive height + speeds
-M98 P"essential/autogen/ProbeOffset.g"
+M98 P"0:/user/ProbeOffset.g"                       ; define Z probe offsets
 
 M558 F300 K1 P8 C"!duex.e6stop" ; create probe #1
 G31 K1 P200
@@ -84,7 +87,7 @@ M950 H3 C"duex.fan5" Q10 T3                        ; create chamber heater outpu
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; Chamber Heater
 M141 H3                                            ; map chamber to heater 3
 M143 H3 S100                                       ; set temperature limit for heater 0 to 100C
-M98 P"essential/autogen/faultdetection.g"		   ; setup chamber heater fault detection
+M98 P"0:/user/faultdetection.g"                    ; configure heater fault detection
 
 
 M308 S4 A"Chamber Heater" P"duex.e3temp" Y"thermistor" T100000 B3950
@@ -108,12 +111,6 @@ M106 P4 S1 H4 T60
 M950 F5 C"duex.fan7"                               ; create fan 4 on pin duex.fan3 and set its frequency
 M106 P5 C"E Cooling" S0 H-1
 
-M950 P4 C"duex.fan8" Q500			               ; Relay Control
-M42  P4 S0
-
-
-
-
 
 
 ; LEDs
@@ -133,7 +130,7 @@ M563 P0 S"Left Head" D0 H0 F3                      ; define tool 0
 G10 P0 X0 Y0 Z0                                    ; set tool 0 axis offsets
 G10 P0 R0 S0                                       ; set initial tool 0 active and standby temperatures to 0C
 M563 P1 S"Right Head" D1 H1 F1 X3                  ; define tool 1
-M98 P"essential/autogen/tooloffset.g"              ; Load tool offsets
+M98 P"0:/user/tooloffset.g"                        ; Load tool offsets
 G10 P1 R0 S0                                       ; set initial tool 1 active and standby temperatures to 0C
 
 M563 P2 S"Duplicate Mode" D0:1 H0:1 X0:3 F1:3      ; tool 2 uses both extruders and hot end heaters, maps X to both X and U, and uses both print cooling fans
@@ -144,28 +141,32 @@ M563 P3 S"Mirroring Mode" D0:1 H0:1 X0:3 F1:3      ; tool 2 uses both extruders 
 G10 P3 X0 Y0 U0 S0 R0                              ; set tool offsets and temperatures for tool 3
 M567 P3 E1:1                                       ; set mix ratio 100% on both extruders
 
-; Custom settings
-M80 C"pson"
-M280 P0 S90 I1					   				  ; Retract Probe
-
-; Miscellaneous
-;M929 P"eventlog.txt" S1                           ; start logging to file eventlog.txt
-;M915 X Y U S15 R3                                ; Enable stall detection
-M376 H0 
-
-;M911 S18 R23.5 P"M913 X0 Y0 G91 M83 G1 Z3"       ; set voltage thresholds and actions to run on power loss
-T1 P0
-T0 P0                                             ; select first tool
-
 ; Load persistent variables
-M98 P"essential/autogen/uoffset.g"
-M98 P"essential/autogen/yoffset.g"
-M98 P"essential/autogen/zoffset.g"
+M98 P"0:/user/uoffset.g"                           ; load global variables
+M98 P"0:/user/yoffset.g"                           ; load global variables
+M98 P"0:/user/zoffset.g"                           ; load global variables
+M98 P"0:/user/eventlogging.g"                      ; load global variables
+M98 P"0:/user/xcomp.g"                             ; load global variables
 
-M98 P"essential/leds/startup.g"
+echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
+echo >"0:/user/resetzbabystep.g" "; do nothing"
 
-; Wait for voltage to stabilize and enable Z motors
+; Custom settings
+M280 P0 S0                                         ; rotate servo to 0 deg
+T1 P0                                              ; select tool 0
+T0 P0                                              ; select tool 0
+M575 P1 S1 B57600                                  ; define PanelDUE
+M80 C"pson"                                        ; define PS_ON pin
+
+
+; Wait for voltage to stabilize and hold Z motors
 while boards[0].vIn.current < 22 && iterations < 20
   G4 P250
 
-M17 Z
+M17 Z            ; Hold Z motors with idle current
+
+; test internet connection
+if boards[0].shortName = "2WiFi"
+  echo >"0:/sys/runonce.g" "M98 P""0:/sys/testwifi.g"""
+
+M98 P"0:/sys/led/startup.g"                        ; startup LED

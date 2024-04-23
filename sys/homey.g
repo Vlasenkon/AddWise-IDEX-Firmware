@@ -3,7 +3,7 @@ G4 S3
 M280 P0 S160 I1
 
 M98 P"tfree3.g"
-M98 P"essential/leds/homeall.g"
+M98 P"0:/sys/led/homeall.g"
 
 T0 P0
 
