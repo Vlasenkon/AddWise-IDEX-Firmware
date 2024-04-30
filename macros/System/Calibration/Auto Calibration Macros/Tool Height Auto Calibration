@@ -64,8 +64,7 @@ var ll3 = move.axes[2].machinePosition
 G1 Z5
 
 var lll = (var.ll1 + var.ll2 + var.ll3)/3
-
-;echo "Left "^{var.lll}^" mm"
+echo "Left "^{var.lll}^" mm"
 
 
 G90
@@ -92,28 +91,27 @@ M42 P4 S0                ; Turn off relay
 
 var rrr = (var.rr1 + var.rr2 + var.rr3)/3
 var ddd = {var.lll - var.rrr}
+echo "Right "^{var.rrr}^" mm"
 
-;echo "Right "^{var.rrr}^" mm"
 
+if exists(global.rtzoffset)
+  set global.rtzoffset = var.ddd
+else
+  global rtzoffset = var.ddd
+
+
+; Generate rtzoffset.g
+echo >"0:/user/rtzoffset.g" "if exists(global.rtzoffset)"
+echo >>"0:/user/rtzoffset.g" "  set global.rtzoffset = "^{var.ddd}
+echo >>"0:/user/rtzoffset.g" "else"
+echo >>"0:/user/rtzoffset.g" "  global rtzoffset = "^{var.ddd}
+
+; Generate tooloffset.g
+echo >"0:/user/tooloffset.g" "; Set tool offsets"
+echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{var.ddd}
 
 
 if   abs(var.ddd) < 0.05 ; ===If delta is less than allowed value===
-
-  if exists(global.rtzoffset)
-    set global.rtzoffset = var.ddd
-  else
-    global rtzoffset = var.ddd
-
-  ; Generate rtzoffset.g
-  echo >"0:/user/rtzoffset.g" "if exists(global.rtzoffset)"
-  echo >>"0:/user/rtzoffset.g" "  set global.rtzoffset = "^{global.rtzoffset}
-  echo >>"0:/user/rtzoffset.g" "else"
-  echo >>"0:/user/rtzoffset.g" "  global rtzoffset = "^{global.rtzoffset}
-  
-  ; Generate tooloffset.g
-  echo >"0:/user/tooloffset.g" "; Set tool offsets"
-  echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
-
   echo "Good, deviation is "^{var.ddd}^" mm"
 
 else ; ===If delta is more than allowed value===

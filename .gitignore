@@ -42,3 +42,5 @@ macros/System/Settings/Job End/.DS_Store
 sys/.DS_Store
 www/.DS_Store
 .DS_Store
+filaments/.DS_Store
+firmware/.DS_Store

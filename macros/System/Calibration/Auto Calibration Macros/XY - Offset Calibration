@@ -51,7 +51,7 @@ G1 Z1 F18000
 ; ===== Probe with the Right tool =====
 ;Move to the 1st probing point
 G90
-G1 Y100 X0 F18000       ;Move to position
+G1 Y95 X0 F18000       ;Move to position
 G91 ; Relative
 G1 Z-2 F18000
 G38.4 K0 X15 ; Probe LX

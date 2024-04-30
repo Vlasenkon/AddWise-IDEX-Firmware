@@ -18,7 +18,11 @@ G4 S2
   
 
 ; Network 
-M552 S1                                        ; enable network and acquire dynamic address via DHCP 
+M552 I1 S0
+G4 S1
+M552 I1 S1
+
+;M552 S1                                        ; enable network and acquire dynamic address via DHCP 
 
 ;M552 S1 P192.168.31.177
 ;M553 P192.168.31.177
@@ -90,14 +94,14 @@ M98 P"0:/user/PIDRightHead.g"                      ; configure PID parameters
 M143 H1 S510                                       ; configure temperature limit for the heater
 M570 H1 P30 T50 R10                                ; configure heater fault detection
 
-M308 S2 A"Bed Heater" P"1.temp1" Y"thermistor" T100000 B3900 ; configure temperature sensor
+M308 S2 A"Bed Heater" P"1.temp1" Y"thermistor" T100000 B4000 ; configure temperature sensor
 M950 H2 C"1.out0" Q10 T2                           ; configure heater
 M98 P"0:/user/PIDBedHead.g"                        ; configure PID parameters
 M140 H2                                            ; map heated bed to heater
 M143 H2 S210                                       ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                  ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3050 ; configure temperature sensor
+M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3600 ; configure temperature sensor
 M950 H3 C"1.out1" Q10 T3                           ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                   ; configure PID parameters
 M141 H3                                            ; map chamber to heater

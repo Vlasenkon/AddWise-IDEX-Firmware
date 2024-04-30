@@ -1,3 +1,9 @@
+
+
+
+
+
+
 ; home all if any of axis was not homed
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   M98 P"homeall.g" L1 S1 Z1
@@ -7,7 +13,7 @@ M98 R1 P"0:/sys/attachedcheck.g"            ; make sure probe is conected, pick 
 M204 T10000                                 ; set accelerations
 G1 U999 F18000                              ; move U out of the way
 
-M558 K0 P8 C"1.io4.in" H2.5 F300 T18000  ; define probe parameters
+M558 K0 P8 C"1.io4.in" H4 F300 T18000  ; define probe parameters
 M98 P"0:/user/ProbeOffset.g"                ; det probe offsets
 M557 X-165:155 Y-146:165 P8                 ; define mesh grid
 
