@@ -37,6 +37,7 @@ G4 S1
 
 M913 Y70
 G1 H1 Y-60 F3000           ; move quickly to X axis endstop and stop there
+M913 Y100
 G90
 M204 T5000                 ; return the accelerations
 
@@ -45,14 +46,25 @@ M204 T5000                 ; return the accelerations
 ; Home X and U
 G90
 G1 Y165 F6000
+
+
 G91                        ; relative positioning
-G1 H1 X-375 U375 F6000     ; move quickly to both axis endstops and stop there (first pass)
-G1 H1 X-375 F6000          ; move quickly to X axis endstop and stop there (first pass)
-G1 H1 U375 F6000           ; move quickly to U axis endstop and stop there (first pass)
+;G1 H1 X-375 U375 F6000     ; move quickly to both axis endstops and stop there (first pass)
+
+G4S2
+G91                     ; relative positioning
+G1 H1 X-375 F6000       ; move quickly to X axis endstop and stop there (first pass)
+
+
+G4S2
+G91                     ; relative positioning
+G1 H1 U375 F6000        ; move quickly to X axis endstop and stop there (first pass)
+
 G90                        ; absolute positioning
 
 ; Home with Y End Stops
 G91
+
 G1 X10 U-10 F6000
 
 
