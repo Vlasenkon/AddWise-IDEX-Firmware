@@ -30,7 +30,7 @@ if !exists(param.S)
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
 M208 Z-5 S1
-M558 K0 P8 C"1.io4.in" H5 F300 T18000
+M558 K0 P8 C"1.io4.in" H5 F100 T18000
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G90
@@ -48,22 +48,10 @@ G90
 G1 X0 Y-10 Z5 F18000
 
 G91
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var ll1 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var ll2 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var ll3 = move.axes[2].machinePosition
+M98 P"0:/sys/nozzleprobe.g" Z1
+var lll = move.axes[2].machinePosition
 G1 Z5
 
-var lll = (var.ll1 + var.ll2 + var.ll3)/3
 echo "Left "^{var.lll}^" mm"
 
 
@@ -71,25 +59,14 @@ G90
 G1 X-999 F18000
 G1 U{0}-{global.uoffset} Y{-10}-{global.yoffset}
 
-G91   
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var rr1 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var rr2 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var rr3 = move.axes[2].machinePosition
-G1 Z10
+G91
+G1 Z-3
+M98 P"0:/sys/nozzleprobe.g" Z10
+var rrr = move.axes[2].machinePosition
+G1 Z5
 
 M42 P4 S0                ; Turn off relay
 
-var rrr = (var.rr1 + var.rr2 + var.rr3)/3
 var ddd = {var.lll - var.rrr}
 echo "Right "^{var.rrr}^" mm"
 

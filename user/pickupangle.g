@@ -1,5 +1,5 @@
 ; Set Z-Probe servo angle
 if exists(global.probePickAngle)
-  set global.probePickAngle = 174
+  set global.probePickAngle = 162
 else
-  global probePickAngle = 174
+  global probePickAngle = 162

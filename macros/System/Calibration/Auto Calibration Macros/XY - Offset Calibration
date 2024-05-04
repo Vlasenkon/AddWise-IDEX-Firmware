@@ -30,7 +30,7 @@ if !exists(param.S)
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
 M208 Z-5 S1
-M558 K0 P8 C"1.io4.in" H5 F300 T18000
+M558 K0 P8 C"1.io4.in" H5 F100 T18000
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G90
@@ -40,28 +40,23 @@ G1 U999 F18000
 ;==== Find Z refference point ====
 G90
 G1 X-20 Y80 Z2 F18000
-
-
 M42 P4 S1                      ; Turn on relay
-G38.4 K0 Z-5 ; Probe Z
-
+M98 P"0:/sys/nozzleprobe.g" Z1
 G91 ; Relative
 G1 Z1 F18000
 
-; ===== Probe with the Right tool =====
+; ===== Probe with the Left tool =====
 ;Move to the 1st probing point
 G90
-G1 Y95 X0 F18000       ;Move to position
+G1 Y100 X0 F18000       ;Move to position
 G91 ; Relative
 G1 Z-2 F18000
-G38.4 K0 X15 ; Probe LX
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" X1
 var spLX = move.axes[0].userPosition
 G1 X-2 F18000
 
 ;Move to the 2nd probing point
-G38.4 K0 X-15 ; Probe LX
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" X-1
 var fpLX = move.axes[0].userPosition
 G1 X2 F18000
 
@@ -71,8 +66,7 @@ var cpLX = var.fpLX - var.diffLX / 2
 G90 ; Absolute
 G1 X{var.cpLX}
 G91 ; Back to relative
-G38.4 K0 Y85 ; Probe LY
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" Y-1
 var fpLY = move.axes[1].userPosition
 G1 Y2 F18000
 
@@ -80,10 +74,11 @@ G1 Y2 F18000
 G90 ; Absolute
 G1 X{var.cpLX}
 G91 ; Back to relative
-G38.4 K0 Y115 ; Probe LY
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" Y1
 var spLY = move.axes[1].userPosition
 
+G91
+G1 Z5
 
 var diffLY = var.fpLY - var.spLY
 var cpLY = var.fpLY - var.diffLY / 2
@@ -96,16 +91,14 @@ var cpLY = var.fpLY - var.diffLY / 2
 G90
 G1 Y{var.cpLY}
 
-G91
-G1 Z10
-
 G90
 G1 X{move.axes[0].min}
+G1 Z2
 
-; ===== Probe with the Left tool =====
+; ===== Probe with the Right tool =====
 
 G1 U{var.cpLX}+20 Y{var.cpLY}-20 F18000
-G38.4 K0 Z-5 ; Probe Z
+M98 P"0:/sys/nozzleprobe.g" Z10
 
 G91 ; Relative
 G1 Z1 F18000
@@ -116,14 +109,12 @@ G1 U{var.cpLX} Y{var.cpLY}
 G91 ; Back to relative
 G1 Z-2 F18000
 
-G38.4 K0 U-15 ; Probe RX (first)
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" U-10
 var fpRX = move.axes[3].userPosition
 G1 U1 F18000
 
 ;Move to the 2nd probing point
-G38.4 K0 U15 ; Probe RX
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" U10
 var spRX = move.axes[3].userPosition
 
 var diffRX = var.fpRX - var.spRX
@@ -133,15 +124,13 @@ var cpRX = var.fpRX - var.diffRX / 2
 G90 ; Absolute
 G1 U{var.cpRX}
 G91 ; Back to relative
-G38.4 K0 Y115 ; Probe RY
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" Y10
 var fpRY = move.axes[1].userPosition
 G1 Y-1 F18000
 
 ;Move to the 4th probing point
 G91 ; Back to relative
-G38.4 K0 Y85 ; Probe RY (second)
-G4 P260
+M98 P"0:/sys/nozzleprobe.g" Y-10
 var spRY = move.axes[1].userPosition
 var diffRY = var.fpRY - var.spRY
 var cpRY = var.fpRY - var.diffRY / 2

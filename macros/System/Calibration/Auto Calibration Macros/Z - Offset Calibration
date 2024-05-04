@@ -27,7 +27,7 @@ if !exists(param.S)
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
 M208 Z-20 S1
-M558 K0 P8 C"1.io4.in" H5 F300 T18000
+M558 K0 P8 C"1.io4.in" H5 F100 T18000
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G90
@@ -38,25 +38,13 @@ G1 U999 F18000
 M42 P4 S1                      ; Turn on relay
 
 G90
-G1 F18000 X0 Y80 Z10 F18000
+G1 F18000 X0 Y80 Z5 F18000
 
 G91
-G38.4 K0 Z-20 ; Probe Z
-G4 P260
-var zn1 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-20 ; Probe Z
-G4 P260
-var zn2 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-20 ; Probe Z
-G4 P260
-var zn3 = move.axes[2].machinePosition
+M98 P"0:/sys/nozzleprobe.g" Z1
+var zn = move.axes[2].machinePosition
 G1 Z20
 
-var zn = (var.zn1 + var.zn2 + var.zn3)/3
 
 
 
