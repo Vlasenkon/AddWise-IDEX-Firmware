@@ -3,8 +3,7 @@ if !exists(param.S)
   M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
   var ll = input
   
-  M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
-  var rr = input
+  var rr = 0
   
   G10 P0 R{var.ll} S{var.ll}
   G10 P1 R{var.rr} S{var.rr}
@@ -15,19 +14,15 @@ if !exists(param.S)
     M98 P"0:/sys/homeall.g" S1
 
   M116 P0 S10
-  M116 P1 S10
   
-  T3
+  T0
   M83                 ; relative extruder moves
   G1 E-20 F{60}*{50}   ; retract filament
-  T0
   
   G1 F18000 X-50 U50 Y-150 Z125  ; Move tools to the cleaning position
   M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
   
-  M98 P"0:/sys/homeall.g" S1
-
-
+  M98 P"0:/sys/homeall.g" S1 L1
 
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
@@ -37,281 +32,126 @@ M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G90
 G1 U999 F18000
-M42 P4 S1                      ; Turn on relay
 
+;=====Test with a probe======
+M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 
-;==== T0 Z refference point ====
 G90
-G1 X-20 Y80 Z2 F18000
-M98 P"0:/sys/nozzleprobe.g" Z1
-G91 ; Relative
-G1 Z1 F18000
-
-
-; ===== Single Probe with T0 =====
-
-;Move to the Centre
-G90
-G1 Y100 X0 F18000
-G91 ; Relative
-G1 Z-2 F18000
-
-; 1st Probe
-G38.4 K0 Y85 ; Probe LY-
-G4 P260
-var minLY = move.axes[1].userPosition
-M400
+G1 F18000 Z15 X{-155 - sensors.probes[0].offsets[0]} Y{0 - sensors.probes[0].offsets[1]}
 
 G91
-G1 Y2 F18000
-
-; 2nd Probe
-G38.4 K0 Y115 ; Probe LY+
+G38.2 K0 Z-5 ; Probe Z
 G4 P260
-var maxLY = move.axes[1].userPosition
-M400
-
-
-var diffLY = var.minLY - var.maxLY
-var centerLY = var.minLY - var.diffLY / 2
-G90
-G1 Y{var.centerLY}
-G91
-
-
-; 3rd Probe
-G38.4 K0 X-15 ; Probe LX-
-G4 P260
-var minLX = move.axes[0].userPosition
-
-G1 X5 F18000
-
-; 4th Probe
-G38.4 K0 X15 ; Probe LX+
-G4 P260
-M400
-var maxLX = move.axes[0].userPosition
-
-
-var diffLX = var.minLX - var.maxLX
-var centerLX = var.minLX - var.diffLX / 2
-G90
-G1 X{var.centerLX} Y{var.centerLY}
-G91
-
-
-
-; Go to Center
-G90
-G1 X{var.centerLX} Y{var.centerLY}
-
-
-; ===== ZigZag Probe with T0 =====
-
-
-; 1st Probe
-G90
-G1 X{var.centerLX} Y{var.minLY + 2}
-M98 P"0:/sys/nozzleprobe.g" Y-1
-set var.minLY = move.axes[1].userPosition
-M400
-
-; 2nd Probe
-G90
-G1 X{var.centerLX} Y{var.maxLY - 2}
-M98 P"0:/sys/nozzleprobe.g" Y1
-set var.maxLY = move.axes[1].userPosition
-M400
-
-
-set var.diffLY = var.minLY - var.maxLY
-set var.centerLY = var.minLY - var.diffLY / 2
-G1 X{var.centerLX} Y{var.centerLY}
-
-
-; 3rd Probe
-G90
-G1 X{var.minLX + 2} Y{var.centerLY}
-M98 P"0:/sys/nozzleprobe.g" X-1
-G4 P260
-set var.minLX = move.axes[0].userPosition
-
-
-; 4th Probe
-G90
-G1 X{var.maxLX - 2} Y{var.centerLY}
-M98 P"0:/sys/nozzleprobe.g" X1
-G4 P260
-M400
-set var.maxLX = move.axes[0].userPosition
-
-
-
-set var.diffLX = var.minLX - var.maxLX
-set var.centerLX = var.minLX - var.diffLX / 2
-G90
-G1 X{var.centerLX} Y{var.centerLY}
-G91
-
-
-
-; Go to Center
-G90
-G1 X{var.centerLX} Y{var.centerLY}
+var pl1 = move.axes[2].machinePosition
 G1 Z2
 
-G1 X-999
-
-
-;==== T1 Z refference point ====
-G90
-G1 U20 Y80 Z2 F18000
-M98 P"0:/sys/nozzleprobe.g" Z10
-G91 ; Relative
-G1 Z1 F18000
-
-
-; ===== Single Probe with T1 =====
-
-;Move to the Centre
-G90
-G1 U{var.centerLX} Y{var.centerLY}
-G91 ; Relative
-G1 Z-2 F18000
-
-; 1st Probe
-G38.4 K0 Y85 ; Probe RY-
+G38.2 K0 Z-5 ; Probe Z
 G4 P260
-var minRY = move.axes[1].userPosition
-M400
+var pl2 = move.axes[2].machinePosition
+G1 Z2
+
+G38.2 K0 Z-5 ; Probe Z
+G4 P260
+var pl3 = move.axes[2].machinePosition
+G1 Z5
+
+var pl = (var.pl1 + var.pl2 + var.pl3)/3
+
+G90
+G1 F18000 X{155 - sensors.probes[0].offsets[0]} Y{0 - sensors.probes[0].offsets[1]}
 
 G91
-G1 Y5 F18000
-
-; 2nd Probe
-G38.4 K0 Y115 ; Probe RY+
+G38.2 K0 Z-5 ; Probe Z
 G4 P260
-var maxRY = move.axes[1].userPosition
-M400
+var pr1 = move.axes[2].machinePosition
+G1 Z2
 
-
-var diffRY = var.minRY - var.maxRY
-var centerRY = var.minRY - var.diffRY / 2
-G90
-G1 Y{var.centerRY}
-G91
-
-
-; 3rd Probe
-G38.4 K0 U-15 ; Probe RX-
+G38.2 K0 Z-5 ; Probe Z
 G4 P260
-var minRX = move.axes[3].userPosition
+var pr2 = move.axes[2].machinePosition
+G1 Z2
 
-G91
-G1 U5 F18000
-
-; 4th Probe
-G38.4 K0 U15 ; Probe RX+
+G38.2 K0 Z-5 ; Probe Z
 G4 P260
-M400
-var maxRX = move.axes[3].userPosition
+var pr3 = move.axes[2].machinePosition
+G1 Z10
+
+var pr = (var.pr1 + var.pr2 + var.pr3)/3
 
 
+M98 P"place.g"
 
-var diffRX = var.minRX - var.maxRX
-var centerRX = var.minRX - var.diffRX / 2
+
+;=====Test with a nozzle====
+M42 P4 S1                      ; Turn on relay
+
 G90
-G1 U{var.centerRX} Y{var.centerRY}
-G91
-
-
-
-; Go to Center
-G90
-G1 U{var.centerRX} Y{var.centerRY}
-
-
-; ===== ZigZag Probe with T1 =====
-
-
-; 1st Probe
-G90
-G1 U{var.centerRX} Y{var.minRY + 2}
-M98 P"0:/sys/nozzleprobe.g" Y-10
-set var.minRY = move.axes[1].userPosition
-M400
-
-; 2nd Probe
-G90
-G1 U{var.centerRX} Y{var.maxRY - 2}
-M98 P"0:/sys/nozzleprobe.g" Y10
-set var.maxRY = move.axes[1].userPosition
-M400
-
-
-set var.diffRY = var.minRY - var.maxRY
-set var.centerRY = var.minRY - var.diffRY / 2
-G1 U{var.centerRX} Y{var.centerRY}
-
-
-; 3rd Probe
-G90
-G1 U{var.minRX + 2} Y{var.centerRY}
-M98 P"0:/sys/nozzleprobe.g" X-10
-G4 P260
-set var.minRX = move.axes[3].userPosition
-
-
-; 4th Probe
-G90
-G1 U{var.maxRX - 2} Y{var.centerRY}
-M98 P"0:/sys/nozzleprobe.g" X10
-G4 P260
-M400
-set var.maxRX = move.axes[3].userPosition
-
-
-
-set var.diffRX = var.minRX - var.maxRX
-set var.centerRX = var.minRX - var.diffRX / 2
-
-set global.uoffset = var.centerLX - var.centerRX
-set global.yoffset = var.centerLY - var.centerRY
+G1 F18000 X-155 Y0 Z5
 
 G91
-G1 Z10 F18000
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl1 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl2 = move.axes[2].machinePosition
+G1 Z1
+
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nl3 = move.axes[2].machinePosition
+G1 Z5
+
+var nl = (var.nl1 + var.nl2 + var.nl3)/3
+
 G90
-M400
-
-echo "Current offsets: U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
 
 
+G1 F18000 X155 Y0
 
-; Generate uoffset.g
-echo >"0:/user/uoffset.g" "if exists(global.uoffset)"
-echo >>"0:/user/uoffset.g" "  set global.uoffset = "^{global.uoffset}
-echo >>"0:/user/uoffset.g" "else"
-echo >>"0:/user/uoffset.g" "  global uoffset = "^{global.uoffset}
+G91
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr1 = move.axes[2].machinePosition
+G1 Z1
 
-; Generate yoffset.g
-echo >"0:/user/yoffset.g" "if exists(global.yoffset)"
-echo >>"0:/user/yoffset.g" "  set global.yoffset = "^{global.yoffset}
-echo >>"0:/user/yoffset.g" "else"
-echo >>"0:/user/yoffset.g" "  global yoffset = "^{global.yoffset}
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr2 = move.axes[2].machinePosition
+G1 Z1
 
-; Generate rtzoffset.g
-echo >"0:/user/rtzoffset.g" "if exists(global.rtzoffset)"
-echo >>"0:/user/rtzoffset.g" "  set global.rtzoffset = "^{global.rtzoffset}
-echo >>"0:/user/rtzoffset.g" "else"
-echo >>"0:/user/rtzoffset.g" "  global rtzoffset = "^{global.rtzoffset}
+G38.4 K0 Z-5 ; Probe Z
+G4 P260
+var nr3 = move.axes[2].machinePosition
+G1 Z5
+
+var nr = (var.nr1 + var.nr2 + var.nr3)/3
 
 
-; Generate tooloffset.g
-echo >"0:/user/tooloffset.g" "; Set tool offsets"
-echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
+;====Calculate  Values====
 
-; Apply changes
-G10 P1 U{global.uoffset} Y{global.yoffset} Z{global.rtzoffset}
+var dl = var.pl - var.nl
+var dr = var.pr - var.nr
+var dd = var.dl - var.dr
+
+echo "Mesh Left "^{var.dl}^" mm"
+echo "Mesh Right "^{var.dr}^" mm"
+
+
+echo "Mesh Competition Measured "^{var.dd}^" mm"
+
+
+if exists(global.xcomp)
+  set global.xcomp = var.dd
+else
+  global xcomp = var.dd
+  
+echo >"0:/user/xcomp.g" "if exists(global.xcomp)"
+echo >>"0:/user/xcomp.g" "  set global.xcomp = "^{var.dd}
+echo >>"0:/user/xcomp.g" "else"
+echo >>"0:/user/xcomp.g" "  global xcomp = "^{var.dd}
 
 
 if !exists(param.S)
