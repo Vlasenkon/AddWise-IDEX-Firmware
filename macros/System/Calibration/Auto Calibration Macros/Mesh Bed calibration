@@ -21,8 +21,10 @@ if !exists(param.S)
   
   G1 F18000 X-50 U50 Y-150 Z125  ; Move tools to the cleaning position
   M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
-  
   M98 P"0:/sys/homeall.g" S1 L1
+else
+  if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+    M98 P"0:/sys/homeall.g" S1 L1
 
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
@@ -86,49 +88,17 @@ M98 P"place.g"
 M42 P4 S1                      ; Turn on relay
 
 G90
-G1 F18000 X-155 Y0 Z5
-
-G91
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nl1 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nl2 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nl3 = move.axes[2].machinePosition
-G1 Z5
-
-var nl = (var.nl1 + var.nl2 + var.nl3)/3
+G1 F18000 X-155 Y0 Z2
+M98 P"0:/sys/nozzleprobe.g" Z1
+var nl = move.axes[2].machinePosition
+G1 Z2
 
 G90
 
-
 G1 F18000 X155 Y0
-
-G91
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nr1 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nr2 = move.axes[2].machinePosition
-G1 Z1
-
-G38.4 K0 Z-5 ; Probe Z
-G4 P260
-var nr3 = move.axes[2].machinePosition
+M98 P"0:/sys/nozzleprobe.g" Z1
+var nr = move.axes[2].machinePosition
 G1 Z5
-
-var nr = (var.nr1 + var.nr2 + var.nr3)/3
-
 
 ;====Calculate  Values====
 
