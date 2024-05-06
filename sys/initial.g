@@ -133,6 +133,8 @@ else
   G1 X-30
 G90
 
+if exists(param.E)
+  T{param.E} P0
 
 
 M98 P"0:/sys/entoolchangeretraction.g"  ; Enable ToolChange Retraction
