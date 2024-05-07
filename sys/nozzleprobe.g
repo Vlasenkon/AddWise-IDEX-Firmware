@@ -5,15 +5,15 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 M42 P4 S1                                                                                      ; Turn on relay
 G4 P500
 
-
 M558 K0 P8 C"1.io4.in" H5 F18000 T18000
 M98 P"0:/user/probeoffset.g"                                                                   ; load global variables
+
 G90
 
 var amplitude = 1
 
-var stepcourse = 0.05
-var stepprecise = 0.01
+var stepcourse_Z = 0.06
+var stepprecise_Z = 0.02
 
 var iter = 200/2
 
@@ -35,15 +35,20 @@ if exists(param.Z) ; Z- (T0 || T1)
                 break
     
         G91
-        G1 Z{0.20}
+        G1 Z{0.50}
         G90
     
         while iterations < {var.iter}
     
-            G38.5 K0 X{var.axisposition[0] - var.amplitude} Z{move.axes[2].machinePosition - var.stepprecise}
+            G91
+            G1 Z{-var.stepprecise}
+            G38.5 K0 X{var.axisposition[0] - var.amplitude}; Z{move.axes[2].machinePosition - var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
-            G38.5 K0 X{var.axisposition[0] + var.amplitude} Z{move.axes[2].machinePosition - var.stepprecise}
+            
+            G91
+            G1 Z{-var.stepprecise}
+            G38.5 K0 X{var.axisposition[0] + var.amplitude}; Z{move.axes[2].machinePosition - var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
 
@@ -59,7 +64,7 @@ if exists(param.Z) ; Z- (T0 || T1)
                 break
     
         G91
-        G1 Z{0.20}
+        G1 Z{0.50}
         G90
     
         while iterations < {var.iter}
@@ -90,10 +95,15 @@ if exists(param.Y) ; Y +- (T0 || T1)
 
         while iterations < {var.iter}
 
-            G38.5 K0 X{var.axisposition[0] - var.amplitude} Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G91
+            G1 Y{param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G38.5 K0 X{var.axisposition[0] - var.amplitude}; Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
-            G38.5 K0 X{var.axisposition[0] + var.amplitude} Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
+            
+            G91
+            G1 Y{param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G38.5 K0 X{var.axisposition[0] + var.amplitude}; Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
 
@@ -114,10 +124,15 @@ if exists(param.Y) ; Y +- (T0 || T1)
 
         while iterations < {var.iter}
 
-            G38.5 K0 U{var.axisposition[3] - var.amplitude} Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G91
+            G1 Y{param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G38.5 K0 U{var.axisposition[3] - var.amplitude}; Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
-            G38.5 K0 U{var.axisposition[3] + var.amplitude} Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
+            
+            G91
+            G1 Y{param.Y * 1 / abs(param.Y) * var.stepprecise}
+            G38.5 K0 U{var.axisposition[3] + var.amplitude}; Y{move.axes[1].machinePosition + param.Y * 1 / abs(param.Y) * var.stepprecise}
             if sensors.probes[0].value[0] < 500
                 break
 
@@ -139,11 +154,15 @@ if exists(param.X) ; X+- (T0 || T1)
        G90
 
        while iterations < {var.iter}
-
-           G38.5 K0 Y{var.axisposition[1] - var.amplitude} X{move.axes[0].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
+           G91
+           G1 X{param.X * 1 / abs(param.X) * var.stepprecise}
+           G38.5 K0 Y{var.axisposition[1] - var.amplitude}; X{move.axes[0].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
            if sensors.probes[0].value[0] < 500
                break
-           G38.5 K0 Y{var.axisposition[1] + var.amplitude} X{move.axes[0].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
+           
+           G91
+           G1 X{param.X * 1 / abs(param.X) * var.stepprecise}
+           G38.5 K0 Y{var.axisposition[1] + var.amplitude}; X{move.axes[0].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
            if sensors.probes[0].value[0] < 500
                break
 
@@ -165,17 +184,22 @@ if exists(param.X) ; X+- (T0 || T1)
 
        while iterations < {var.iter}
 
-           G38.5 K0 Y{var.axisposition[1] - var.amplitude} U{move.axes[3].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
+           G91
+           G1 U{param.X * 1 / abs(param.X) * var.stepprecise}
+           G38.5 K0 Y{var.axisposition[1] - var.amplitude}; U{move.axes[3].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
            if sensors.probes[0].value[0] < 500
                break
-           G38.5 K0 Y{var.axisposition[1] + var.amplitude} U{move.axes[3].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
+           
+           G91
+           G1 U{param.X * 1 / abs(param.X) * var.stepprecise}
+           G38.5 K0 Y{var.axisposition[1] + var.amplitude}; U{move.axes[3].machinePosition + param.X * 1 / abs(param.X) * var.stepprecise}
            if sensors.probes[0].value[0] < 500
                break
 
 
 
 M400
-G4 P260
+G4 P400
 
 echo "X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
