@@ -14,12 +14,12 @@ var amplitude_Z = 1
 var stepcourse_Z = 0.06
 var stepprecise_Z = 0.02
 
-var amplitude_XY = 3
+var amplitude_XY = 2
 var stepcourse_XY = 0.06
 var stepprecise_XY = 0.02
 
 
-var iter = 200/2
+var iter = 200
 
 var axisposition = {move.axes[0].machinePosition, move.axes[1].machinePosition, move.axes[2].machinePosition, move.axes[3].machinePosition}
 

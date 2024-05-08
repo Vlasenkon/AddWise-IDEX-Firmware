@@ -1,14 +1,15 @@
-var mm = {0.32}*{0.718}
-;var mm = {0.17}*{2}*{0.718}
-;var mm = {global.xcomp}*{2}*{0.718}  ; Apply compensation Multipleer (Calculated = 0.718)
+;var.mm UP => Right Side UP
+
+
+var mm = 0.3
 
 ;M569 P1.0 S1
 M569 P1.2 S1
-M584 Z1.0:1.2                     ; define driver mapping
+M584 Z1.0:1.2     ; define driver mapping
 
-G91                           ; set to relative positioning
-G1 F240 Z{var.mm}             ; move to compensate
-G90                           ; set to relative positioning
+G91               ; set to relative positioning
+G1 F240 Z{var.mm} ; move to compensate
+G90               ; set to relative positioning
 
 ;M569 P1.0 S0
 M569 P1.2 S0

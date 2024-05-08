@@ -23,9 +23,11 @@ G1 H1 Y-500 F3000
 G91
 G1 Y5 F1200
 G1 H1 Y-10 F240
-G92 Y-150
+G92 Y0
 G4 P260
 var ll = move.axes[1].machinePosition
+
+
 
 
 ;=== Home with Right end stop ===
@@ -37,15 +39,19 @@ G1 H4 Y-5 F240
 M584 Y0.4
 M574 Y1 S1 P"io2.in"
 G1 H4 Y-5 F240
-
 G4 P260
-var rr = move.axes[1].machinePosition + {5}
+var rr = move.axes[1].machinePosition
+
 
 
 var dd = var.rr - var.ll
 
-if abs(var.dd) > 0.5 && abs(var.dd) != 5
-  echo "Compensated for "^{abs(var.dd)}^" mm"
+;if abs(var.dd) > 0.5
+
+echo "RR is "^{var.rr}^" mm"
+echo "LL is "^{var.ll}^" mm"
+echo "DD is "^{var.dd}^" mm"
+
 
 G92 Y-999
 M584 Y0.1:0.4

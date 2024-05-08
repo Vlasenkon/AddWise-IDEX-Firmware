@@ -10,24 +10,10 @@ M80 C"pson"                                                      ; define PS_ON 
 ; Wait a moment for the CAN expansion boards to start 
 G4 S2
 
-; Network
-;if boards[0].shortName = "2Ethernet"
-;  echo >"0:/sys/runonce.g" ";M98 P""0:/user/ethernet.g"""
-;else
-;  ;M98 P"0:/user/wifimode.g" 
-  
-
 ; Network 
 M552 I1 S0
 G4 S1
 M552 I1 S1
-
-;M552 S1                                        ; enable network and acquire dynamic address via DHCP 
-
-;M552 S1 P192.168.31.177
-;M553 P192.168.31.177
-;M554 P192.168.31.177
-
 
 
 M586 P0 S1                                                       ; enable HTTP
@@ -170,13 +156,17 @@ M98 P"0:/user/pickupangle.g"                                     ; load global v
 M98 P"0:/user/eventlogging.g"                                    ; load global variables
 M98 P"0:/user/xcomp.g"                                           ; load global variables
 
-echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
-echo >"0:/user/resetzbabystep.g" "; do nothing"
+echo >"0:/user/toolchangeretraction.g" "                         ; ToolChange Retraction Disabled"
+echo >"0:/user/resetzbabystep.g" "                               ; do nothing"
 
 ; Custom settings
 M280 P0 S0                                                       ; rotate servo to 0 deg
-T1 P0                                                            ; select tool 0
-T0 P0                                                            ; select tool 0
+;T1 P0                                                           ; select tool 0
+;T0 P0                                                           ; select tool 0
+
+M568 P0 A2                                                       ; set tool state
+M568 P1 A2                                                       ; set tool state
+
 M575 P1 S1 B57600                                                ; define PanelDUE
 
 ; Wait for voltage to stabilize and hold Z motors
