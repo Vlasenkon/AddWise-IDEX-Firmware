@@ -1,9 +1,9 @@
 if !exists(param.S)
 
-  M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+  M291 S5 J1 F250 L0 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
   var ll = input
-  
-  M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+
+  M291 S5 F{var.ll} L0 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
   var rr = input
   
   G10 P0 R{var.ll} S{var.ll}
@@ -28,7 +28,6 @@ if !exists(param.S)
   M98 P"0:/sys/homeall.g" S1
 
 
-
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
 M208 Z-5 S1
@@ -39,244 +38,211 @@ G90
 G1 U999 F18000
 M42 P4 S1                      ; Turn on relay
 
+var max_Travel = 15
+var offset = 3
+var Z_Dive = 0.5
+
+
+
+
+
 
 ;==== T0 Z refference point ====
 G90
 G1 X-20 Y80 Z2 F18000
 M98 P"0:/sys/nozzleprobe.g" Z1
-G91 ; Relative
-G1 Z1 F18000
+var T0_Ref_Z = move.axes[2].userPosition
 
+G90 ; Relative
+G1 Z{var.T0_Ref_Z + 1}
+G1 Y100 X0 F18000 ;Move to the Centre
+G1 Z{var.T0_Ref_Z - var.Z_Dive} ; Move down the Bed Hole
 
 ; ===== Single Probe with T0 =====
-
-;Move to the Centre
-G90
-G1 Y100 X0 F18000
-G91 ; Relative
-G1 Z-2 F18000
-
 ; 1st Probe
-G38.4 K0 Y85 ; Probe LY-
-G4 P260
-var minLY = move.axes[1].userPosition
+G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel} ; Probe LY-
 M400
+G4 P260
+var T0_Front = move.axes[1].userPosition
 
 G91
-G1 Y2 F18000
+G1 Y{var.offset} F18000
+G90
 
 ; 2nd Probe
-G38.4 K0 Y115 ; Probe LY+
-G4 P260
-var maxLY = move.axes[1].userPosition
+G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel} ; Probe LY+
 M400
+G4 P260
+var T0_Rear = move.axes[1].userPosition
 
+var T0_center_Y = {var.T0_Front + var.T0_Rear} / 2
 
-var diffLY = var.minLY - var.maxLY
-var centerLY = var.minLY - var.diffLY / 2
 G90
-G1 Y{var.centerLY}
-G91
+G1 Y{var.T0_center_Y} X0
 
 
 ; 3rd Probe
-G38.4 K0 X-15 ; Probe LX-
+G38.4 K0 X{move.axes[0].userPosition - var.max_Travel} ; Probe LX-
+M400
 G4 P260
-var minLX = move.axes[0].userPosition
+var T0_Left = move.axes[0].userPosition
 
-G1 X5 F18000
+G91
+G1 X{var.offset} F18000
+G90
 
 ; 4th Probe
-G38.4 K0 X15 ; Probe LX+
-G4 P260
+G38.4 K0 X{move.axes[0].userPosition + var.max_Travel} ; Probe LX-
 M400
-var maxLX = move.axes[0].userPosition
+G4 P260
+var T0_Right = move.axes[0].userPosition
 
 
-var diffLX = var.minLX - var.maxLX
-var centerLX = var.minLX - var.diffLX / 2
+var T0_center_X = {var.T0_Left + var.T0_Right} / 2
 G90
-G1 X{var.centerLX} Y{var.centerLY}
-G91
-
-
-
-; Go to Center
-G90
-G1 X{var.centerLX} Y{var.centerLY}
+G1 X{var.T0_center_X} Y{var.T0_center_Y}
 
 
 ; ===== ZigZag Probe with T0 =====
 
-
 ; 1st Probe
 G90
-G1 X{var.centerLX} Y{var.minLY + 2}
+G1 X{var.T0_center_X} Y{var.T0_Front + var.offset}
 M98 P"0:/sys/nozzleprobe.g" Y-1
-set var.minLY = move.axes[1].userPosition
-M400
+set var.T0_Front = move.axes[1].userPosition
 
 ; 2nd Probe
-G90
-G1 X{var.centerLX} Y{var.maxLY - 2}
-M98 P"0:/sys/nozzleprobe.g" Y1
-set var.maxLY = move.axes[1].userPosition
-M400
+G1 X{var.T0_center_X} Y{var.T0_Rear - var.offset}
+M98 P"0:/sys/nozzleprobe.g" Y+1
+set var.T0_Rear = move.axes[1].userPosition
 
-
-set var.diffLY = var.minLY - var.maxLY
-set var.centerLY = var.minLY - var.diffLY / 2
-G1 X{var.centerLX} Y{var.centerLY}
-
+set var.T0_center_Y = {var.T0_Front + var.T0_Rear} / 2
 
 ; 3rd Probe
-G90
-G1 X{var.minLX + 2} Y{var.centerLY}
+G1 X{var.T0_Left + var.offset} Y{var.T0_center_Y}
 M98 P"0:/sys/nozzleprobe.g" X-1
-G4 P260
-set var.minLX = move.axes[0].userPosition
-
+set var.T0_Left = move.axes[0].userPosition
 
 ; 4th Probe
-G90
-G1 X{var.maxLX - 2} Y{var.centerLY}
-M98 P"0:/sys/nozzleprobe.g" X1
-G4 P260
-M400
-set var.maxLX = move.axes[0].userPosition
+G1 X{var.T0_Right - var.offset} Y{var.T0_center_Y}
+M98 P"0:/sys/nozzleprobe.g" X+1
+set var.T0_Right = move.axes[0].userPosition
+
+set var.T0_center_X = {var.T0_Left + var.T0_Right} / 2
+
+G1 X{var.T0_center_X} Y{var.T0_center_Y} Z{var.T0_Ref_Z}
+G4 S5
+G1 Z{var.T0_Ref_Z + 5}
 
 
 
-set var.diffLX = var.minLX - var.maxLX
-set var.centerLX = var.minLX - var.diffLX / 2
-G90
-G1 X{var.centerLX} Y{var.centerLY}
-G91
 
 
 
-; Go to Center
-G90
-G1 X{var.centerLX} Y{var.centerLY}
-G1 Z2
 
-G1 X-999
+
+
+
+
+
+
+
 
 
 ;==== T1 Z refference point ====
 G90
-G1 U20 Y80 Z2 F18000
+G1 X-999 U20 Y80 Z{var.T0_Ref_Z + 2} F18000
 M98 P"0:/sys/nozzleprobe.g" Z10
-G91 ; Relative
-G1 Z1 F18000
+var T1_Ref_Z = move.axes[2].userPosition
 
-
+G90 ; Relative
+G1 Z{var.T1_Ref_Z + 1}
+G1 Y100 U0 F18000 ;Move to the Centre
+G1 Z{var.T1_Ref_Z - var.Z_Dive} ; Move down the Bed Hole
 ; ===== Single Probe with T1 =====
-
-;Move to the Centre
-G90
-G1 U{var.centerLX} Y{var.centerLY}
-G91 ; Relative
-G1 Z-2 F18000
-
 ; 1st Probe
-G38.4 K0 Y85 ; Probe RY-
-G4 P260
-var minRY = move.axes[1].userPosition
+G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel} ; Probe LY-
 M400
+G4 P260
+var T1_Front = move.axes[1].userPosition
 
 G91
-G1 Y5 F18000
+G1 Y{var.offset} F18000
+G90
 
 ; 2nd Probe
-G38.4 K0 Y115 ; Probe RY+
-G4 P260
-var maxRY = move.axes[1].userPosition
+G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel} ; Probe LY+
 M400
+G4 P260
+var T1_Rear = move.axes[1].userPosition
 
+var T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
 
-var diffRY = var.minRY - var.maxRY
-var centerRY = var.minRY - var.diffRY / 2
 G90
-G1 Y{var.centerRY}
-G91
+G1 Y{var.T1_center_Y} U0
 
 
 ; 3rd Probe
-G38.4 K0 U-15 ; Probe RX-
+G38.4 K0 U{move.axes[3].userPosition - var.max_Travel} ; Probe LX-
+M400
 G4 P260
-var minRX = move.axes[3].userPosition
+var T1_Left = move.axes[3].userPosition
 
 G91
-G1 U5 F18000
+G1 U{var.offset} F18000
+G90
 
 ; 4th Probe
-G38.4 K0 U15 ; Probe RX+
-G4 P260
+G38.4 K0 U{move.axes[3].userPosition + var.max_Travel} ; Probe LX-
 M400
-var maxRX = move.axes[3].userPosition
+G4 P260
+var T1_Right = move.axes[3].userPosition
 
 
-
-var diffRX = var.minRX - var.maxRX
-var centerRX = var.minRX - var.diffRX / 2
+var T1_center_X = {var.T1_Left + var.T1_Right} / 2
 G90
-G1 U{var.centerRX} Y{var.centerRY}
-G91
-
-
-
-; Go to Center
-G90
-G1 U{var.centerRX} Y{var.centerRY}
+G1 U{var.T1_center_X} Y{var.T1_center_Y}
 
 
 ; ===== ZigZag Probe with T1 =====
 
-
 ; 1st Probe
 G90
-G1 U{var.centerRX} Y{var.minRY + 2}
+G1 U{var.T1_center_X} Y{var.T1_Front + var.offset}
 M98 P"0:/sys/nozzleprobe.g" Y-10
-set var.minRY = move.axes[1].userPosition
-M400
+set var.T1_Front = move.axes[1].userPosition
 
 ; 2nd Probe
-G90
-G1 U{var.centerRX} Y{var.maxRY - 2}
-M98 P"0:/sys/nozzleprobe.g" Y10
-set var.maxRY = move.axes[1].userPosition
-M400
+G1 U{var.T1_center_X} Y{var.T1_Rear - var.offset}
+M98 P"0:/sys/nozzleprobe.g" Y+10
+set var.T1_Rear = move.axes[1].userPosition
 
-
-set var.diffRY = var.minRY - var.maxRY
-set var.centerRY = var.minRY - var.diffRY / 2
-G1 U{var.centerRX} Y{var.centerRY}
-
+set var.T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
+;G1 U{var.T1_center_X} Y{var.T1_center_Y}
 
 ; 3rd Probe
-G90
-G1 U{var.minRX + 2} Y{var.centerRY}
+G1 U{var.T1_Left + var.offset} Y{var.T1_center_Y}
 M98 P"0:/sys/nozzleprobe.g" X-10
-G4 P260
-set var.minRX = move.axes[3].userPosition
-
+set var.T1_Left = move.axes[3].userPosition
 
 ; 4th Probe
-G90
-G1 U{var.maxRX - 2} Y{var.centerRY}
-M98 P"0:/sys/nozzleprobe.g" X10
-G4 P260
-M400
-set var.maxRX = move.axes[3].userPosition
+G1 U{var.T1_Right - var.offset} Y{var.T1_center_Y}
+M98 P"0:/sys/nozzleprobe.g" X+10
+set var.T1_Right = move.axes[3].userPosition
+
+set var.T1_center_X = {var.T1_Left + var.T1_Right} / 2
+G1 U{var.T1_center_X} Y{var.T1_center_Y} Z{var.T1_Ref_Z}
+G4 S2
+G1 Z{var.T1_Ref_Z + 5}
 
 
 
-set var.diffRX = var.minRX - var.maxRX
-set var.centerRX = var.minRX - var.diffRX / 2
 
-set global.uoffset = var.centerLX - var.centerRX
-set global.yoffset = var.centerLY - var.centerRY
+
+; Calculate offsets
+set global.uoffset = var.T0_center_X - var.T1_center_X
+set global.yoffset = var.T0_center_Y - var.T1_center_Y
+
 
 G91
 G1 Z5 F18000
