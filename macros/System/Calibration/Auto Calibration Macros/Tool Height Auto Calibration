@@ -1,9 +1,9 @@
 if !exists(param.S)
 
-  M291 S5 J1 F250 L190 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+  M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
   var ll = input
   
-  M291 S5 F250 L190 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+  M291 S5 F{var.ll} L150 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
   var rr = input
   
   G10 P0 R{var.ll} S{var.ll}
