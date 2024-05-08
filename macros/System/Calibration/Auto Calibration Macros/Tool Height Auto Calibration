@@ -59,11 +59,11 @@ G90
 G1 X-999 F18000
 G1 U{0}-{global.uoffset} Y{-10}-{global.yoffset}
 
-G91
-G1 Z-3
+G90
+G1 Z3
 M98 P"0:/sys/nozzleprobe.g" Z10
 var rrr = move.axes[2].machinePosition
-G1 Z5
+G1 Z10
 
 M42 P4 S0                ; Turn off relay
 

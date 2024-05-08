@@ -11,9 +11,12 @@ M80 C"pson"                                                      ; define PS_ON 
 G4 S2
 
 ; Network 
-M552 I1 S0
-G4 S1
-M552 I1 S1
+
+M552 S1                                        ; enable network and acquire dynamic address via DHCP
+
+;M552 I1 S0
+;G4 S1
+;M552 I1 S1
 
 
 M586 P0 S1                                                       ; enable HTTP
