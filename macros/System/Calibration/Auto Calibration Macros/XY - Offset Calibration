@@ -28,7 +28,7 @@ if !exists(param.S)
   M98 P"0:/sys/homeall.g" S1
 
 
-M204 T2000
+M204 T1000
 G29 S2     ; disable Mesh Bed Leveling
 M290 R0 S0
 M208 Z-5 S1
@@ -36,14 +36,12 @@ M558 K0 P8 C"1.io4.in" H5 F100 T18000
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G90
-G1 U999 F12000
+G1 U999 F18000
 M42 P4 S1                      ; Turn on relay
 
 var max_Travel = 15
 var offset = 3
 var Z_Dive = 0.5
-
-
 
 
 
@@ -296,3 +294,6 @@ if !exists(param.S)
   
   G90
   G1 X-999 U999 Y150 Z100 F12000
+
+
+M204 T5000
