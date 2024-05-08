@@ -12,3 +12,8 @@ if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.s
 
 G90
 G1 X-999 U999 F18000
+
+M400
+G91
+G1 Z{tools[1].offsets[2]}
+G90
