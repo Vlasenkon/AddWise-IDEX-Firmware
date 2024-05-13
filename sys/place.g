@@ -1,7 +1,7 @@
 M80
 T0                      ; Select first tool
 G90
-G1 f18000 Y135 X{global.probePickX} U999 ; Go to position
+G1 F18000 Y135 X{global.probePickX} U{move.axes[3].max-10} ; Go to position
 M400
 
 M280 P0 S{global.probePickAngle}         ; Move probe holder to the 'pick/place' position
