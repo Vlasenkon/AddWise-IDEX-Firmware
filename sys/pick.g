@@ -18,4 +18,5 @@ M42 P4 S1		 ; Turn on relay, engage probing (ESD Warning)
 ;G4 S1
 
 G90
+G1 U999
 M204 P5000 T5000 ; Return the accelerations
