@@ -3,7 +3,7 @@ T0               ; Select first tool
 G90              ; Absolute positioning
 
 ; Go to probe pickup position
-G1 f18000 Y135 X{global.probePickX} U999
+G1 F18000 Y135 X{global.probePickX} U{move.axes[3].max-10} ; Go to position
 M400
 
 M204 P1000 T1000 ; Lower the accelerations a little
