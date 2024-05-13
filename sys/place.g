@@ -15,4 +15,5 @@ G1 f18000 Y-50
 G90
 
 M280 P0 S0              ; Take probe holder out of the way
+G1 U999
 G4 P250
