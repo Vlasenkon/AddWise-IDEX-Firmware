@@ -21,23 +21,24 @@ G1 H2 X10 U-10 F6000
 M84 Y
 G4 S1
 
-M913 Y70                   ; drop motor current
-M204 P500 T500 
 M915 Y S3 R0 F0            ; set X and Y to sensitivity 3, do nothing when stall, unfiltered
+M204 P500 T500 
 
-
+;Home Y 1st time
+M913 Y70                   ; drop motor current
 G1 H1 Y-400 F6000          ; move quickly to X axis endstop and stop there
-
-
 M913 Y100
-G1 Y50 F6000               ; move quickly to X axis endstop and stop there
+
+G1 Y50 F6000 ;Back off
 
 M84 Y
 G4 S1
 
+;Home Y 2nd time
 M913 Y70
 G1 H1 Y-60 F3000           ; move quickly to X axis endstop and stop there
 M913 Y100
+
 G90
 M204 T5000                 ; return the accelerations
 
@@ -51,12 +52,11 @@ G1 Y162 F6000
 G91                        ; relative positioning
 ;G1 H1 X-375 U375 F6000     ; move quickly to both axis endstops and stop there (first pass)
 
-G4S2
+
 G91                     ; relative positioning
 G1 H1 X-375 F6000       ; move quickly to X axis endstop and stop there (first pass)
 
 
-G4S2
 G91                     ; relative positioning
 G1 H1 U375 F6000        ; move quickly to X axis endstop and stop there (first pass)
 
