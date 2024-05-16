@@ -46,7 +46,7 @@ M204 T5000                 ; return the accelerations
 
 ; Home X and U
 G90
-G1 Y162 F6000
+G1 Y165 F6000
 
 
 G91                        ; relative positioning
@@ -109,7 +109,7 @@ G92 Y999
 
 M584 Y0:9
 G90
-G1 Y162 F6000
+G1 Y165 F6000
 G91
 G1 H1 X-20 F240            ; move slowly to X axis endstop once more (second pass)
 G1 H1 U20 F240             ; move slowly to U axis endstop once more (second pass)
