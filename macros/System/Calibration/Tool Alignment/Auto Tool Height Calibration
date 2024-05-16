@@ -112,4 +112,4 @@ if abs(var.ddd) <= 0.07
   M291 R{"Calibration Success, deviation is "^var.ddd^" mm"} P" " S2
 else
   M291 R"Calibration was not successful" P{"Deviation of "^abs(var.ddd)^" mm is too high. Click ""OK"" to repeat the procedure"} S3
-  M98 P"0:/macros/System/Calibration/Tool Alignment/Auto Tool Height Calibration (Mirror & Duplicate modes)"
+  M98 P"0:/macros/System/Calibration/Tool Alignment/Auto Tool Height Calibration)"
