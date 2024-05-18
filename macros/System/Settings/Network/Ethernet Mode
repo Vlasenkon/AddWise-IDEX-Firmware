@@ -1,0 +1,59 @@
+M291 S4 K{"Cancel","Ethernet is connected"} R"Connect via Ethernet" P"Please connect the Ethernet cable to the device. Once connected, press ""OK"" to continue."
+if input = 1
+	M292 ;Continue
+else
+	abort
+
+
+M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
+if input = 1
+	M292 ;Continue
+else
+	echo >"0:/user/networkmode.g" "M552 I0 S1 ; Enable Ethernet mode"
+	echo "Ethernet mode Enabled"
+	M99
+
+M98 P"0:/sys/led/restorewhite.g"
+
+M552 I1 S-1
+G4 S1
+M552 I0 S1
+G1 S1
+
+while network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1" && iterations < 30
+  G4 S1
+
+
+if network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1"
+	M98 P"0:/sys/led/red.g"
+	M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1
+	
+	M552 I1 S-1
+	G4 S1
+	M552 I1 S2
+	
+	M291 S2 R"Connection was not established" P"Please try again"
+
+else
+	M98 P"0:/sys/led/end.g"
+	echo >"0:/user/networkmode.g" "M552 I0 S1 ; Enable Ethernet mode"
+
+	var ip = network.interfaces[0].actualIP
+
+	M552 I0 S-1
+	G4 S1
+	M552 I1 S2	
+			
+	
+	M291 S4 K{"Cancel","OK"} R{"The IP address is: """^var.ip^""""} P{"To access DWC, in your browser enter """^var.ip^""" Press ""OK"" to switch Network mode now or restart the machine"}
+	
+	if input = 1
+		M552 I1 S-1
+		G4 S1
+		M552 I0 S1
+
+	else
+		M292
+
+M98 P"0:/sys/led/statusoff.g"
+M98 P"0:/sys/led/restorewhite.g"

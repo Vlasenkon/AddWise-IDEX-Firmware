@@ -1,0 +1,88 @@
+; ask for SSID and Password;
+M291  J1 R"Enter WiFi Network Name (SSID)" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+var nn = {input}
+M291  J1 R"Enter WiFi Network Name Password" P"Case sensetive. Make sure to connect to a 2.4GHz network. The WiFi module will not connect to 5.0GHz networks." S7
+var pp = {input}
+
+; save it as a file
+echo >"0:/user/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
+
+M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
+
+
+
+
+
+M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
+
+
+; Erase values from WiFi Module
+M552 I1 S0
+G4S1
+
+M588 S"*"
+G4S1
+
+M589 S"22 IDEX" P"1234567890" I192.168.0.1
+G4 S1
+
+; write New values to WiFi module
+M98 P"0:/user/WiFiPass.g"
+
+
+; acrt based on M291
+if input = 1
+	M292 ;Continue
+else
+	echo >"0:/user/networkmode.g" "M552 I1 S1 ; Enable WiFi Client Mode"
+	echo "WiFi switched to Client mode"
+	M99
+
+
+M98 P"0:/sys/led/restorewhite.g"
+
+M552 I1 S0
+G4 S1
+M552 I1 S-1
+G4 S1
+M552 I1 S1
+
+
+while network.interfaces[1].actualIP = "0.0.0.0" || network.interfaces[1].actualIP = "192.168.0.1" && iterations < 30
+  G4 S1
+
+
+M98 P"0:/sys/led/dimmwhite.g"
+
+if network.interfaces[1].actualIP = "0.0.0.0" || network.interfaces[1].actualIP = "192.168.0.1"
+	M98 P"0:/sys/led/red.g"
+	M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1
+	
+	M552 I1 S-1
+	G4 S1
+	M552 I1 S2
+	
+	M291 S2 R"Connection was not established" P"Please try again"
+
+else
+	M98 P"0:/sys/led/end.g"
+	M98 P"0:/macros/System/Settings/Network/WiFi - Client Mode" R1
+
+	var ip = network.interfaces[1].actualIP
+
+	M552 I1 S-1
+	G4 S1
+	M552 I1 S2
+	
+	M291 S4 K{"Cancel","OK"} R{"Success, your IP address is: """^var.ip^""""} P{"To access DWC, in your browser enter """^var.ip^""". Press ""OK"" to switch mode now or restart the machine"}
+
+	if input = 1
+		M552 I1 S-1
+		G4 S1
+		M552 I1 S1
+
+	else
+		M292
+
+M98 P"0:/sys/led/statusoff.g"
+M98 P"0:/sys/led/restorewhite.g"
