@@ -1,0 +1,12 @@
+; Erase values from WiFi Module
+M552 I1 S0
+G4S1
+
+M588 S"*"
+G4S1
+
+M589 S"22 IDEX" P"1234567890" I192.168.0.1
+G4 S1
+
+
+M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1

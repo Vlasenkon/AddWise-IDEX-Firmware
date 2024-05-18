@@ -6,4 +6,3 @@ if !exists(param.R)
     G4S1
     M98 P"0:/user/networkmode.g"
     G4S1
-	M98 P"0:/sys/networkmode.g"

@@ -13,6 +13,7 @@ else
 	echo "Ethernet mode Enabled"
 	M99
 
+M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
 
 M552 I1 S-1
@@ -25,6 +26,7 @@ while network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actual
 
 
 if network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1"
+	M98 P"0:/sys/led/dimmwhite.g"
 	M98 P"0:/sys/led/red.g"
 	M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1
 	
@@ -40,7 +42,7 @@ else
 
 	var ip = network.interfaces[0].actualIP
 
-	M552 I0 S-1
+	M552 I0 S0
 	G4 S1
 	M552 I1 S2	
 			

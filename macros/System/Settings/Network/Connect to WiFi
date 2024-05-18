@@ -7,10 +7,10 @@ var pp = {input}
 ; save it as a file
 echo >"0:/user/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
 
-M98 P"0:/macros/System/Settings/WiFi/Switch WiFI to Access Point Mode" R1
+M98 P"0:/macros/System/Settings/Network/WiFi - Client Mode" R1
 
-
-
+M98 P"0:/sys/led/statusoff.g"
+M98 P"0:/sys/led/restorewhite.g"
 
 
 M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
