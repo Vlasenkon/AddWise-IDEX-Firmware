@@ -172,3 +172,6 @@ while boards[0].vIn.current < 22 && boards[1].vIn.current < 22 && iterations < 2
 M17 Z                                                            ; Hold Z motors with idle current
 
 M98 P"0:/sys/led/startup.g"                                      ; startup LED
+
+; test internet connection
+echo >"0:/sys/runonce.g" "M98 P""0:/sys/networktest.g"""

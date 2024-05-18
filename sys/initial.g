@@ -114,6 +114,7 @@ G90
 ; Purge
 T R0        ; Load previously selected tool
 
+M83                                                            ; Relative extruder moves
 G1 E50 F{60}*{3}     ; extrude filament
 G4 S1
 
@@ -132,6 +133,7 @@ else
   G1  X30
   G1 X-30
 G90
+
 
 if exists(param.E)
   T{param.E}
