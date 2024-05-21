@@ -2,6 +2,7 @@ M291 S4 K{"Cancel","Ethernet is connected"} R"Connect via Ethernet" P"Please con
 if input = 1
 	M292 ;Continue
 else
+	M99
 	abort
 
 
@@ -12,6 +13,7 @@ else
 	echo >"0:/user/networkmode.g" "M552 I0 S1 ; Enable Ethernet mode"
 	echo "Ethernet mode Enabled"
 	M99
+	abort
 
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"

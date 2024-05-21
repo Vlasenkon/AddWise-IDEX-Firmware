@@ -12,8 +12,17 @@ M98 P"0:/macros/System/Settings/Network/WiFi - Client Mode" R1
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
 
-
 M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
+var mmm = {input}
+
+; acrt based on M291
+if var.mmm = 1
+	M292 ;Continue
+else
+	echo >"0:/user/networkmode.g" "M552 I1 S1 ; Enable WiFi Client Mode"
+	echo "WiFi switched to Client mode"
+	M99
+	abort
 
 
 ; Erase values from WiFi Module
@@ -28,16 +37,6 @@ G4 S1
 
 ; write New values to WiFi module
 M98 P"0:/user/WiFiPass.g"
-
-
-; acrt based on M291
-if input = 1
-	M292 ;Continue
-else
-	echo >"0:/user/networkmode.g" "M552 I1 S1 ; Enable WiFi Client Mode"
-	echo "WiFi switched to Client mode"
-	M99
-
 
 M98 P"0:/sys/led/restorewhite.g"
 
