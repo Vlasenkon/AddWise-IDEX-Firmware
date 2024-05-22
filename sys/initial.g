@@ -44,10 +44,10 @@ if !exists(param.W)
   M116 H2 S10
   M98 P"0:/user/chamberwait.g"
 
-M98 P"0:/sys/led/start_hot.g"
 
 
 ; Home all and MBC ===========================================================================
+M98 P"0:/sys/led/start_hot.g"
 
 G60 S0                                 ; Save selectrd tool to slot 0
 
@@ -67,7 +67,9 @@ G60 S0                                 ; Save selectrd tool to slot 0
 ;  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
 ;  abort "Error: Print cancelled due to Mesh Compensation"
 
-
+;Clean the nozzles ===========================================================================
+T R0                                   ; Load previously selected tool
+M98 P"0:/sys/nozzlewipe.g" C1
 
 ; Get Nozzles up to Temp ===========================================================================
 if var.S0 > 0 && var.S1 > 0
@@ -102,10 +104,9 @@ else
   M568 P3 S{0} R{0}
 
 
-
 ;Purge and Clean the nozzles ===========================================================================
 T R0                                   ; Load previously selected tool
-M98 P"0:/sys/nozzlewipe.g" C1 E50
+M98 P"0:/sys/nozzlewipe.g" E50
 
 
 if exists(param.E)
