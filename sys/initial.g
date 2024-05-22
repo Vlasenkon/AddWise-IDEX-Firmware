@@ -69,7 +69,7 @@ G60 S0                                 ; Save selectrd tool to slot 0
 
 ;Clean the nozzles ===========================================================================
 T R0                                   ; Load previously selected tool
-M98 P"0:/sys/nozzlewipe.g" C1
+M98 P"0:/sys/nozzlewipe.g" C1 W1
 
 ; Get Nozzles up to Temp ===========================================================================
 if var.S0 > 0 && var.S1 > 0
@@ -77,43 +77,38 @@ if var.S0 > 0 && var.S1 > 0
   M568 P1 S{var.S1} R{var.R1}
   M568 P2 S{var.S0, var.S1} R{var.R0, var.R1}
   M568 P3 S{var.S0, var.S1} R{var.R0, var.R1}
-  if !exists(param.W)
-    M116 P3 S5
 elif var.S0 > 0
   M568 P0 S{var.S0} R{var.R0}
   M568 P1 S{0} R{0}
   M568 P2 S{0} R{0}
   M568 P3 S{0} R{0}
-  if !exists(param.W)
-    M116 P0 S5
 elif var.S1 > 0
   M568 P0 S{0} R{0}
   M568 P1 S{var.S1} R{var.R1}
   M568 P2 S{0} R{0}
   M568 P3 S{0} R{0}
-  if !exists(param.W)
-    M116 P1 S5
 else
   M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Selected Temperature"
-  abort "Error: Print cancelled due to Selected Temperature"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
   M568 P2 S{0} R{0}
   M568 P3 S{0} R{0}
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Selected Temperature"
+  abort "Error: Print cancelled due to Selected Temperature"
 
 
 ;Purge and Clean the nozzles ===========================================================================
 T R0                                   ; Load previously selected tool
-M98 P"0:/sys/nozzlewipe.g" E50
+M98 P"0:/sys/nozzlewipe.g" E50 W1
 
 
+; Select the tool before ToolChange Retraction Enabled
 if exists(param.E)
   T{param.E}
-
-
 M98 P"0:/sys/entoolchangeretraction.g" ; Enable ToolChange Retraction
+
+
 
 M208 Z-1 S1                            ; set axis minima to allow for wider range of Z - Offset
 M204 P5000 T5000                       ; set the accelerations
