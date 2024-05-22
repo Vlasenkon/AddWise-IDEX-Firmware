@@ -34,6 +34,7 @@ if exists(param.W) && sensors.analog[{state.currentTool}].lastReading < tools[{s
   M116 S10
 
 ; Purge fillament
+M98 P"0:/user/toolchangeretraction.g" E1
 if exists(param.E)
   echo {(param.E)}
   M83                                                             ; Relative extruder moves
