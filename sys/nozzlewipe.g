@@ -30,7 +30,7 @@ G1 Y{var.brush_max + var.brush_min}/2                            ; Go to the cen
 M400
 
 ; Wait for Temp
-if exists(param.W)
+if exists(param.W) && sensors.analog[{state.currentTool}].lastReading < tools[{state.currentTool}].active[0]
   M116 S10
 
 ; Purge fillament

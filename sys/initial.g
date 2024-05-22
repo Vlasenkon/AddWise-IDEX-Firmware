@@ -51,21 +51,21 @@ M98 P"0:/sys/led/start_hot.g"
 
 G60 S0                                 ; Save selectrd tool to slot 0
 
-;M98 P"homeall.g" Z1 S1 L1              ; Home the machine
-;if result !=0
-;  M98 P"0:/sys/led/fault.g"
-;  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Homing"
-;  abort "Error: Print cancelled due to Homing"
-;
-;
-;if exists(param.A) && exists(param.B) && exists(param.D) && exists(param.E)
-;  M98 P"mesh.g" A{param.A} B{param.B} D{param.D} E{param.E}
-;else
-;  M98 P"mesh.g"
-;if result !=0
-;  M98 P"0:/sys/led/fault.g"
-;  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
-;  abort "Error: Print cancelled due to Mesh Compensation"
+M98 P"homeall.g" Z1 S1 L1              ; Home the machine
+if result !=0
+  M98 P"0:/sys/led/fault.g"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Homing"
+  abort "Error: Print cancelled due to Homing"
+
+
+if exists(param.A) && exists(param.B) && exists(param.D) && exists(param.E)
+  M98 P"mesh.g" A{param.A} B{param.B} D{param.D} E{param.E}
+else
+  M98 P"mesh.g"
+if result !=0
+  M98 P"0:/sys/led/fault.g"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
+  abort "Error: Print cancelled due to Mesh Compensation"
 
 ;Clean the nozzles ===========================================================================
 T R0                                   ; Load previously selected tool

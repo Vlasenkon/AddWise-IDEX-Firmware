@@ -37,7 +37,7 @@ T{var.tool}                                                    ; Select the tool
 M302 P1                                                        ; Allow cold extrusion
 M83                                                            ; Relative extruder moves
 G1 E50 F{5 * 60}                                               ; Extrude filament
-
+M400
 
 ; lower the temp below cold pull temp
 G10  P{var.tool} R{var.temp_pull * 0.8} S{var.temp_pull * 0.8} ; Set the tool temperature to 'temp_pull'
