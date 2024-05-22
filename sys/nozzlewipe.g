@@ -4,8 +4,6 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 G90
 G1 F18000
 
-if move.axes[0].machinePosition > {move.axes[3].min + 5} || move.axes[3].machinePosition < {move.axes[3].max - 5}
-    G1 Y0 X-999 U999
 
 
 var ttt = 0
@@ -16,11 +14,19 @@ elif state.currentTool == 0 || state.currentTool == 2 || state.currentTool == 3
 elif state.currentTool == 1
   set var.ttt = 1
 
+
+T0
+if move.axes[0].machinePosition > {move.axes[3].min + 5} || move.axes[3].machinePosition < {move.axes[3].max - 5}
+    G1 Y0 X-999 U999
+
+
+
 var brush_min = -87
 var brush_max = -59
 var x_center = -193
 var u_center = 193 ;var.x_center * {-1}
 var xu_offset = {3}
+var xu_step = 1
 
 
 G1 Y{var.brush_max + var.brush_min}/2 ; Go to the center of purging bucket
@@ -59,7 +65,7 @@ if var.ttt = 0
 
     while move.axes[0].machinePosition < {var.x_center + var.xu_offset} && iterations < 50
       G91
-      G1 X0.5
+      G1 X{var.xu_step}
       G90
       G1 Y{var.brush_max}
       G1 Y{var.brush_min}
@@ -67,7 +73,7 @@ if var.ttt = 0
 
     while move.axes[0].machinePosition > {var.x_center - var.xu_offset} && iterations < 50
       G91
-      G1 X-0.5
+      G1 X{-var.xu_step}
       G90
       G1 Y{var.brush_max}
       G1 Y{var.brush_min}
@@ -97,7 +103,7 @@ if var.ttt = 1
   
     while move.axes[3].machinePosition > {var.u_center - var.xu_offset} && iterations < 50
       G91
-      G1 U-0.5
+      G1 U{-var.xu_step}
       G90
       G1 Y{var.brush_max}
       G1 Y{var.brush_min}
@@ -105,7 +111,7 @@ if var.ttt = 1
   
     while move.axes[3].machinePosition < {var.u_center + var.xu_offset} && iterations < 50
       G91
-      G1 U0.5
+      G1 U{var.xu_step}
       G90
       G1 Y{var.brush_max}
       G1 Y{var.brush_min}

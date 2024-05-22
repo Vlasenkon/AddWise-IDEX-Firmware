@@ -5,11 +5,11 @@ var S1 = tools[1].active[0]
 var R0 = tools[0].standby[0]
 var R1 = tools[1].standby[0]
 
-var div = 100                          ; Diviation for Nozzle temp During Wait for a bed
+var div = 100                          ; Diviation for Nozzle Temp During Wait for a Bed
 
 ; Preheat (Cold) ===========================================================================
 
-; Set Tool Temp
+; Set Tool Temp - Temp Delta
 if var.S0 > 0 && var.S1 > 0
   T3 P0
   M568 P0 S{var.S0 - var.div} R{var.S0 - var.div}
@@ -44,36 +44,32 @@ if !exists(param.W)
   M116 H2 S10
   M98 P"0:/user/chamberwait.g"
 
+M98 P"0:/sys/led/start_hot.g"
 
 
 ; Home all and MBC ===========================================================================
 
-M98 P"0:/sys/led/start_hot.g"
-
 G60 S0                                 ; Save selectrd tool to slot 0
 
-M98 P"homeall.g" Z1 S1 L1              ; Home the machine
-if result !=0
-  M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Homing"
-  abort "Error: Print cancelled due to Homing"
+;M98 P"homeall.g" Z1 S1 L1              ; Home the machine
+;if result !=0
+;  M98 P"0:/sys/led/fault.g"
+;  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Homing"
+;  abort "Error: Print cancelled due to Homing"
+;
+;
+;if exists(param.A) && exists(param.B) && exists(param.D) && exists(param.E)
+;  M98 P"mesh.g" A{param.A} B{param.B} D{param.D} E{param.E}
+;else
+;  M98 P"mesh.g"
+;if result !=0
+;  M98 P"0:/sys/led/fault.g"
+;  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
+;  abort "Error: Print cancelled due to Mesh Compensation"
 
 
-if exists(param.A) && exists(param.B) && exists(param.D) && exists(param.E)
-  M98 P"mesh.g" A{param.A} B{param.B} D{param.D} E{param.E}
-else
-  M98 P"mesh.g"
-if result !=0
-  M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
-  abort "Error: Print cancelled due to Mesh Compensation"
 
 ; Get Nozzles up to Temp ===========================================================================
-
-T-1
-T0
-T R0                                   ; Load previously selected tool
-
 if var.S0 > 0 && var.S1 > 0
   M568 P0 S{var.S0} R{var.R0}
   M568 P1 S{var.S1} R{var.R1}
@@ -109,7 +105,7 @@ else
 
 ;Purge and Clean the nozzles ===========================================================================
 T R0                                   ; Load previously selected tool
-M98 P"0:/sys/nozzlewipe.g" E50 C1
+M98 P"0:/sys/nozzlewipe.g" C1 E50
 
 
 if exists(param.E)
