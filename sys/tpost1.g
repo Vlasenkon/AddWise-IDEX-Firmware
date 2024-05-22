@@ -7,12 +7,6 @@ G90
 G1 Y-70 X-999 U999 F18000
 
 M98 P"0:/user/toolchangeretraction.g" E1
-
-G91
-G1 X-30 F12000
-G1 X30
-G1 X-30
-G1 X30
-G90
+M98 P"0:/sys/nozzlewipe.g" T1
 
 M106 R2

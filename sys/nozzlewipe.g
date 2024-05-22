@@ -1,9 +1,6 @@
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   M98 P"homeall.g"
 
-G90
-G1 F18000
-
 
 
 var ttt = 0
@@ -17,7 +14,7 @@ elif state.currentTool == 1
 
 T0
 if move.axes[0].machinePosition > {move.axes[3].min + 5} || move.axes[3].machinePosition < {move.axes[3].max - 5}
-    G1 Y0 X-999 U999
+    G1 Y0 X-999 U999 F18000
 
 
 
@@ -40,9 +37,8 @@ if exists(param.E)
   M400
   G4 S1
 
-G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
 G1 F12000
-
+G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
 
 
 if var.ttt = 0
