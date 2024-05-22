@@ -5,7 +5,7 @@ var S1 = tools[1].active[0]
 var R0 = tools[0].standby[0]
 var R1 = tools[1].standby[0]
 
-var div = 100 ; Diviation for Nozzle temp During Wait for a bed
+var div = 100                          ; Diviation for Nozzle temp During Wait for a bed
 
 ; Preheat (Cold) ===========================================================================
 
@@ -20,23 +20,23 @@ elif var.S0 > 0
   T0 P0
   M568 P0 S{var.S0 - var.div} R{var.S0 - var.div}
   M568 P1 S{0} R{0}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
 elif var.S1 > 0
   T1 P0
   M568 P0 S{0} R{0}
   M568 P1 S{var.S1 - var.div} R{var.R1 - var.div}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
 else
   M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
-  abort "Print cancelled due to Selected Temperature Error"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Selected Temperature"
+  abort "Error: Print cancelled due to Selected Temperature"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
 
 
 ; Wait for Bed and (Chamber - Optionally)
@@ -50,13 +50,13 @@ if !exists(param.W)
 
 M98 P"0:/sys/led/start_hot.g"
 
-G60 S0 ; Save selectrd tool to slot 0
+G60 S0                                 ; Save selectrd tool to slot 0
 
-M98 P"homeall.g" Z1 S1 L1 ; Home the machine
+M98 P"homeall.g" Z1 S1 L1              ; Home the machine
 if result !=0
   M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Homing Error"
-  abort "Print cancelled due to Homing Error"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Homing"
+  abort "Error: Print cancelled due to Homing"
 
 
 if exists(param.A) && exists(param.B) && exists(param.D) && exists(param.E)
@@ -65,14 +65,14 @@ else
   M98 P"mesh.g"
 if result !=0
   M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Mesh Compensation Error"
-  abort "Print cancelled due to Mesh Compensation Error"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Mesh Compensation"
+  abort "Error: Print cancelled due to Mesh Compensation"
 
 ; Get Nozzles up to Temp ===========================================================================
 
 T-1
 T0
-T R0        ; Load previously selected tool
+T R0                                   ; Load previously selected tool
 
 if var.S0 > 0 && var.S1 > 0
   M568 P0 S{var.S0} R{var.R0}
@@ -84,62 +84,39 @@ if var.S0 > 0 && var.S1 > 0
 elif var.S0 > 0
   M568 P0 S{var.S0} R{var.R0}
   M568 P1 S{0} R{0}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
   if !exists(param.W)
     M116 P0 S5
 elif var.S1 > 0
   M568 P0 S{0} R{0}
   M568 P1 S{var.S1} R{var.R1}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
   if !exists(param.W)
     M116 P1 S5
 else
   M98 P"0:/sys/led/fault.g"
-  echo >>"0:/sys/eventlog.txt" "Print cancelled due to Selected Temperature Error"
-  abort "Print cancelled due to Selected Temperature Error"
+  echo >>"0:/sys/eventlog.txt" "Error: Print cancelled due to Selected Temperature"
+  abort "Error: Print cancelled due to Selected Temperature"
   T0 P0
   M568 P0 S{0} R{0}
   M568 P1 S{0} R{0}
-  M568 P2 S{0, 0} R{0, 0}
-  M568 P3 S{0, 0} R{0, 0}
+  M568 P2 S{0} R{0}
+  M568 P3 S{0} R{0}
 
 
 
 ;Purge and Clean the nozzles ===========================================================================
-
-G90
-
-; Purge
-T R0        ; Load previously selected tool
-
-M83                                                            ; Relative extruder moves
-G1 E50 F{60}*{3}     ; extrude filament
-G4 S1
-
-; Clean the nozzles
-G91
-G1 F12000
-
-if state.currentTool == 1
-  G1 X-30
-  G1  X30
-  G1 X-30
-  G1  X30
-else
-  G1  X30
-  G1 X-30
-  G1  X30
-  G1 X-30
-G90
+T R0                                   ; Load previously selected tool
+M98 P"0:/sys/nozzlewipe.g" E50 C1
 
 
 if exists(param.E)
   T{param.E}
 
 
-M98 P"0:/sys/entoolchangeretraction.g"  ; Enable ToolChange Retraction
+M98 P"0:/sys/entoolchangeretraction.g" ; Enable ToolChange Retraction
 
-M208 Z-1 S1                      ; set axis minima to allow for wider range of Z - Offset
-M204 P5000 T5000                 ; set the accelerations
+M208 Z-1 S1                            ; set axis minima to allow for wider range of Z - Offset
+M204 P5000 T5000                       ; set the accelerations
