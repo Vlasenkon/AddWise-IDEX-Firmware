@@ -99,7 +99,6 @@ else
 
 
 ;Purge and Clean the nozzles ===========================================================================
-T R0                                   ; Load previously selected tool
 M98 P"0:/sys/nozzlewipe.g" E50 W1
 
 
