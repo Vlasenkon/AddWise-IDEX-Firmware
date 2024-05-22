@@ -73,6 +73,7 @@ if var.ttt = 0
       G1 Y{var.brush_min}
       M400
   G90
+  G1 X-999
 
 
 
@@ -110,7 +111,8 @@ if var.ttt = 1
       G1 Y{var.brush_min}
       M400
   G90
+  G1 U999
 
 
 
-G1 X-999 U999 Y{var.brush_max + var.brush_min}/2 ; Go to the center of purging bucket
+G1 Y{var.brush_max + var.brush_min}/2 ; Go to the center of purging bucket
