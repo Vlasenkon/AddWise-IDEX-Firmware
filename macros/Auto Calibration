@@ -20,11 +20,26 @@ M116 P1 S10
 
 T3
 M83                 ; relative extruder moves
-G1 E-20 F{60}*{50}   ; retract filament
+G1 E-50 F{60}*{10}   ; retract filament
 T0
 
-G1 F18000 X-50 U50 Y-150 Z125  ; Move tools to the cleaning position
-M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
+set var.ll = var.ll - var.div
+set var.rr = var.rr - var.div
+
+G10 P0 R{var.ll} S{var.ll}
+G10 P1 R{var.rr} S{var.rr}
+G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
+G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
+
+T3
+M98 P"0:/sys/nozzlewipe.g" C1
+M400
+while iterations < 2
+  M98 P"0:/sys/nozzlewipe.g" L1 C1
+  M400
+
+G1 F18000 X-50 Y-150 Z125  ; Move tools to the cleaning position
+M291 S3 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
 
 M98 P"0:/sys/homeall.g" S1
 

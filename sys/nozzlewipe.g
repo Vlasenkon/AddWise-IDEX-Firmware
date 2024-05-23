@@ -13,7 +13,7 @@ var x_center = -193
 var u_center = 193
 var xu_offset = {3}
 var xu_step = 1
-var num_wipes = 4
+var num_wipes = 2
 
 
 G1 F18000
@@ -49,15 +49,16 @@ G1 Y{var.brush_min + random({var.brush_max - var.brush_min})}     ; Go to random
 if var.ttt = 0
 
   ; 1st cleaning loop (Staright Left to Right moves)
-  while iterations < var.num_wipes
-    G91
-    G1 X25
-    M400
-    G90
-    G1 Y{var.brush_max + 5}
-    G1 X-999
-    G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
-    M400
+  if !exists(param.L)
+    while iterations < var.num_wipes
+      G91
+      G1 X25
+      M400
+      G90
+      G1 Y{var.brush_max + 5}
+      G1 X-999
+      G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
+      M400
 
   ; 2nd cleaning loop (Ramp Cleaning)
   if exists(param.C)
@@ -89,15 +90,16 @@ if var.ttt = 0
 if var.ttt = 1
 
   ; 1st cleaning loop (Staright Left to Right moves)
-  while iterations < var.num_wipes
-    G91
-    G1 U-25
-    M400
-    G90
-    G1 Y{var.brush_max + 5}
-    G1 U999
-    G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
-    M400
+  if !exists(param.L)
+    while iterations < var.num_wipes
+      G91
+      G1 U-25
+      M400
+      G90
+      G1 Y{var.brush_max + 5}
+      G1 U999
+      G1 Y{var.brush_min + random({var.brush_max - var.brush_min})} ; Go to random poit of the brush
+      M400
   
   ; 2nd cleaning loop (Ramp Cleaning)
   if exists(param.C)
