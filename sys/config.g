@@ -158,13 +158,12 @@ echo >"0:/user/resetzbabystep.g" "                               ; do nothing"
 
 ; Custom settings
 M280 P0 S0                                                       ; rotate servo to 0 deg
-;T1 P0                                                           ; select tool 0
-;T0 P0                                                           ; select tool 0
 
 M568 P0 A2                                                       ; set tool state
 M568 P1 A2                                                       ; set tool state
 
 M575 P1 S1 B57600                                                ; define PanelDUE
+M593 P"ei3" F59                                                  ; configure input shaping
 
 ; Wait for voltage to stabilize and hold Z motors
 while boards[0].vIn.current < 22 && boards[1].vIn.current < 22 && iterations < 20
