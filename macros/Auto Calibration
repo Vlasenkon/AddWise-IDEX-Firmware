@@ -18,6 +18,9 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 M116 P0 S10
 M116 P1 S10
 
+G90
+G1 X-999 U999 Y-75 F18000
+
 T3
 M83                 ; relative extruder moves
 G1 E-50 F{60}*{10}   ; retract filament
