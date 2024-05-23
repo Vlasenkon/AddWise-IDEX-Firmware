@@ -69,7 +69,7 @@ var T0_Ref_Z = move.axes[2].userPosition
 
 G90                                                    ; Relative
 G1 Z{var.T0_Ref_Z + 1}
-G1 Y100 X0 F12000                                      ;Move to the Centre
+G1 Y97 X0 F12000                                       ;Move to the Centre
 G1 Z{var.T0_Ref_Z - var.Z_Dive}                        ; Move down the Bed Hole
 
 ; ===== Single Probe with T0 =====
@@ -122,13 +122,13 @@ G1 X{var.T0_center_X} Y{var.T0_center_Y}
 ; 1st Probe
 G90
 G1 X{var.T0_center_X} Y{var.T0_Front + var.offset}
-M98 P"0:/sys/nozzleprobe.g" Y-1
+G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel}
 set var.T0_Front = move.axes[1].userPosition
 echo >>"0:/macros/report.txt" "T0 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 2nd Probe
 G1 X{var.T0_center_X} Y{var.T0_Rear - var.offset}
-M98 P"0:/sys/nozzleprobe.g" Y+1
+G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel}
 set var.T0_Rear = move.axes[1].userPosition
 echo >>"0:/macros/report.txt" "T0 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
@@ -136,13 +136,13 @@ set var.T0_center_Y = {var.T0_Front + var.T0_Rear} / 2
 
 ; 3rd Probe
 G1 X{var.T0_Left + var.offset} Y{var.T0_center_Y}
-M98 P"0:/sys/nozzleprobe.g" X-1
+G38.4 K0 X{move.axes[0].userPosition - var.max_Travel}
 set var.T0_Left = move.axes[0].userPosition
 echo >>"0:/macros/report.txt" "T0 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 4th Probe
 G1 X{var.T0_Right - var.offset} Y{var.T0_center_Y}
-M98 P"0:/sys/nozzleprobe.g" X+1
+G38.4 K0 X{move.axes[0].userPosition + var.max_Travel}
 set var.T0_Right = move.axes[0].userPosition
 echo >>"0:/macros/report.txt" "T0 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
@@ -229,13 +229,13 @@ G1 U{var.T1_center_X} Y{var.T1_center_Y}
 ; 1st Probe
 G90
 G1 U{var.T1_center_X} Y{var.T1_Front + var.offset}
-M98 P"0:/sys/nozzleprobe.g" Y-10
+G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel}
 set var.T1_Front = move.axes[1].userPosition
 echo >>"0:/macros/report.txt" "T1 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 2nd Probe
 G1 U{var.T1_center_X} Y{var.T1_Rear - var.offset}
-M98 P"0:/sys/nozzleprobe.g" Y+10
+G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel}
 set var.T1_Rear = move.axes[1].userPosition
 echo >>"0:/macros/report.txt" "T1 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
@@ -245,13 +245,13 @@ set var.T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
 
 ; 3rd Probe
 G1 U{var.T1_Left + var.offset} Y{var.T1_center_Y}
-M98 P"0:/sys/nozzleprobe.g" X-10
+G38.4 K0 U{move.axes[3].userPosition - var.max_Travel}
 set var.T1_Left = move.axes[3].userPosition
 echo >>"0:/macros/report.txt" "T1 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 4th Probe
 G1 U{var.T1_Right - var.offset} Y{var.T1_center_Y}
-M98 P"0:/sys/nozzleprobe.g" X+10
+G38.4 K0 U{move.axes[3].userPosition + var.max_Travel}
 set var.T1_Right = move.axes[3].userPosition
 echo >>"0:/macros/report.txt" "T1 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
