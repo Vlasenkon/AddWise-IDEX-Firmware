@@ -21,17 +21,7 @@ M116 P1 S10
 T3
 M83                 ; relative extruder moves
 G1 E-50 F{60}*{10}   ; retract filament
-T0
 
-set var.ll = var.ll - var.div
-set var.rr = var.rr - var.div
-
-G10 P0 R{var.ll} S{var.ll}
-G10 P1 R{var.rr} S{var.rr}
-G10 P2 R{var.ll,var.rr} S{var.ll,var.rr}
-G10 P3 R{var.ll,var.rr} S{var.ll,var.rr}
-
-T3
 M98 P"0:/sys/nozzlewipe.g" C1
 M400
 while iterations < 2
@@ -50,6 +40,15 @@ M558 K0 P8 C"1.io4.in" H5 F18000 T18000         ; define Z probe parameters
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G1 U999 F18000
+
+
+
+
+
+
+
+
+
 
 M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
 M400
