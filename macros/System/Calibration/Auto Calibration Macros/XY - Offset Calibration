@@ -1,6 +1,6 @@
-echo >>"0:/macros/report.txt" " "
-echo >>"0:/macros/report.txt" "Test Start"
-echo >>"0:/macros/report.txt" " "
+;echo >>"0:/macros/report.txt" " "
+;echo >>"0:/macros/report.txt" "Test Start"
+;echo >>"0:/macros/report.txt" " "
 
 if !exists(param.S)
   M291 S5 J1 F250 L0 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
@@ -29,7 +29,7 @@ if !exists(param.S)
 
   M98 P"0:/sys/nozzlewipe.g" C1
   M400
-  while iterations < 2
+  while iterations < 1
     M98 P"0:/sys/nozzlewipe.g" L1 C1
     M400
 
@@ -124,13 +124,13 @@ G90
 G1 X{var.T0_center_X} Y{var.T0_Front + var.offset}
 G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel}
 set var.T0_Front = move.axes[1].userPosition
-echo >>"0:/macros/report.txt" "T0 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T0 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 2nd Probe
 G1 X{var.T0_center_X} Y{var.T0_Rear - var.offset}
 G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel}
 set var.T0_Rear = move.axes[1].userPosition
-echo >>"0:/macros/report.txt" "T0 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T0 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 set var.T0_center_Y = {var.T0_Front + var.T0_Rear} / 2
 
@@ -138,13 +138,13 @@ set var.T0_center_Y = {var.T0_Front + var.T0_Rear} / 2
 G1 X{var.T0_Left + var.offset} Y{var.T0_center_Y}
 G38.4 K0 X{move.axes[0].userPosition - var.max_Travel}
 set var.T0_Left = move.axes[0].userPosition
-echo >>"0:/macros/report.txt" "T0 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T0 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 4th Probe
 G1 X{var.T0_Right - var.offset} Y{var.T0_center_Y}
 G38.4 K0 X{move.axes[0].userPosition + var.max_Travel}
 set var.T0_Right = move.axes[0].userPosition
-echo >>"0:/macros/report.txt" "T0 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T0 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 set var.T0_center_X = {var.T0_Left + var.T0_Right} / 2
 
@@ -231,13 +231,13 @@ G90
 G1 U{var.T1_center_X} Y{var.T1_Front + var.offset}
 G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel}
 set var.T1_Front = move.axes[1].userPosition
-echo >>"0:/macros/report.txt" "T1 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T1 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 2nd Probe
 G1 U{var.T1_center_X} Y{var.T1_Rear - var.offset}
 G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel}
 set var.T1_Rear = move.axes[1].userPosition
-echo >>"0:/macros/report.txt" "T1 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T1 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 
 set var.T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
@@ -247,13 +247,13 @@ set var.T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
 G1 U{var.T1_Left + var.offset} Y{var.T1_center_Y}
 G38.4 K0 U{move.axes[3].userPosition - var.max_Travel}
 set var.T1_Left = move.axes[3].userPosition
-echo >>"0:/macros/report.txt" "T1 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T1 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 4th Probe
 G1 U{var.T1_Right - var.offset} Y{var.T1_center_Y}
 G38.4 K0 U{move.axes[3].userPosition + var.max_Travel}
 set var.T1_Right = move.axes[3].userPosition
-echo >>"0:/macros/report.txt" "T1 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
+;echo >>"0:/macros/report.txt" "T1 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 set var.T1_center_X = {var.T1_Left + var.T1_Right} / 2
 G1 U{var.T1_center_X} Y{var.T1_center_Y} Z{var.T1_Ref_Z}
@@ -300,7 +300,7 @@ echo >>"0:/user/rtzoffset.g" "  global rtzoffset = "^{global.rtzoffset}
 ; Generate tooloffset.g
 echo >"0:/user/tooloffset.g" "                         ; Set tool offsets"
 echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
-echo >>"0:/macros/report.txt" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
+;echo >>"0:/macros/report.txt" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^" Z"^{global.rtzoffset}
 
 ; Apply changes
 G10 P1 U{global.uoffset} Y{global.yoffset} Z{global.rtzoffset}
