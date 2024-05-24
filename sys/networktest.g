@@ -5,7 +5,7 @@ var it = 0
 while network.interfaces[0].actualIP = "0.0.0.0" && network.interfaces[1].actualIP = "0.0.0.0" && iterations < 30
   set var.it = var.it + 1
   ;echo >>"0:/macros/report.txt" "1st Loop Iteration: "^var.it
-  G4 S.1
+  G4 S1
  
 ;echo >>"0:/macros/report.txt" "1st Loop Out"
  
