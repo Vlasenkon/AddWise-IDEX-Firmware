@@ -163,6 +163,7 @@ M568 P0 A2                                                       ; set tool stat
 M568 P1 A2                                                       ; set tool state
 
 M575 P1 S1 B57600                                                ; define PanelDUE
+;M955 P0 C"spi.cs1+spi.cs0" I06                                   ; configure accelerometer
 M593 P"ei3" F59                                                  ; configure input shaping
 
 ; Wait for voltage to stabilize and hold Z motors
