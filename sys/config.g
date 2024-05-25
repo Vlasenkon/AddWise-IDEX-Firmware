@@ -13,9 +13,9 @@ G4 S1
 ; Network
 M98 P"0:/user/networkmode.g"
 
-M586 P0 S1                                                       ; enable HTTP
-M586 P1 S0                                                       ; disable FTP
-M586 P2 S0                                                       ; disable Telnet
+M586 P0 S1                                                       ; configure HTTP 
+M586 P1 S0                                                       ; configure FTP 
+M586 P2 S0                                                       ; configure Telnet
 
 
 
