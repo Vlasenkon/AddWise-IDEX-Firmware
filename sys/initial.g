@@ -12,13 +12,13 @@ var div = 100                          ; Diviation for Nozzle Temp During Wait f
 ; Set Tool Temp - Temp Delta
 if var.S0 > 0 && var.S1 > 0
   T3 P0
-  M568 P0 S{var.S0 - var.div} R{var.S0 - var.div}
-  M568 P1 S{var.S1 - var.div} R{var.S1 - var.div}
-  M568 P2 S{{var.S0 - var.div}, {var.S1 - var.div}} R{{var.S0 - var.div}, {var.S1 - var.div}}
-  M568 P3 S{{var.S0 - var.div}, {var.S1 - var.div}} R{{var.S0 - var.div}, {var.S1 - var.div}}
+  M568 P0 S{var.S0 - var.div} R{var.R0 - var.div}
+  M568 P1 S{var.S1 - var.div} R{var.R1 - var.div}
+  M568 P2 S{{var.S0 - var.div}, {var.S1 - var.div}} R{{var.R0 - var.div}, {var.R1 - var.div}}
+  M568 P3 S{{var.S0 - var.div}, {var.S1 - var.div}} R{{var.R0 - var.div}, {var.R1 - var.div}}
 elif var.S0 > 0
   T0 P0
-  M568 P0 S{var.S0 - var.div} R{var.S0 - var.div}
+  M568 P0 S{var.S0 - var.div} R{var.R0 - var.div}
   M568 P1 S{0} R{0}
   M568 P2 S{0} R{0}
   M568 P3 S{0} R{0}
