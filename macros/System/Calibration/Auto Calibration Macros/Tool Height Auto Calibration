@@ -45,7 +45,7 @@ G1 U999 F18000
 M42 P4 S1                ; Turn on relay
 
 G90
-G1 X0 Y-10 Z5 F18000
+G1 X0 Y-150 Z5 F18000
 
 G91
 M98 P"0:/sys/nozzleprobe.g" Z1
@@ -57,7 +57,7 @@ echo "Left "^{var.lll}^" mm"
 
 G90
 G1 X-999 F18000
-G1 U{0}-{global.uoffset} Y{-10}-{global.yoffset}
+G1 U{0}-{global.uoffset} Y{-150}-{global.yoffset}
 
 G90
 G1 Z3
@@ -102,7 +102,7 @@ else ; ===If delta is more than allowed value===
 
     M291 R"Loosen the heat break" P"Click OK when ready to proceed" S3
     
-    G1 X-999 U{0}-{global.uoffset} Y{-10}-{global.yoffset} F18000
+    G1 X-999 U{0}-{global.uoffset} Y{-150}-{global.yoffset} F18000
 
     G90
     G1 Z5 F18000
@@ -121,7 +121,7 @@ else ; ===If delta is more than allowed value===
     
     M291 R"Loosen the heat break" P"Click OK when ready to proceed" S3
     
-    G1 U999 X0 Y-10 F18000
+    G1 U999 X0 Y-150 F18000
 
     G90
     G1 Z5 F18000
