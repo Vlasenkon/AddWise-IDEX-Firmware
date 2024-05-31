@@ -48,9 +48,9 @@ var dd = var.rr - var.ll
 
 ;if abs(var.dd) > 0.5
 
-echo "RR is "^{var.rr}^" mm"
-echo "LL is "^{var.ll}^" mm"
-echo "DD is "^{var.dd}^" mm"
+;echo "RR is "^{var.rr}^" mm"
+;echo "LL is "^{var.ll}^" mm"
+;echo "DD is "^{var.dd}^" mm"
 
 
 G92 Y-999
