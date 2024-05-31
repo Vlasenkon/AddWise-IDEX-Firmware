@@ -6,7 +6,7 @@ G91
 G1 H2 Z10 F18000        ; lift Z relative to current position
 G1 H2 X5 F18000
 G90
-G1 Y170 F18000
+G1 Y172 F18000
 
 
 G91                     ; relative positioning
