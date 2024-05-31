@@ -5,7 +5,7 @@ if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.ax
 M42 P4 S1                                                                                      ; Turn on relay
 G4 P500
 
-M558 K0 P8 C"1.io4.in" H5 F100 T18000
+M558 K0 P8 C"1.io4.in" H5 F600 T18000
 M98 P"0:/user/probeoffset.g"                                                                   ; load global variables
 
 G90
