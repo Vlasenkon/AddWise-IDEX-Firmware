@@ -5,4 +5,4 @@ if move.axes[2].machinePosition < 10 && state.status != "processing"  && state.s
 
 M98 P"0:/sys/nozzlewipe.g" T1
 
-M106 R2
+M106 R3

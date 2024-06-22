@@ -1,9 +1,7 @@
 ; pause.g
 ; called when a print from SD card is paused
 
-
-
-;G60 S1
+G60 S2
 
 
 ; Disable ToolChange Retraction
@@ -17,6 +15,7 @@ G91            ; relative positioning
 G1 Z100 F18000 ; lift Z
 G90            ; absolute positioning
 G1 Y150 F6000
+
 
 M106 S0
 

@@ -2,7 +2,7 @@ G90
 
 M98 P"0:/user/toolchangeretraction.g" R1
 
-G60 S2
+G60 S3
 M106 S0
 
 ; Move Z to 10mm if lower than that for safety
