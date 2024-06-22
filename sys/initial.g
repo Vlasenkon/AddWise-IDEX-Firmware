@@ -105,9 +105,9 @@ M98 P"0:/sys/nozzlewipe.g" E50 W1
 ; Select the tool before ToolChange Retraction Enabled
 if exists(param.E)
   T{param.E}
+
+
 M98 P"0:/sys/entoolchangeretraction.g" ; Enable ToolChange Retraction
-
-
 
 M208 Z-1 S1                            ; set axis minima to allow for wider range of Z - Offset
 M204 P5000 T5000                       ; set the accelerations
