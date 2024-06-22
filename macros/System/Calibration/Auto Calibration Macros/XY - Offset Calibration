@@ -38,13 +38,7 @@ if !exists(param.S)
 
   M98 P"0:/sys/homeall.g" S1
 
-  G29 S2     ; disable Mesh Bed Leveling
-  M290 R0 S0
-  M208 Z-5 S1
-  M558 K0 P8 C"1.io4.in" H5 F18000 T18000         ; define Z probe parameters
-  M98 P"0:/user/probeoffset.g"                       ; load global variables
-  T0
-  G1 U999 F18000
+
 
 M204 T1000
 G29 S2                                                 ; disable Mesh Bed Leveling
@@ -117,7 +111,7 @@ G90
 G1 X{var.T0_center_X} Y{var.T0_center_Y}
 
 
-; ===== ZigZag Probe with T0 =====
+; ===== Final Probe with T0 =====
 
 ; 1st Probe
 G90
@@ -149,8 +143,12 @@ set var.T0_Right = move.axes[0].userPosition
 set var.T0_center_X = {var.T0_Left + var.T0_Right} / 2
 
 G1 X{var.T0_center_X} Y{var.T0_center_Y} Z{var.T0_Ref_Z}
-G4 S5
+G4 S1
 G1 Z{var.T0_Ref_Z + 5}
+
+
+
+
 
 
 
@@ -224,40 +222,36 @@ G90
 G1 U{var.T1_center_X} Y{var.T1_center_Y}
 
 
-; ===== ZigZag Probe with T1 =====
+; ===== Final Probe with T1 =====
 
 ; 1st Probe
 G90
 G1 U{var.T1_center_X} Y{var.T1_Front + var.offset}
 G38.4 K0 Y{move.axes[1].userPosition - var.max_Travel}
 set var.T1_Front = move.axes[1].userPosition
-;echo >>"0:/macros/report.txt" "T1 Y- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 2nd Probe
 G1 U{var.T1_center_X} Y{var.T1_Rear - var.offset}
 G38.4 K0 Y{move.axes[1].userPosition + var.max_Travel}
 set var.T1_Rear = move.axes[1].userPosition
-;echo >>"0:/macros/report.txt" "T1 Y+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 
 set var.T1_center_Y = {var.T1_Front + var.T1_Rear} / 2
-;G1 U{var.T1_center_X} Y{var.T1_center_Y}
+
 
 ; 3rd Probe
 G1 U{var.T1_Left + var.offset} Y{var.T1_center_Y}
 G38.4 K0 U{move.axes[3].userPosition - var.max_Travel}
 set var.T1_Left = move.axes[3].userPosition
-;echo >>"0:/macros/report.txt" "T1 X- X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 ; 4th Probe
 G1 U{var.T1_Right - var.offset} Y{var.T1_center_Y}
 G38.4 K0 U{move.axes[3].userPosition + var.max_Travel}
 set var.T1_Right = move.axes[3].userPosition
-;echo >>"0:/macros/report.txt" "T1 X+ X"^{move.axes[0].machinePosition}^" Y"^{move.axes[1].machinePosition}^" Z"^{move.axes[2].machinePosition}^" U"^{move.axes[3].machinePosition}
 
 set var.T1_center_X = {var.T1_Left + var.T1_Right} / 2
 G1 U{var.T1_center_X} Y{var.T1_center_Y} Z{var.T1_Ref_Z}
-G4 S2
+G4 S1
 G1 Z{var.T1_Ref_Z + 5}
 
 
