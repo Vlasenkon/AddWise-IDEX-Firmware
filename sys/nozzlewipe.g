@@ -35,8 +35,8 @@ if exists(param.W) && sensors.analog[{state.currentTool}].lastReading < tools[{s
 
 ; Purge fillament
 M98 P"0:/user/toolchangeretraction.g" E1
+
 if exists(param.E)
-  echo {(param.E)}
   M83                                                             ; Relative extruder moves
   G1 E{(param.E)} F{60}*{3}                                       ; extrude filament
   M400
@@ -125,3 +125,7 @@ if var.ttt = 1
   G90
   G1 U999
   G1 Y{var.brush_max + var.brush_min}/2                           ; Go to the center of purging bucket
+
+
+
+  echo >"0:/user/resetzbabystep.g" "; do nothing"
