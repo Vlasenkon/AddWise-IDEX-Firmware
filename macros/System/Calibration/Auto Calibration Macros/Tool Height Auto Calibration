@@ -61,9 +61,9 @@ if !exists(param.S)
 
 
 
+M558 K0 P8 C"1.io4.in" H5 F100 T18000              ; define Z probe parameters
 
-
-var y_test_pos = -151
+var y_test_pos = -101
 var add_z_offset = -0.070
 
 
