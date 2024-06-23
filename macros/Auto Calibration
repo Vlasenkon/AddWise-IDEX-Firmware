@@ -17,11 +17,11 @@ M291 S3 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remov
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   M98 P"0:/sys/homeall.g" S1
 
-M116 P0 S10
-M116 P1 S10
-
 G90
 G1 X-999 U999 Y-75 F18000
+
+M116 P0 S10
+M116 P1 S10
 
 T3
 M83                 ; relative extruder moves
