@@ -56,8 +56,30 @@ if !exists(param.S)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 M558 K0 P8 C"1.io4.in" H5 F100 T18000              ; define Z probe parameters
 
+var Probe_Point_Y = 98
 var max_Travel = 15
 var offset = 3
 var Z_Dive = 0.5
@@ -70,7 +92,7 @@ var T0_Ref_Z = move.axes[2].userPosition
 
 G90                                                    ; Relative
 G1 Z{var.T0_Ref_Z + 1}
-G1 Y95 X0 F12000                                       ;Move to the Centre
+G1 Y{var.Probe_Point_Y} X0 F12000                                       ;Move to the Centre
 G1 Z{var.T0_Ref_Z - var.Z_Dive}                        ; Move down the Bed Hole
 
 ; ===== Single Probe with T0 =====
