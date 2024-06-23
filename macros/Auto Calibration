@@ -1,7 +1,7 @@
-M291 S5 J1 F250 L0 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Left Tool."
 var ll = input
-
-M291 S5 F{var.ll} L0 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+  
+M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Right Tool."
 var rr = input
 
 G10 P0 R{var.ll} S{var.ll}
@@ -45,7 +45,7 @@ M558 K0 P8 C"1.io4.in" H5 F100 T18000              ; define Z probe parameters
 M98 P"0:/user/probeoffset.g"                       ; load global variables
 T0
 G1 U999 F18000
-
+M42 P4 S1                                              ; Turn on relay
 
 
 
@@ -66,6 +66,14 @@ M400
 
 M98 P"0:/macros/System/Calibration/Auto Calibration Macros/XY - Offset Calibration" S1
 M400
+
+
+
+
+
+
+
+
 
 
 G10 P0 S0 R0
