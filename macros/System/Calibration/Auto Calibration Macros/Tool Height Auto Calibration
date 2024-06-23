@@ -161,6 +161,9 @@ else ; ===If delta is more than allowed value===
   
   M291 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
 
+G90
+G1 X-999 U999 F18000
+
 if abs(var.ddd) > 0.05
   M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
 
