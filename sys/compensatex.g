@@ -1,7 +1,7 @@
 ;var.mm UP => Right Side UP
 
-var mm = 0.0
-;var mm = global.rtzoffset
+;var mm = 0.0
+var mm = {global.rtzoffset * 1.2}
 
 
 M569 P1.2 S1
