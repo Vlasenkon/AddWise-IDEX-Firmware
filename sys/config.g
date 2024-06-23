@@ -38,9 +38,9 @@ M671 X222.5:0:-222.5 Y-170.5:193.5:-170.5 S100                   ; leadscrews at
 
 M350 X16 Y16 U16 Z16 E16:16 I1                                   ; configure microstepping
 M92 X80 Y80 U80 Z400 E400:400                                    ; set steps per mm
-M566 X600 U600 Y600 Z244 E600:600                                ; set maximum jerk (mm/min)
-M203 X18000 U18000 Y18000 Z1800 E10000:10000                     ; set maximum speeds (mm/min)
-M201 X10000 U10000 Y10000 Z1000 E5000:5000                       ; set accelerations (mm/s^2)
+M566 X600 U600 Y600 Z200 E600:600                                ; set maximum jerk (mm/min)
+M203 X18000 U18000 Y18000 Z1200 E12000:12000                     ; set maximum speeds (mm/min)
+M201 X10000 U10000 Y10000 Z500 E5000:5000                        ; set accelerations (mm/s^2)
 M906 X1800 U1800 Y1800:1800 Z1000 E600:600 I50                   ; set motor currents (mA) and motor idle factor in per cent
 M84 S10                                                          ; set idle timeout
 M204 P5000 T5000
@@ -84,7 +84,7 @@ M140 H2                                                          ; map heated be
 M143 H2 S210                                                     ; configure temperature limit for the heater
 M570 H2 P10 T5 R3                                                ; configure heater fault detection
 
-M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B2900    ; configure temperature sensor
+M308 S3 A"Chamber Air" P"1.temp0" Y"thermistor" T200000 B3100    ; configure temperature sensor
 M950 H3 C"1.out1" Q10 T3                                         ; configure heater
 M307 H3 R0.1 K0.895 D55 S1.00 B1                                 ; configure PID parameters
 M141 H3                                                          ; map chamber to heater
