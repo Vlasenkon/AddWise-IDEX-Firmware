@@ -1,9 +1,9 @@
 if !exists(param.S)
 
-  M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Set temperature of the filament that was last loaded in the Left Tool"
+  M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Left Tool."
   var ll = input
   
-  M291 S5 F{var.ll} L150 H450 R"Set Right Tool Temperature" P"Set temperature of the filament that was last loaded in the Right Tool"
+  M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Right Tool."
   var rr = input
   
   G10 P0 R{var.ll} S{var.ll}
@@ -23,7 +23,7 @@ if !exists(param.S)
   T0
   
   G1 F18000 X-50 U50 Y{var.y_test_pos} Z125  ; Move tools to the cleaning position
-  M291 R"Clean both Nozzles well with a metal brush" P"Otherwise you risk damaging your Machine. Click OK when ready to proceed" S2
+  M291 R"Clean Both Nozzles" P"Use a metal brush to thoroughly clean both nozzles. Failure to clean properly may damage your machine."
   
   M98 P"0:/sys/homeall.g" S1
 
@@ -37,7 +37,7 @@ G90
 G1 U999 F18000
 
 
-var y_test_pos = -101
+var y_test_pos = -151
 var add_z_offset = -0.070
 
 
@@ -101,7 +101,7 @@ else ; ===If delta is more than allowed value===
     G90
     G1 U-100 X-999 Z200 F18000
 
-    M291 R"Loosen the heat break and move it Down" P"Click OK when ready to proceed" S3
+    M291 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 X-999 U{0}-{global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
@@ -109,7 +109,7 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.lll + var.add_z_offset} F240
     
-    M291 R"Tighten the heat break" P"Click OK when ready to proceed" S2
+    M291 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 U-100 Z200 F18000
@@ -120,7 +120,7 @@ else ; ===If delta is more than allowed value===
     G90
     G1 X100 U999 Z200 F18000
     
-    M291 R"Loosen the heat break and move it Down" P"Click OK when ready to proceed" S3
+    M291 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 U999 X0 Y{var.y_test_pos} F18000
 
@@ -128,12 +128,12 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.rrr + var.add_z_offset} F240
     
-    M291 R"Tighten the heat break" P"Click OK when ready to proceed" S2
+    M291 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 X100 Z200 F18000
   
-  M291 R"Fully Tighten the heat break" P"Click OK when ready to proceed" S2
+  M291 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
 
 if abs(var.ddd) > 0.05
   M98 P"0:/macros/System/Calibration/Auto Calibration Macros/Tool Height Auto Calibration" S1
