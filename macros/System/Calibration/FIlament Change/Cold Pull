@@ -53,6 +53,8 @@ M116 P{var.tool} S10                                           ; Wait for the to
 ; set cold pull temp and wait
 G10  P{var.tool} R{var.temp_pull} S{var.temp_pull}
 M116 P{var.tool} S5                                            ; Wait for the tool to reach the set temperature
+M106 S0
+
 
 G10  P{var.tool} R{var.temp_stop} S{var.temp_stop}             ; Set the tool temperature
 
