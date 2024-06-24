@@ -158,7 +158,7 @@ echo >"0:/user/resetzbabystep.g" "                               ; do nothing"
 
 ; Custom settings
 M280 P0 S0                                                       ; rotate servo to 0 deg
-T0
+T0 P0
 M568 P0 A2                                                       ; set tool state
 M568 P1 A2                                                       ; set tool state
 
