@@ -65,10 +65,9 @@ if !exists(param.S)
 
 
 
-M558 K0 P8 C"1.io4.in" H5 F100 T18000              ; define Z probe parameters
+
 
 ;====Probe with Nozzle====
-M42 P4 S1                      ; Turn on relay
 
 G90
 G1 F18000 X0 Y80 Z5 F18000
@@ -86,22 +85,23 @@ G1 Z20
 ;====Probe with Z - Probe====
 M98 R1 P"0:/sys/attachedcheck.g" ; make sure probe is conected, pick if negative and leave relay active
 M558 K0 P8 C"1.io4.in" H5 F100 T18000              ; define Z probe parameters
+M98 P"0:/user/probeoffset.g"                       ; load global variables
 
 G90                 ; absolute positioning
 G1 X{0 - sensors.probes[0].offsets[0]} Y{80 - sensors.probes[0].offsets[1]} F18000
 
 G91
-G38.2 K0 Z-20 ; Probe Z
+G38.2 K0 Z0 ; Probe Z
 G4 P260
 var zp1 = move.axes[2].machinePosition
 G1 Z5
 
-G38.2 K0 Z-20 ; Probe Z
+G38.2 K0 Z0 ; Probe Z
 G4 P260
 var zp2 = move.axes[2].machinePosition
 G1 Z5
 
-G38.2 K0 Z-20 ; Probe Z
+G38.2 K0 Z0 ; Probe Z
 G4 P260
 var zp3 = move.axes[2].machinePosition
 G1 Z5
