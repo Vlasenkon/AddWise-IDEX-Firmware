@@ -62,7 +62,7 @@ M950 S0 C"out9"                                                  ; define servo 
 M558 K0 P8 C"1.io4.in" H5 F18000 T18000                          ; define Z probe parameters
 M98 P"0:/user/ProbeOffset.g"                                     ; define Z probe offsets
 M950 P4 C"1.out4" Q500                                           ; define output for ESD protection
-M42  P4 S0                                                       ; enable EDS protection
+M42 P4 S0                                                        ; enable EDS protection
 
 ; Heaters
 M308 S0 A"Left Heater" P"temp0" Y"pt1000"                        ; configure temperature sensor
