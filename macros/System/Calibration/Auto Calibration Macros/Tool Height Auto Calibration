@@ -14,7 +14,7 @@ if !exists(param.S)
   M568 P0 A2
   M568 P1 A2
   
-  M291 S3 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop." S2
+  M291 S3 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop."
   
   if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
     M98 P"0:/sys/homeall.g" S1
@@ -93,6 +93,9 @@ G1 Z10
 
 M42 P4 S0                ; Turn off relay
 
+G90
+G1 X-999 U999 F18000
+
 var ddd = {var.lll - var.rrr}
 echo "Right "^{var.rrr}^" mm"
 
@@ -119,14 +122,14 @@ if   abs(var.ddd) < 0.05 ; ===If delta is less than allowed value===
 
 else ; ===If delta is more than allowed value===
 
-  M291 R{"Calibration will be performed, deviation is "^var.ddd^" mm"} P" " S3
+  M291 S3 R{"Calibration will be performed, deviation is "^var.ddd^" mm"} P" "
   
   ;====Left is Lower====
   if var.ddd > 0
     G90
     G1 U-100 X-999 Z200 F18000
 
-    M291 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
+    M291 S3 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 X-999 U{0}-{global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
@@ -134,7 +137,7 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.lll + var.add_z_offset} F240
     
-    M291 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
+    M291 S3 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 U-100 Z200 F18000
@@ -145,7 +148,7 @@ else ; ===If delta is more than allowed value===
     G90
     G1 X100 U999 Z200 F18000
     
-    M291 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
+    M291 S3 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 U999 X0 Y{var.y_test_pos} F18000
 
@@ -153,12 +156,12 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.rrr + var.add_z_offset} F240
     
-    M291 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
+    M291 S3 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 X100 Z200 F18000
   
-  M291 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
+  M291 S3 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
 
 G90
 G1 X-999 U999 F18000
