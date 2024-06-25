@@ -1,4 +1,4 @@
-M291 R"Please wait while the nozzle is being heated up" P" " S1 T10 ; Display message
+M291 R"Please wait while the nozzle is being heated up" P"This may take a few minutes." S1 T10
 
 M98 P"0:/sys/led/start_cold.g"
 
@@ -23,10 +23,10 @@ if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3
 M116 P{state.restorePoints[2].toolNumber} S15; Wait for the temperatures to be reached
 M98 P"0:/sys/led/start_hot.g"
   
-M291 R"Retracting Filament" P" " T15 ; Display  message
-G1 E10 F600 ; Extrude
-G1 E-20 F{var.ss} ; Retract
-G1 E-100 F{var.ss} ; Retract
+M291 R"Retracting Filament" P" " S0 T15 ; Display  message
+G1 E20 F{var.ss} ; Extrude
+G1 E-20 F600 ; Retract
+G1 E-100 F1800 ; Retract
 M400 ; Wait for the moves to finish
 
 M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzle
