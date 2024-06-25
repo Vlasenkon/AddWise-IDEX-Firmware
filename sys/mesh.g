@@ -1,9 +1,3 @@
-
-
-
-
-
-
 ; home all if any of axis was not homed
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
   M98 P"homeall.g" L1 S1 Z1
