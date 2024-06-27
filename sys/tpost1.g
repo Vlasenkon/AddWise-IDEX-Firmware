@@ -17,8 +17,12 @@ G1 X-30
 G1 X30
 G90
 
-;M106 S0
-M106 R2
-G1 R2 Z0
+if move.axes[2].machinePosition < 20; && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
+	G91
+	G1 F18000 X-50
+	G90
+
+M106 R3
+G1 R3 Z0
 
 M204 T5000
