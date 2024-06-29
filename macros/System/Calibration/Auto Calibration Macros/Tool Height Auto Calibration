@@ -14,7 +14,7 @@ if !exists(param.S)
   M568 P0 A2
   M568 P1 A2
   
-  M291 S3 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop."
+  M291 S2 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop."
   
   if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
     M98 P"0:/sys/homeall.g" S1
@@ -36,7 +36,7 @@ if !exists(param.S)
     M400
   
   G1 F18000 X-50 Y-150 Z125  ; Move tools to the cleaning position
-  M291 S3 R"Please Clean Both Nozzles" P"Use a metal brush to clean both nozzles thoroughly to prevent machine damage. Click OK when you are ready to proceed or Cancel to stop." S2
+  M291 S2 R"Please Clean Both Nozzles" P"Use a metal brush to clean both nozzles thoroughly to prevent machine damage. Click OK when you are ready to proceed or Cancel to stop." S2
   
   M98 P"0:/sys/homeall.g" S1
   
@@ -64,6 +64,12 @@ if !exists(param.S)
 
 var y_test_pos = -101
 var add_z_offset = -0.070
+
+
+
+
+
+
 
 
 
@@ -129,7 +135,7 @@ else ; ===If delta is more than allowed value===
     G90
     G1 U-100 X-999 Z200 F18000
 
-    M291 S3 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
+    M291 S2 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 X-999 U{0}-{global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
@@ -137,7 +143,7 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.lll + var.add_z_offset} F240
     
-    M291 S3 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
+    M291 S2 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 U-100 Z200 F18000
@@ -148,7 +154,7 @@ else ; ===If delta is more than allowed value===
     G90
     G1 X100 U999 Z200 F18000
     
-    M291 S3 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
+    M291 S2 R"Adjust Heat Break" P"Loosen the heat break and manually lower it slightly using a screwdriver. Click OK when you have completed this step."
     
     G1 U999 X0 Y{var.y_test_pos} F18000
 
@@ -156,12 +162,12 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.rrr + var.add_z_offset} F240
     
-    M291 S3 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
+    M291 S2 R"Tighten Heat Break" P"Securely tighten the heat break after adjustment. Click OK when done."
     
     G90
     G1 X100 Z200 F18000
   
-  M291 S3 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
+  M291 S2 R"Confirm Tightening" P"Ensure the heat break is fully tightened to maintain alignment. Click OK to confirm."
 
 G90
 G1 X-999 U999 F18000

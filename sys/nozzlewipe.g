@@ -31,7 +31,7 @@ M400
 
 ; Wait for Temp
 if exists(param.W) && sensors.analog[{state.currentTool}].lastReading < tools[{state.currentTool}].active[0]
-  M116 S10
+  M116 S10 P{state.currentTool}
 
 ; Purge fillament
 M98 P"0:/user/toolchangeretraction.g" E1

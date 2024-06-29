@@ -10,9 +10,19 @@ var tool = input
 ; Prompt the user to set the material print temperature
 M291 S5 J1 F250 L150 H450 R"Set Material Print Temperature" P"Enter the temperature for the filament last used in the selected tool."
 
+
+
+
+
 var temp = input                                               ; Store the user input in the 'temp' variable
-var temp_pull = var.temp / 2                                   ; Calculate 'temp_pull'
+var temp_pull = var.temp / 2.2                                 ; Calculate 'temp_pull'
 var temp_stop = {var.temp + var.temp_pull}/2*0.9               ; Calculate 'temp_stop'
+
+
+
+
+
+
 
 M568 P{var.tool} A2                                            ; Set the active tool to the selected tool
 G10  P{var.tool} R{var.temp} S{var.temp}                       ; Set the tool temperature to 'temp'
