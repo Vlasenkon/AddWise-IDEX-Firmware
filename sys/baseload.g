@@ -27,7 +27,7 @@ if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3
 
 
 
-M116 P{state.restorePoints[2].toolNumber} S15; Wait for the temperatures to be reached
+M116 P{state.currentTool} S15; Wait for the temperatures to be reached
 M98 P"0:/sys/led/start_hot.g"
 
 
