@@ -11,14 +11,15 @@ var tool = input
 M291 S5 J1 F250 L150 H450 R"Set Material Print Temperature" P"Enter the temperature for the filament last used in the selected tool."
 
 
+if var.tool > 350 ; High Temp
+    var temp = input                                               ; Store the user input in the 'temp' variable
+    var temp_pull = var.temp * 0.75                                ; Calculate 'temp_pull'
+    var temp_stop = {var.temp + var.temp_pull}/2                   ; Calculate 'temp_stop'
 
-
-
-var temp = input                                               ; Store the user input in the 'temp' variable
-var temp_pull = var.temp / 2.2                                 ; Calculate 'temp_pull'
-var temp_stop = {var.temp + var.temp_pull}/2*0.9               ; Calculate 'temp_stop'
-
-
+else ; Low Temp
+    var temp = input                                               ; Store the user input in the 'temp' variable
+    var temp_pull = var.temp / 2.0                                 ; Calculate 'temp_pull'
+    var temp_stop = {var.temp + var.temp_pull}/2 * 0.9             ; Calculate 'temp_stop'    
 
 
 
