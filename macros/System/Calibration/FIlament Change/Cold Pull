@@ -81,3 +81,5 @@ M400
 
 M302 P0                                                        ; Disallow cold extrusion
 G10  P{var.tool} R{0} S{0}                                     ; Set the tool temperature to 'temp'
+
+M291 S1 R"Manual Filament Removal" P"Pull out the filament manually now."
