@@ -165,6 +165,7 @@ M568 P1 A2                                                       ; set tool stat
 M575 P1 S1 B57600                                                ; define PanelDUE
 ;M955 P0 C"spi.cs1+spi.cs0" I06                                   ; configure accelerometer
 M593 P"ei3" F59                                                  ; configure input shaping
+;M915 P0.0:0.5 R3 F1 H10 S5
 
 ; Wait for voltage to stabilize and hold Z motors
 while boards[0].vIn.current < 22 && boards[1].vIn.current < 22 && iterations < 20
