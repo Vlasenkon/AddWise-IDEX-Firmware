@@ -12,7 +12,7 @@ if !exists(param.S)
   M568 P0 A2
   M568 P1 A2
   
-  M291 S3 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop." S2
+  M291 S2 R"Please Remove the Build Sheet" P"To avoid damaging your machine, remove the build sheet from the build plate. Click OK when you are ready to proceed or Cancel to stop." S2
   
   if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
     M98 P"0:/sys/homeall.g" S1
@@ -34,7 +34,7 @@ if !exists(param.S)
     M400
   
   G1 F18000 X-50 Y-150 Z125  ; Move tools to the cleaning position
-  M291 S3 R"Please Clean Both Nozzles" P"Use a metal brush to clean both nozzles thoroughly to prevent machine damage. Click OK when you are ready to proceed or Cancel to stop." S2
+  M291 S2 R"Please Clean Both Nozzles" P"Use a metal brush to clean both nozzles thoroughly to prevent machine damage. Click OK when you are ready to proceed or Cancel to stop." S2
   
   M98 P"0:/sys/homeall.g" S1
   
