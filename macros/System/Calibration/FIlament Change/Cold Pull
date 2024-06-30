@@ -23,8 +23,8 @@ if var.temp > 350                                          ; High Temp
     set var.temp_pull = {var.temp * 0.75}                  ; Calculate 'temp_pull'
     set var.temp_stop = {(var.temp + var.temp_pull) * 0.5} ; Calculate 'temp_stop'
 else                                                       ; Low Temp
-    set var.temp_pull = {var.temp * 0.4}                   ; Calculate 'temp_pull'
-    set var.temp_stop = {(var.temp + var.temp_pull) * 0.6} ; Calculate 'temp_stop'
+    set var.temp_pull = {var.temp * 0.5}                   ; Calculate 'temp_pull'
+    set var.temp_stop = {(var.temp + var.temp_pull) * 0.5} ; Calculate 'temp_stop'
 
 ; Set the active tool to the selected tool
 M568 P{var.tool} A2
