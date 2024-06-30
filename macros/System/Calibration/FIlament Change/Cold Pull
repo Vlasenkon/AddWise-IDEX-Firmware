@@ -3,7 +3,7 @@ M291 S4 K{"T0 - Left Tool","T1 - Right Tool","Cancel"} R"Select a Tool" P"Choose
 
 ; Check the user's input and abort if 'Cancel' is selected
 if input != 0 && input != 1
-    abort "Canceled"                           ; Abort the macro if the user selects 'Cancel'
+    abort "Canceled"                                       ; Abort the macro if the user selects 'Cancel'
 
 ; Store the selected tool in a variable
 var tool = input
@@ -19,12 +19,12 @@ var temp_pull = 0
 var temp_stop = 0
 
 ; Check the temperature range and calculate temp_pull and temp_stop accordingly
-if var.temp > 350 ; High Temp
-    set var.temp_pull = {var.temp * 0.75}                      ; Calculate 'temp_pull'
-    set var.temp_stop = {(var.temp + var.temp_pull) / 2}       ; Calculate 'temp_stop'
-else ; Low Temp
-    set var.temp_pull = {var.temp * 0.5}                           ; Calculate 'temp_pull'
-    set var.temp_stop = {(var.temp + var.temp_pull) / 2 * 0.9}     ; Calculate 'temp_stop'
+if var.temp > 350                                          ; High Temp
+    set var.temp_pull = {var.temp * 0.75}                  ; Calculate 'temp_pull'
+    set var.temp_stop = {(var.temp + var.temp_pull) * 0.5} ; Calculate 'temp_stop'
+else                                                       ; Low Temp
+    set var.temp_pull = {var.temp * 0.4}                   ; Calculate 'temp_pull'
+    set var.temp_stop = {(var.temp + var.temp_pull) * 0.6} ; Calculate 'temp_stop'
 
 ; Set the active tool to the selected tool
 M568 P{var.tool} A2
