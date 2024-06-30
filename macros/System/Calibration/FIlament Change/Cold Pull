@@ -11,30 +11,31 @@ var tool = input
 M291 S5 J1 F250 L150 H450 R"Set Material Print Temperature" P"Enter the temperature for the filament last used in the selected tool."
 
 
-if var.tool > 350 ; High Temp
-    var temp = input                                               ; Store the user input in the 'temp' variable
-    var temp_pull = var.temp * 0.75                                ; Calculate 'temp_pull'
-    var temp_stop = {var.temp + var.temp_pull}/2                   ; Calculate 'temp_stop'
-
-else ; Low Temp
-    var temp = input                                               ; Store the user input in the 'temp' variable
-    var temp_pull = var.temp / 2.0                                 ; Calculate 'temp_pull'
-    var temp_stop = {var.temp + var.temp_pull}/2 * 0.9             ; Calculate 'temp_stop'    
+var temp = input                                               ; Store the user input in the 'temp' variable
 
 
+var temp_pull = 0
+var temp_stop = 0
 
 
+if var.temp > 350 ; High Temp
+    set var.temp_pull = {var.temp * 0.75}                              ; Calculate 'temp_pull'
+    set var.temp_stop = {(var.temp + var.temp_pull) / 2}               ; Calculate 'temp_stop'
+else ; Low Temp                                                        ; Store the user input in the 'temp' variable
+    var temp_pull = {var.temp * 0.5}                               ; Calculate 'temp_pull'
+    var temp_stop = {(var.temp + var.temp_pull) / 2 * 0.9}             ; Calculate 'temp_stop'    
 
-M568 P{var.tool} A2                                            ; Set the active tool to the selected tool
-G10  P{var.tool} R{var.temp} S{var.temp}                       ; Set the tool temperature to 'temp'
+
+M568 P{var.tool} A2                                           ; Set the active tool to the selected tool
+G10 P{var.tool} R{var.temp} S{var.temp}                       ; Set the tool temperature to 'temp'
 
 ; Check if any of the axes are not homed, and home all if necessary
 if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
     M98 P"0:/sys/homeall.g" S1
 
-M116 P{var.tool} S5                                            ; Wait for the tool to reach the set temperature
 T-1                                                            ; Deselect any active tool
 T T{var.tool}                                                  ; Select the tool based on the 'tool' variable
+M116 P{var.tool} S5                                            ; Wait for the tool to reach the set temperature
 
 
 M302 P1                                                        ; Allow cold extrusion
@@ -43,10 +44,10 @@ G1 E50 F{5 * 60}                                               ; Extrude filamen
 M400
 
 ; lower the temp below cold pull temp
-G10  P{var.tool} R{var.temp_pull * 0.8} S{var.temp_pull * 0.8} ; Set the tool temperature to 'temp_pull'
+G10 P{var.tool} R{var.temp_pull * 0.8} S{var.temp_pull * 0.8} ; Set the tool temperature to 'temp_pull'
 
 M106 S1
-
+    
 ; Extrude while lowering the temperature
 while sensors.analog[{var.tool}].lastReading > {var.temp_stop + var.temp}/2
     M400    
@@ -62,12 +63,12 @@ while sensors.analog[{var.tool}].lastReading > var.temp_stop
 M116 P{var.tool} S10                                           ; Wait for the tool to reach the set temperature
 
 ; set cold pull temp and wait
-G10  P{var.tool} R{var.temp_pull} S{var.temp_pull}
+G10 P{var.tool} R{var.temp_pull} S{var.temp_pull}
 M116 P{var.tool} S5                                            ; Wait for the tool to reach the set temperature
 M106 S0
 
 
-G10  P{var.tool} R{var.temp_stop} S{var.temp_stop}             ; Set the tool temperature
+G10 P{var.tool} R{var.temp_stop} S{var.temp_stop}             ; Set the tool temperature
 
 while sensors.analog[{var.tool}].lastReading < {var.temp_stop + var.temp_pull}/2
     M400    
@@ -81,6 +82,6 @@ M400
 
 
 M302 P0                                                        ; Disallow cold extrusion
-G10  P{var.tool} R{0} S{0}                                     ; Set the tool temperature to 'temp'
+G10 P{var.tool} R{0} S{0}                                      ; Set the tool temperature to 'temp'
 
-M291 S1 R"Manual Filament Removal" P"Pull out the filament manually now."
+M291 R"Manual Filament Removal" P"Pull out the filament manually now."  S1 T15
