@@ -1,4 +1,4 @@
-M291 R"Please wait while the nozzle is being heated up" P"This may take a few minutes." S1 T10
+M291 R"Please wait while the nozzle is being heated up" P"This may take a few minutes." S1 T15
 M98 P"0:/sys/led/start_cold.g"
 
 M83 ; Extruder to relative mode
@@ -6,9 +6,9 @@ M83 ; Extruder to relative mode
 ;Load Speed
 var ss = 0
 if !exists(param.S)
-  set var.ss = 600
+  set var.ss = 300
 else
-  set var.ss = 200
+  set var.ss = 100
 
 M400
 G60 S0 ; Remember last tool selected
