@@ -1,7 +1,7 @@
 M291 S5 J1 F250 L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Left Tool."
 var ll = input
   
-M291 S5 J1 F{var.ll} L150 H450 R"Set Left Tool Temperature" P"Please set the temperature for the filament previously loaded in the Right Tool."
+M291 S5 J1 F{var.ll} L150 H450 R"Set Right Tool Temperature" P"Please set the temperature for the filament previously loaded in the Right Tool."
 var rr = input
 
 G10 P0 R{var.ll} S{var.ll}
