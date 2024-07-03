@@ -99,12 +99,12 @@ M143 H3 S170 T4 A2                                               ; configure tem
 M950 F2 C"out4" Q500                                             ; configure fan
 M106 P2 H0 T70 S1 B0                                             ; configure thermostatic contron
 M950 F3 C"out5" Q500                                             ; configure fan
-M106 P3 C"X - Fan" H-1 S0 B0                                     ; configure thermostatic contron
+M106 P3 C"X - Fan" H-1 S0 B0.5                                   ; configure thermostatic contron
 
 M950 F0 C"out7" Q500                                             ; configure fan
 M106 P0 H1 T70 S1 B0                                             ; configure thermostatic contron
 M950 F1 C"out8" Q500                                             ; configure fan
-M106 P1 C"U - Fan" H-1 S0 B0                                     ; configure contron
+M106 P1 C"U - Fan" H-1 S0 B0.5                                   ; configure contron
 
 M950 F4 C"1.out2" Q5000                                          ; configure Chamber Heater fan
 M106 P4 H4 T80 S1 B1                                             ; configure thermostatic contron
