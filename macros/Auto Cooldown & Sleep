@@ -8,7 +8,9 @@ else
   G90
   if move.axes[2].machinePosition < 420
     G1 Z420
-  G1 Y150  F18000
+  
+  T0 P0
+  G1 X-55 U55 Y-150 F18000
   ; Disable Fans
   M106 P5 S0
   M106 P3 S0
