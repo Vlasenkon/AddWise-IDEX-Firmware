@@ -1,7 +1,7 @@
 ; pause.g
 ; called when a print from SD card is paused
 
-;G60 S2
+G60 S4
 
 
 ; Disable ToolChange Retraction
@@ -22,6 +22,8 @@ M106 S0
 
 M568 P0 A0
 M568 P1 A0
+M568 P2 A0
+M568 P3 A0
 
 M208 Z-1 S1         ; set axis minima to default
 
