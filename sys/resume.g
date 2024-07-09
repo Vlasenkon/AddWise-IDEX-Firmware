@@ -5,6 +5,8 @@ M204 T5000                 ; set the accelerations
 
 M568 P0 A1
 M568 P1 A1
+M568 P2 A1
+M568 P3 A1
 
 T-1
 T R2                 ; select the tool that was active last time the print was paused
