@@ -1,4 +1,5 @@
-M291 S4 K{"Cancel","Ethernet is connected"} R"Connect via Ethernet" P"Please connect the Ethernet cable to the device. Once connected, press ""OK"" to continue."
+M291 S4 K{"Cancel","OK, Ethernet is connected"} R"Connect via Ethernet" P"Please connect the Ethernet cable to the device. Once connected, press ""OK"" to continue."
+
 if input = 1
 	M292 ;Continue
 else
@@ -6,14 +7,26 @@ else
 	abort
 
 
-M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
+M291 S4 K{"Skip Test and Change Mode","Test Connection"} R"Test Network Connection" P"Machine will test the connection and restart into Acess Point WiFi mode."
 if input = 1
 	M292 ;Continue
 else
 	echo >"0:/user/networkmode.g" "M552 I0 S1 ; Enable Ethernet mode"
+
+	M552 I1 S-1
+	G4 S1
+	M552 I0 S0
+	G4 S1
+	M552 I0 S1
+
 	echo "Ethernet mode Enabled"
+	
 	M99
 	abort
+
+
+M291 S2 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into Acess Point mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
+
 
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
@@ -30,7 +43,7 @@ while network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actual
 if network.interfaces[0].actualIP = "0.0.0.0" || network.interfaces[0].actualIP = "192.168.0.1"
 	M98 P"0:/sys/led/dimmwhite.g"
 	M98 P"0:/sys/led/red.g"
-	M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1
+	M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 	
 	M552 I1 S-1
 	G4 S1
@@ -56,8 +69,6 @@ else
 		G4 S1
 		M552 I0 S1
 
-	else
-		M292
 
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"

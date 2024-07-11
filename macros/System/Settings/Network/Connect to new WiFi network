@@ -7,12 +7,12 @@ var pp = {input}
 ; save it as a file
 echo >"0:/user/WiFiPass.g" "M587 S"""^{var.nn}^""" P"""^{var.pp}^""""
 
-M98 P"0:/macros/System/Settings/Network/WiFi - Client Mode" R1
+M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
 
-M291 S4 K{"No, change mode","Yes, Test"} R"Do you want to test Network Connection" P"Green LEDs indicate successful connection, Red LEDs indicate unsuccessful connection. Please reconnect to view the IP address."
+M291 S4 K{"Skip Test and Change Mode","Test Connection"} R"Test Network Connection" P"Machine will test the credentials provided and restart into Acess Point WiFi mode."
 var mmm = {input}
 
 ; acrt based on M291
@@ -20,10 +20,17 @@ if var.mmm = 1
 	M292 ;Continue
 else
 	echo >"0:/user/networkmode.g" "M552 I1 S1 ; Enable WiFi Client Mode"
+	
+	M552 I1 S-1
+	G4 S1
+	M552 I1 S1
+
 	echo "WiFi switched to Client mode"
 	M99
 	abort
 
+
+M291 S2 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into Acess Point mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
 
 ; Erase values from WiFi Module
 M552 I1 S0
@@ -55,7 +62,7 @@ M98 P"0:/sys/led/dimmwhite.g"
 
 if network.interfaces[1].actualIP = "0.0.0.0" || network.interfaces[1].actualIP = "192.168.0.1"
 	M98 P"0:/sys/led/red.g"
-	M98 P"0:/macros/System/Settings/Network/WiFi - Access Point Mode" R1
+	M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 	
 	M552 I1 S-1
 	G4 S1
@@ -65,7 +72,7 @@ if network.interfaces[1].actualIP = "0.0.0.0" || network.interfaces[1].actualIP 
 
 else
 	M98 P"0:/sys/led/end.g"
-	M98 P"0:/macros/System/Settings/Network/WiFi - Client Mode" R1
+	M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 
 	var ip = network.interfaces[1].actualIP
 
