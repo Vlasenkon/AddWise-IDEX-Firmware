@@ -1,7 +1,7 @@
 ; pause.g
 ; called when a print from SD card is paused
 
-G60 S2
+G60 S4
 
 
 ; Disable ToolChange Retraction
