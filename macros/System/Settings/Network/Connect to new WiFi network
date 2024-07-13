@@ -12,25 +12,8 @@ M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
 
-M291 S4 K{"Skip Test and Change Mode","Test Connection"} R"Test Network Connection" P"Machine will test the credentials provided and restart into Acess Point WiFi mode."
-var mmm = {input}
 
-; acrt based on M291
-if var.mmm = 1
-	M292 ;Continue
-else
-	echo >"0:/user/networkmode.g" "M552 I1 S1 ; Enable WiFi Client Mode"
-	
-	M552 I1 S-1
-	G4 S1
-	M552 I1 S1
-
-	echo "WiFi switched to Client mode"
-	M99
-	abort
-
-
-M291 S2 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into Acess Point mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
+M291 S3 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into Access Point Mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
 
 ; Erase values from WiFi Module
 M552 I1 S0

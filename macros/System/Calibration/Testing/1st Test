@@ -1,3 +1,10 @@
+M291 S7 J1 R"Enter Password" P"Enter the password to start the test."
+var pp = {input}
+
+if var.pp != {vmawt}
+	abort
+	M99
+
 ;Fans & Heaters Test ==========================================================================================
 M98 P"0:/macros/System/Calibration/Testing/Tests/Fans & Heaters"
 

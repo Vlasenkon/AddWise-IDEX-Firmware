@@ -22,6 +22,8 @@ if {state.status == "processing" || state.status == "pausing" || state.status ==
   
   echo >>"0:/user/resetzbabystep.g" "M290 R0 S0"
 
+  M291 R"Z-Offset Save Pending" P"The Z-offset will be saved after the print is finished." S1 T15
+
 else
   if move.axes[2].machinePosition < 10
     G90
@@ -38,3 +40,5 @@ else
   echo >>"0:/user/zoffset.g" "  global zoffset = "^{global.zoffset}
 
   M290 R0 S0
+
+  M291 R"Z offset is saved" P" " S1 T15

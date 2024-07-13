@@ -13,8 +13,9 @@ G10 P2 S0 R0
 G10 P3 S0 R0
 
 
+
 if heat.heaters[0].current > 100
-    M291 R"Wait for the heater to cool down" P"All heater temperatures were set to 0 degC" S1 T10
+    M291 R"Wait for Heater to Cool Down" P"All heater temperatures were set to 0°C." S1 T10
     while heat.heaters[0].current > 100
         G4 S5
 
@@ -23,6 +24,10 @@ M98 P"0:/sys/led/dimmwhite.g"
 M98 P"0:/sys/led/red.g"
 
 M303 T0 S{var.tt} A{heat.heaters[3].current} F0.5
+if result != 0
+    M291 R"PID Tune Failed" P"PID tuning has failed." S1 T10
+    M99
+    abort
 
 while heat.heaters[0].state = "tuning"
         G4 S10
