@@ -135,14 +135,21 @@ else ; ===If delta is more than allowed value===
     G90
     G1 U-100 X-999 Z200 F18000
 
-    M291 S3 R"Adjust Heat Break for Right Tool" P"Loosen the heat break and manually lower it slightly using a screwdriver.<br>Click ""OK"" when you have completed this step."
+    M291 S2 R"Tool Height Calibration Process Description:" P"1.Loosen the heat break so it can down<br>2.Lower the heat block slightly<br>3.Slightly tighten the heat break<br>4.The build plate will move up to move nozzle"
+    G1S1
+    M291 S2 R"Step 1: Loosen" P"Using a 2 mm hex screwdriver, please loosen the heat break of the Right nozzle. This will allow the heat block to move freely up and down."
+    G1S1
+    M291 S2 R"Step 2: Lower" P"Gently move the heat block down a few millimeters. This will create room for adjustment."
+    G1S1
+    M291 S2 R"Step 3: Secure" P"Tighten it just until you feel some resistance. The goal is to make the screw not loose but still allow the heat block to move."
     
-    G1 X-999 U{0}-{global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
+    G1 X-999 U{100 - global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
     G90
     G1 Z5 F18000
     G1 Z{var.lll + var.add_z_offset} F240
     
+    M400
     M291 S2 R"Tighten Heat Break for Right Tool" P"Securely tighten the heat break after adjustment.<br>Click ""OK"" when done."
     
     G90
@@ -154,7 +161,13 @@ else ; ===If delta is more than allowed value===
     G90
     G1 X100 U999 Z200 F18000
     
-    M291 S2 R"Adjust Heat Break for Left Tool" P"Loosen the heat break and manually lower it slightly using a screwdriver.<br>Click ""OK"" when you have completed this step."
+    M291 S2 R"Tool Height Calibration Process Description:" P"1.Loosen the heat break so it can down<br>2.Lower the heat block slightly<br>3.Slightly tighten the heat break<br>4.The build plate will move up to move nozzle"
+    G1S1
+    M291 S2 R"Step 1: Loosen" P"Using a 2 mm hex screwdriver, please loosen the heat break of the Left nozzle. This will allow the heat block to move freely up and down."
+    G1S1
+    M291 S2 R"Step 2: Lower" P"Gently move the heat block down a few millimeters. This will create room for adjustment."
+    G1S1
+    M291 S2 R"Step 3: Secure" P"Tighten it just until you feel some resistance. The goal is to make the screw not loose but still allow the heat block to move."
     
     G1 U999 X0 Y{var.y_test_pos} F18000
 
@@ -162,6 +175,7 @@ else ; ===If delta is more than allowed value===
     G1 Z5 F18000
     G1 Z{var.rrr + var.add_z_offset} F240
     
+    M400
     M291 S2 R"Tighten Heat Break for Left Tool" P"Securely tighten the heat break after adjustment.<br>Click ""OK"" when done."
     
     G90
