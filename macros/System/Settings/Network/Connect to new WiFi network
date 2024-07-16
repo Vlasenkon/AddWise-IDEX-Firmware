@@ -13,7 +13,7 @@ M98 P"0:/sys/led/statusoff.g"
 M98 P"0:/sys/led/restorewhite.g"
 
 
-M291 S3 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into Access Point Mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
+M291 S3 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
 
 ; Erase values from WiFi Module
 M552 I1 S0
