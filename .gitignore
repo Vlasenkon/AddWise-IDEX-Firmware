@@ -31,3 +31,8 @@
 *.out
 *.app
 
+.DS_Store
+macros/.DS_Store
+macros/System/.DS_Store
+macros/System/Calibration/.DS_Store
+macros/System/Settings/.DS_Store
