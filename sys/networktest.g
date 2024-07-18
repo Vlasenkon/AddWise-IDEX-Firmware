@@ -10,14 +10,14 @@ else
                                             ; If none are active, default to Ethernet first and disable WiFi
   set var.module = 0
   M552 I1 S-1                               ; Disable WiFi
-  G4 S1                                     ; Wait for 1 second
+  G4 S1                                     ; Wait
   M552 I0 S0                                ; Disable Ethernet
-  G4 S1                                     ; Wait for 1 second
+  G4 S1                                     ; Wait
   M552 I1 S0                                ; Set WiFi to Idle
 
 ; Test the selected network mode initially
 while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
-  G4 S1                                     ; Wait for 1 second
+  G4 S1                                     ; Wait
 
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
   M99                                       ; Exit the script
@@ -31,7 +31,7 @@ if var.module = 0
 
 ; Test the other network mode
 while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
-  G4 S1                                     ; Wait for 1 second
+  G4 S1                                     ; Wait
 
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
   M98 P"0:/sys/led/pause.g"                 ; Turn on yellow LEDs to indicate mode switch
@@ -44,15 +44,15 @@ M98 P"0:/sys/led/dimmwhite.g"               ; Set LEDs to dim white
 M98 P"0:/sys/led/red.g"                     ; Turn on red LEDs
 
 M552 I0 S0                                  ; Disable Ethernet
-G4 S0.5                                     ; Wait for 0.5 seconds
+G4 S0.5                                     ; Wait
 M552 I1 S-1                                 ; Turn off WiFi
-G4 S1                                       ; Wait for 1 second
+G4 S1                                       ; Wait
 M552 I1 S0                                  ; Set WiFi to Idle
-G4 S1                                       ; Wait for 1 second
+G4 S1                                       ; Wait
 M589 S"22 IDEX" P"1234567890" I192.168.0.1  ; Configure WiFi Access Point
 
 M552 I1 S-1                                 ; Turn off WiFi
-G4 S1                                       ; Wait for 1 second
+G4 S1                                       ; Wait
 M552 I1 S2                                  ; Turn on WiFi in Access Point mode
 
 M291 S2 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
