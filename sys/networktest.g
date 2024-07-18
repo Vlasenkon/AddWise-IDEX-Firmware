@@ -64,28 +64,16 @@ M98 P"0:/sys/led/dimmwhite.g"               ; Set LEDs to dim white
 M98 P"0:/sys/led/red.g"                     ; Turn on red LEDs
 
 M552 I0 S0                                  ; Disable Ethernet
-if result != 0
-  echo "Failed"
-G4 S0.5                                     ; Wait
+G4 S1                                       ; Wait
 M552 I1 S-1                                 ; Turn off WiFi
-if result != 0
-  echo "Failed"
 G4 S1                                       ; Wait
 M552 I1 S0                                  ; Set WiFi to Idle
-if result != 0
-  echo "Failed"
-G4 S1                                       ; Wait
+G4 S2                                       ; Wait
 M589 S"22 IDEX" P"1234567890" I192.168.0.1  ; Configure WiFi Access Point
-if result != 0
-  echo "Failed"
-
+G4 S1                                       ; Wait
 M552 I1 S-1                                 ; Turn off WiFi
-if result != 0
-  echo "Failed"
 G4 S1                                       ; Wait
 M552 I1 S2                                  ; Turn on WiFi in Access Point mode
-if result != 0
-  echo "Failed"
 
 M291 S2 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
 ; Display message indicating that WiFi has been switched to Access Point mode due to failed connection attempts
