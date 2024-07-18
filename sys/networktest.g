@@ -82,7 +82,7 @@ if result != 0
   echo "Failed 3"
 else
   echo "OK 3"
-G4 S2                                       ; Wait
+G4 S5                                       ; Wait
 
 
 M589 S"22 IDEX" P"1234567890" I192.168.0.1  ; Configure WiFi Access Point
@@ -90,7 +90,7 @@ if result != 0
   echo "Failed 4"
 else
   echo "OK 4"
-G4 S1                                       ; Wait
+G4 S5                                       ; Wait
 
 
 M552 I1 S-1                                 ; Turn off WiFi
