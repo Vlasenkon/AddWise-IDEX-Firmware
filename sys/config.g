@@ -175,4 +175,5 @@ M17 Z                                                            ; Hold Z motors
 M98 P"0:/sys/led/startup.g"                                      ; startup LED
 
 ; test internet connection
-echo >"0:/sys/runonce.g" "M98 P""0:/sys/networktest.g"""
+echo >"0:/sys/runonce.g" "G4 S5"
+echo >>"0:/sys/runonce.g" "M98 P""0:/sys/networktest.g"""
