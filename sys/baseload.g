@@ -20,7 +20,7 @@ if {state.status != "processing" || state.status != "pausing" || state.status !=
 T R0 ; Select tool from memory slot
 if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3].homed
   G90
-  G1 F18000 Y0 X0 F18000
+  G1 Y0 X0 F18000
   
   if move.axes[2].machinePosition < 420
     G1 F18000 Z420

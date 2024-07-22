@@ -14,11 +14,17 @@ else
 M400
 G60 S0 ; Remember last tool selected
 
+if {state.status != "processing" || state.status != "pausing" || state.status != "paused" || state.status != "resuming"} && {!move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed}
+  G28
+
+
 T R0 ; Select tool from memory slot
-if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3].homed ;if XYU Homed
+if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3].homed
   G90
-  G1 F18000 Z425 F18000
-  M400
+  G1 F18000
+  
+  if move.axes[2].machinePosition < 420
+    G1 F18000 Z420
 
 M116 P{state.currentTool} S15; Wait for the temperatures to be reached
 M98 P"0:/sys/led/start_hot.g"
