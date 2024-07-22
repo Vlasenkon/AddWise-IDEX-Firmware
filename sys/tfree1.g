@@ -8,8 +8,8 @@ G60 S3
 M106 S0
 
 ; Move Z to 10mm if lower than that for safety
-if move.axes[2].machinePosition < 20; && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
-	G90
+if move.axes[2].machinePosition < 10; && state.status != "processing"  && state.status != "pausing" && state.status != "resuming"
+	G91
 	G1 F18000 Z10
 
 G90
