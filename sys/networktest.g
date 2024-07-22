@@ -4,6 +4,12 @@ echo "Started WiFi Test"
 echo "_"
 echo "_"
 
+
+echo "While loop 0 to wait"
+while network.interfaces[0].actualIP = "0.0.0.0" && network.interfaces[1].actualIP = "0.0.0.0" && iterations < 15
+  G4 S1                                     ; Wait
+  echo {iterations}
+
 ; Initialize variable to store the network module state
 var module = 0
 
@@ -16,7 +22,7 @@ elif network.interfaces[1].state = "active" ; If WiFi is active
   echo "Detected var.module = 1"
 else                                        ; If none are active, default to Ethernet first and disable WiFi
   set var.module = 0
-  echo "var.module was not detected"
+  echo "var.module was not detected and switched to Ethernet"
   M552 I1 S-1                               ; Disable WiFi
   G4 S1                                     ; Wait
   M552 I0 S0                                ; Disable Ethernet
@@ -29,6 +35,7 @@ else                                        ; If none are active, default to Eth
 echo "Test 1 with var.module = "^{var.module}
 while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
   G4 S1                                     ; Wait
+  echo {iterations}
 
 echo "IF 1 with var.module = "^{var.module}
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
@@ -43,11 +50,13 @@ if var.module = 1
   M552 I1 S-1
   G1 S1
   M552 I0 S1
+  G1 S1
 if var.module = 0
   set var.module = 1
   M552 I0 S0
   G1 S1
   M552 I1 S1
+  G4 S5
 echo "var.module was reversed to "^{var.module}
 
 
@@ -55,6 +64,7 @@ echo "var.module was reversed to "^{var.module}
 echo "Test 2 with var.module = "^{var.module}
 while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
   G4 S1                                     ; Wait
+  echo {iterations}
 
 echo "IF 2 with var.module = "^{var.module}
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
