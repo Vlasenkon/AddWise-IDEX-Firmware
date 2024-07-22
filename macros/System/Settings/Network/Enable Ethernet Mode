@@ -25,7 +25,7 @@ else
 	abort
 
 
-M291 S2 R"Restart Notification" P"Machine will restart now. If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into AP Mode. Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
+M291 S2 R"Restart Notification" P"Machine will restart now.<br>If LEDs are GREEN, the connection was established. If RED, it failed.<br>Machine will restart into AP Mode.<br>Reconnect to the ""22 IDEX"" WiFi network after you see the green or red LED."
 
 
 M98 P"0:/sys/led/statusoff.g"

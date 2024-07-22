@@ -1,3 +1,9 @@
+echo "_"
+echo "_"
+echo "Started WiFi Test"
+echo "_"
+echo "_"
+
 ; Initialize variable to store the network module state
 var module = 0
 
@@ -26,7 +32,7 @@ while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
 
 echo "IF 1 with var.module = "^{var.module}
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
-  ;echo >"0:/IP_address.txt" "Last Connected IP is: "^{network.interfaces[{var.module}].actualIP}"
+  echo >"0:/IP_address.txt" "Last Connected IP is: "^{network.interfaces[{var.module}].actualIP}
   M99                                       ; Exit the script
   abort                                     ; Abort if the network connection is successful
 echo "After IF 1 with var.module = "^{var.module}
@@ -53,7 +59,8 @@ while network.interfaces[{var.module}].actualIP = "0.0.0.0" && iterations < 20
 echo "IF 2 with var.module = "^{var.module}
 if network.interfaces[{var.module}].actualIP != "0.0.0.0"
   M98 P"0:/sys/led/pause.g"                 ; Turn on yellow LEDs to indicate mode switch
-  ;echo >"0:/IP_address.txt" "Last Connected IP is: "^{network.interfaces[{var.module}].actualIP}"
+  echo >"0:/IP_address.txt" "Last Connected IP is: "^{network.interfaces[{var.module}].actualIP}
+  M291 S1 T600 R"Network Mode was automaticaly switched" P" "
   M99                                       ; Exit the script
   abort                                     ; Abort if the network connection is successful
 echo "After IF 2 with var.module = "^{var.module}
@@ -108,9 +115,9 @@ else
   echo "OK 6"
 G4 S5                                       ; Wait
 
-;if network.interfaces[1].actualIP != "0.0.0.0"
-;  echo >"0:/IP_address.txt" "WiFI was switched to AP Mode, the IP is: "^{network.interfaces[{var.module}].actualIP}"
+if network.interfaces[1].actualIP != "0.0.0.0"
+  echo >"0:/IP_address.txt" "WiFI was switched to AP Mode, the IP is: "^{network.interfaces[{var.module}].actualIP}
 
 
-;M291 S2 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
+M291 S2 R"Connection was not established" P"WiFi module was automatically switched to Access Point Mode"
 ; Display message indicating that WiFi has been switched to Access Point mode due to failed connection attempts

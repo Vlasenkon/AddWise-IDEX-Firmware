@@ -24,3 +24,6 @@ M98 P"0:/macros/System/Settings/Network/Enable WiFi - Access Point Mode" R1
 
 G4 S1
 M98 P"0:/user/networkmode.g"
+G4 S2
+
+M98 P"0:/sys/networktest.g"

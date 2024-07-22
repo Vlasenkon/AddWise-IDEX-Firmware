@@ -125,23 +125,25 @@ echo >>"0:/user/tooloffset.g" "G10 P1 U"^{global.uoffset}^" Y"^{global.yoffset}^
 
 if   abs(var.ddd) < 0.05 ; ===If delta is less than allowed value===
   echo "Good, deviation is "^{var.ddd}^" mm"
+  M291 S1 T10 R"Tool Heigh calibration succsesfull" P" "
 
 else ; ===If delta is more than allowed value===
 
-  M291 S3 R{"Deviation is "^var.ddd^" mm"<br>Calibration should be performed} P" "
+  M291 S3 R{"Nozzles are deviated by "^var.ddd^" mm"} P"Calibration should be performed"
+
+  M291 S2 R"Calibration Process" P"You will be asked to: Loosen heat break and lower it. The build plate will push the nozzle up to match the other nozzle's level.<br>Click ""OK"" when ready to start"
   
   ;====Left is Lower====
   if var.ddd > 0
+
     G90
     G1 U-100 X-999 Z200 F18000
+    M400
 
-    M291 S2 R"Tool Height Calibration Process Description:" P"1.Loosen the heat break so it can down<br>2.Lower the heat block slightly<br>3.Slightly tighten the heat break<br>4.The build plate will move up to move nozzle"
+    
+    M291 S2 R"Step 1: Loosen the Heatbreak" P"Use a 2mm hex screwdriver to loosen the heat break of the Right nozzle so the heat block can slide up and down.<br>Caution: HOT!"
     G1S1
-    M291 S2 R"Step 1: Loosen" P"Using a 2 mm hex screwdriver, please loosen the heat break of the Right nozzle. This will allow the heat block to move freely up and down."
-    G1S1
-    M291 S2 R"Step 2: Lower" P"Gently move the heat block down a few millimeters. This will create room for adjustment."
-    G1S1
-    M291 S2 R"Step 3: Secure" P"Tighten it just until you feel some resistance. The goal is to make the screw not loose but still allow the heat block to move."
+    M291 S2 R"Step 2: Lower the Heatblock" P"Lower the heat block 2-3mm (Push it with a screwdriver or pliers)<br>(Caution: HOT!)"
     
     G1 X-999 U{100 - global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
@@ -158,16 +160,14 @@ else ; ===If delta is more than allowed value===
   
   ;====Right is Lower====
   if var.ddd < 0
+
     G90
-    G1 X100 U999 Z200 F18000
-    
-    M291 S2 R"Tool Height Calibration Process Description:" P"1.Loosen the heat break so it can down<br>2.Lower the heat block slightly<br>3.Slightly tighten the heat break<br>4.The build plate will move up to move nozzle"
+    G1 X100 U999 Z200 F18000    
+    M400
+
+    M291 S2 R"Step 1: Loosen the Heatbreak" P"Use a 2mm hex screwdriver to loosen the heat break of the Left nozzle so the heat block can slide up and down.<br>Caution: HOT!"
     G1S1
-    M291 S2 R"Step 1: Loosen" P"Using a 2 mm hex screwdriver, please loosen the heat break of the Left nozzle. This will allow the heat block to move freely up and down."
-    G1S1
-    M291 S2 R"Step 2: Lower" P"Gently move the heat block down a few millimeters. This will create room for adjustment."
-    G1S1
-    M291 S2 R"Step 3: Secure" P"Tighten it just until you feel some resistance. The goal is to make the screw not loose but still allow the heat block to move."
+    M291 S2 R"Step 2: Lower the Heatblock" P"Lower the heat block 2-3mm (Push it with a screwdriver or pliers)<br>(Caution: HOT!)"
     
     G1 U999 X0 Y{var.y_test_pos} F18000
 
