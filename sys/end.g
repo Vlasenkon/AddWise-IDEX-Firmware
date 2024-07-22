@@ -1,6 +1,7 @@
 ; Disable ToolChange Retraction
 echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
+M98 P"0:/sys/led/end.g"
 
 M204 P5000 T5000  ; reset accelerations
 M208 Z-1 S1       ; set axis minima to default
@@ -34,13 +35,15 @@ G10 P1 S0 R0
 G10 P2 S0 R0
 G10 P3 S0 R0
 
-
-M98 P"0:/sys/led/end.g"
-
-
-;reset Z baby steping if it was savedduring the ptint
-M98 P"0:/user/resetzbabystep.g"
-M400
-echo >"0:/user/resetzbabystep.g" "; do nothing"
-
 M84 XYU
+
+M98 P"0:/sys/resetzbabystep.g"
+G4 S1
+echo >"0:/sys/resetzbabystep.g" "; do nothing"
+
+
+if move.axes[2].babystep != 0
+	M291 R"Do you want to save Z - Offset?" P{"Adjustment of "^move.axes[2].babystep^" mm was detected"} S4 K{"Save","Cancel"}
+  		if input = 0
+  			M98 P"0:/macros/Save Current Z - Offset" S1
+  			echo "Saved"

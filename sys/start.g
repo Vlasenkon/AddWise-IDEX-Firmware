@@ -11,3 +11,5 @@ M568 P2 S0 R0
 M568 P3 S0 R0
 
 M204 T5000                 ; set the accelerations
+
+echo >"0:/sys/resetzbabystep.g" "; do nothing"

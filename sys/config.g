@@ -154,7 +154,7 @@ M98 P"0:/user/eventlogging.g"                                    ; load global v
 M98 P"0:/user/xcomp.g"                                           ; load global variables
 
 echo >"0:/user/toolchangeretraction.g" "                         ; ToolChange Retraction Disabled"
-echo >"0:/user/resetzbabystep.g" "                               ; do nothing"
+echo >"0:/sys/resetzbabystep.g" "                               ; do nothing"
 
 ; Custom settings
 M280 P0 S0                                                       ; rotate servo to 0 deg

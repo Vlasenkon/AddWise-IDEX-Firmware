@@ -128,4 +128,4 @@ if var.ttt = 1
 
 
 
-  echo >"0:/user/resetzbabystep.g" "; do nothing"
+  echo >"0:/sys/resetzbabystep.g" "; do nothing"
