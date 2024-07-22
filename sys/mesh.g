@@ -9,7 +9,7 @@ G1 U999 F18000                              ; move U out of the way
 
 M558 K0 P5 C"duex.e6stop" H2.5 F300 T18000  ; define probe parameters
 M98 P"0:/user/ProbeOffset.g"                ; det probe offsets
-M557 X-165:155 Y-146:165 P8                 ; define mesh grid
+M557 X-165:150 Y-146:165 P8                 ; define mesh grid
 
 G29 S0                                      ; run MBC
 if result !=0
