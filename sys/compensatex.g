@@ -1,4 +1,5 @@
-var mm = {global.xcomp}*{1}   ; create variable
+var mm = 0.0   			      ; create variable
+
 M569 P5 S1                    ; change motor direction
 M584 Z5:6                     ; define driver mapping
 
