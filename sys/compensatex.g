@@ -1,6 +1,3 @@
-;var.mm UP => Duild Plate CW
-
-;var mm = 0.0
 var mm = {global.xcomp * 1.3}
 
 
