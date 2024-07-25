@@ -43,7 +43,4 @@ echo >"0:/sys/resetzbabystep.g" "; do nothing"
 
 
 if move.axes[2].babystep != 0
-	M291 R"Do you want to save Z - Offset?" P{"Adjustment of "^move.axes[2].babystep^" mm was detected"} S4 K{"Save","Cancel"}
-  		if input = 0
-  			M98 P"0:/macros/Save Current Z - Offset" S1
-  			echo "Saved"
+	M291 R"Reminder: Save Z - Offset?" P{"Adjustment of "^move.axes[2].babystep^" mm was detected, please save Z - Offset"} S1 T120
