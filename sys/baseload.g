@@ -1,7 +1,6 @@
 M291 R"Please wait while the nozzle is being heated up" P"This may take a few minutes." S1 T15
 M98 P"0:/sys/led/start_cold.g"
 
-M83 ; Extruder to relative mode
 
 ;Load Speed
 var ss = 0
@@ -9,6 +8,7 @@ if !exists(param.S)
   set var.ss = 300
 else
   set var.ss = 100
+
 
 M400
 G60 S0 ; Remember last tool selected
@@ -20,10 +20,9 @@ if {state.status != "processing" || state.status != "pausing" || state.status !=
 T R0 ; Select tool from memory slot
 if move.axes[0].homed && move.axes[1].homed && move.axes[2].homed && move.axes[3].homed
   G90
-  G1 Y0 X0 F18000
-  
   if move.axes[2].machinePosition < 420
     G1 F18000 Z420
+  G1 Y0 X0 F18000
 
 
 
@@ -31,6 +30,7 @@ M116 P{state.currentTool} S15; Wait for the temperatures to be reached
 M98 P"0:/sys/led/start_hot.g"
 
 
+M83 ; Extruder to relative mode
 
 
 M291 R"Feed the filament, material will be extruded" P"Press ""Extrude"" to start or ""Cancel"" to stop." S4 K{"Extrude","Cancel"}
