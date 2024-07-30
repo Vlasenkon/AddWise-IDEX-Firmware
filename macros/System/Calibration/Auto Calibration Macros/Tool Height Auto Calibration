@@ -145,7 +145,7 @@ else ; ===If delta is more than allowed value===
     G1S1
     M291 S2 R"Step 2: Lower the Heatblock" P"Lower the heat block 2-3mm (Push it with a screwdriver or pliers)<br>(Caution: HOT!)"
     
-    G1 X-999 U{100 - global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
+    G1 X-999 U{0 - global.uoffset} Y{var.y_test_pos - global.yoffset} F18000
 
     G90
     G1 Z5 F18000
