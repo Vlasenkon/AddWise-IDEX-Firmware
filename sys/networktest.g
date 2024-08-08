@@ -23,6 +23,7 @@ elif network.interfaces[1].state = "active" ; If WiFi is active
 else                                        ; If none are active, default to Ethernet first and disable WiFi
   set var.module = 0
   echo "var.module was not detected and switched to Ethernet"
+  M98 P"0:/sys/led/pause.g"                 ; Turn on yellow LEDs to indicate mode switch
   M552 I1 S-1                               ; Disable WiFi
   G4 S1                                     ; Wait
   M552 I0 S0                                ; Disable Ethernet
