@@ -1,21 +1,19 @@
 ; Disable ToolChange Retraction
 echo >"0:/user/toolchangeretraction.g" "; ToolChange Retraction Disabled"
 
-M98 P"0:/sys/led/end.g"
-
 M204 P5000 T5000  ; reset accelerations
 M208 Z-1 S1       ; set axis minima to default
 
 M83               ; relative extruder moves
-G1 E-5 F3600      ; retract 10mm of filament
+G1 E-20 F3600     ; retract 10mm of filament
 
 G91
 G1 Z10
-G91
+G90
 
 T0 P0
 
-
+M98 P"0:/sys/led/end.g"
 M98 P"0:/user/lowerbed.g"                 ; lower the bed (if needed)
 M98 P"0:/user/bedfinishbehavior.g"	    ; decide what to do with bed after printing is finished
 M98 P"0:/user/chamberfinishbehavior.g"	; decide what to do with chamber after printing is finished
