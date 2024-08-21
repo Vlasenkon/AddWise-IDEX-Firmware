@@ -64,7 +64,7 @@ G10 P{var.tool} R{var.temp_pull_start * 1.2} S{var.temp_pull_start * 1.2}
 ; Wait for the tool to reach the set temperature
 M116 P{var.tool} S5
 
-M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzleD
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzle
 
 ; Lower the temperature below cold pull temp
 G10 P{var.tool} R{var.temp_pull_start * 0.8} S{var.temp_pull_start * 0.8}
@@ -74,7 +74,7 @@ while sensors.analog[{var.tool}].lastReading > var.temp_pull_start
     G1 E1 F{3 * 60}
     M400
 
-M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzleD
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzle
 
 ; Set the tool temperature to temp_stop
 G10 P{var.tool} R{var.temp_pull_stop} S{var.temp_pull_stop}
@@ -85,7 +85,7 @@ while sensors.analog[{var.tool}].lastReading > var.temp_pull_stop + 2
     G4 P200
     M400
 
-M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzleD
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzle
 
 ; wait for reaching relatively ambient temp +- 5 degrees
 M116 P{40} S5
