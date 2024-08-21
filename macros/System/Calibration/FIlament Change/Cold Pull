@@ -2,11 +2,24 @@
 M291 S4 K{"T0 - Left Tool","T1 - Right Tool","Cancel"} R"Select a Tool" P"Choose the Left Tool (T0) or Right Tool (T1). Select ""Cancel"" to exit."
 
 ; Check the user's input and abort if 'Cancel' is selected
-if input != 0 && input != 1
+if input == 2
     abort "Canceled"                                       ; Abort the macro if the user selects 'Cancel'
 
 ; Store the selected tool in a variable
 var tool = input
+
+; Check if any of the axes are not homed, and home all if necessary
+if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
+    M98 P"0:/sys/homeall.g" S1
+
+M140 S0      ; set bed temp to 0
+M141 S0      ; set chamber temp to 0
+
+; Deselect any active tool
+T-1
+
+; Select the tool based on the 'tool' variable
+T{var.tool}
 
 ; Prompt the user to set the material print temperature
 M291 S5 J1 F250 L150 H450 R"Set Material Print Temperature" P"Enter the temperature for the filament last used in the selected tool."
@@ -15,35 +28,22 @@ M291 S5 J1 F250 L150 H450 R"Set Material Print Temperature" P"Enter the temperat
 var temp = input
 
 ; Initialize variables for temp_pull and temp_stop
-var temp_pull = 0
-var temp_stop = 0
+; Plastic cristalize temp should be in this range
+var temp_pull = {var.temp * 0.85}
+var temp_stop = {var.temp * 0.5}
 
-; Check the temperature range and calculate temp_pull and temp_stop accordingly
-if var.temp > 350                                          ; High Temp
-    set var.temp_pull = {var.temp * 0.75}                  ; Calculate 'temp_pull'
-    set var.temp_stop = {(var.temp + var.temp_pull) * 0.5} ; Calculate 'temp_stop'
-else                                                       ; Low Temp
-    set var.temp_pull = {var.temp * 0.6}                   ; Calculate 'temp_pull'
-    set var.temp_stop = {(var.temp + var.temp_pull) * 0.5} ; Calculate 'temp_stop'
+; check if pull and stop temp are reachable
+if 40 > var.temp_pull
+    set var.temp_pull = 40
 
-; Set the active tool to the selected tool
-M568 P{var.tool} A2
+if 40 > var.temp_stop
+    set var.temp_stop = 40
 
-; Set the tool temperature to 'temp'
-G10 P{var.tool} R{var.temp} S{var.temp}
-
-; Check if any of the axes are not homed, and home all if necessary
-if !move.axes[0].homed || !move.axes[1].homed || !move.axes[2].homed || !move.axes[3].homed
-    M98 P"0:/sys/homeall.g" S1
-
-; Deselect any active tool
-T-1
-
-; Select the tool based on the 'tool' variable
-T{var.tool}
+; Set the active tool to the selected tool and temperature for it
+M568 P{var.tool} R{var.temp} S{var.temp} A2
 
 ; Wait for the tool to reach the set temperature
-M116 P{var.tool} S5
+M116 P{var.tool} S1
 
 ; Allow cold extrusion
 M302 P1
@@ -55,38 +55,51 @@ M83
 G1 E50 F{5 * 60}
 M400
 
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzle
+
 ; Lower the temperature below cold pull temp
 G10 P{var.tool} R{var.temp_pull * 0.8} S{var.temp_pull * 0.8}
 
 ; Turn on the fan
-M106 S1
+M106 S255
 
 ; Extrude while lowering the temperature
-while sensors.analog[{var.tool}].lastReading > {(var.temp_stop + var.temp) / 2}
-    M400
+while sensors.analog[{var.tool}].lastReading > var.temp_pull
     G1 E1 F{3 * 60}
-
-; Extrude slowly while lowering the temperature
-while sensors.analog[{var.tool}].lastReading > var.temp_stop
     M400
-    G1 E1 F{1 * 60}
 
-; Wait for the tool to reach the set temperature
-M116 P{var.tool} S10
-
-; Set cold pull temp and wait
-G10 P{var.tool} R{var.temp_pull} S{var.temp_pull}
-M116 P{var.tool} S5
-M106 S0
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzleD
 
 ; Set the tool temperature to temp_stop
 G10 P{var.tool} R{var.temp_stop} S{var.temp_stop}
 
 ; Extrude while lowering the temperature further
-while sensors.analog[{var.tool}].lastReading < {(var.temp_stop + var.temp_pull) / 2}
-    M400
-    G1 E-1 F{1 * 60}
+while sensors.analog[{var.tool}].lastReading > var.temp_stop + 2
+    G1 E1 F{1 * 60}
     G4 P200
+    M400
+
+M98 P"0:/sys/nozzlewipe.g" ; wipe curently active nozzleD
+
+; wait for reaching relatively ambient temp +- 5 degrees
+M116 P{40} S5
+
+; Stop fan
+M106 S0
+
+; Heat for extracting
+G10 P{var.tool} R{var.temp_pull} S{var.temp_pull}
+M116 P{var.stop} S5 ; wait for heating with accuracy of 5 degrees
+
+; Stepped etract filament
+G1 E-1 F{1 * 60}
+M400
+
+while var.temp_pool - 2 > sensors.analog[{var.tool}].lastReading
+    G1 E1 F{1 * 60}
+    M400
+    G1 E-2 F{1 * 60}
+    M400
 
 ; Retract filament
 G1 E-20 F{5 * 60}
@@ -102,3 +115,5 @@ G10 P{var.tool} R{0} S{0}
 
 ; Prompt the user to manually remove the filament
 M291 R"Manual Filament Removal" P"Pull out the filament manually now." S1 T15
+
+; Here should be part for adding new filament
